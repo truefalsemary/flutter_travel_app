@@ -1,0 +1,5 @@
+{
+    "cmake.ignoreCMakeListsMissing": true,
+    "java.import.gradle.wrapper.enabled": false,
+    "java.import.gradle.version": "8.1.0",
+}

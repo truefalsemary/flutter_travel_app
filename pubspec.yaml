@@ -1,0 +1,32 @@
+name: flutter_travel_app
+description: "Приложение путешествия по России"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.3 <4.0.0"
+  flutter: ">=3.27.1"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  provider: ^6.1.2
+
+  # state management
+  bloc: ^9.0.0
+  flutter_bloc: ^9.1.0
+  hydrated_bloc: ^10.0.0
+
+  # navigation
+  go_router: ^14.8.1
+
+  yandex_mapkit_lite: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
