@@ -1,0 +1,1 @@
+ /Users/truefalsemary/StudioProjects/finashka/flutter_travel_app/.dart_tool/flutter_build/e7e3f7bfae784d1bbac57dfe13b32be2/native_assets.yaml: 

@@ -16,11 +16,11 @@ jobs:
           channel: stable
           version: latest
 
-      # - name: Install dependencies
-      #   run: flutter pub get
+      - name: Install dependencies
+        run: flutter pub get
 
-      # - name: Analyze project source
-      #   run: flutter analyze
+      - name: Analyze project source
+        run: flutter analyze
 
       # - name: Run tests
       #   run: flutter test

@@ -1,0 +1,2 @@
+com.unact.yandexmapkit
+layout map_view
