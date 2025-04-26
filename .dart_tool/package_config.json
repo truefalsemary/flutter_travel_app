@@ -2,6 +2,12 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "args",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/args-2.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "async",
       "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
@@ -56,6 +62,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "fixnum",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/fixnum-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/truefalsemary/fvm/versions/3.27.1/packages/flutter",
       "packageUri": "lib/",
@@ -98,8 +110,44 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "google_identity_services_web",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/google_identity_services_web-0.3.3+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "googleapis_auth",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/googleapis_auth-1.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "grpc",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/grpc-4.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
       "name": "hive_ce",
       "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/hive_ce-2.10.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/http-1.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "http2",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/http2-2.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/http_parser-4.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -108,6 +156,12 @@
       "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/hydrated_bloc-10.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
@@ -132,6 +186,12 @@
       "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/lints-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "logger",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/logger-2.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "logging",
@@ -168,6 +228,18 @@
       "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "protobuf",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/protobuf-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "protoc_plugin",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/protoc_plugin-22.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "provider",
@@ -254,13 +326,25 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "yx_scope",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/yx_scope-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "yx_scope_flutter",
+      "rootUri": "file:///Users/truefalsemary/.pub-cache/hosted/pub.dev/yx_scope_flutter-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "flutter_travel_app",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2025-03-02T22:00:20.629793Z",
+  "generated": "2025-04-26T15:30:13.810615Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/truefalsemary/fvm/versions/3.27.1",
