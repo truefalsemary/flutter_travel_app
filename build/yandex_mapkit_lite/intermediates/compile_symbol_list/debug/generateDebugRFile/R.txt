@@ -1,1 +1,0 @@
-int layout map_view 0x0
