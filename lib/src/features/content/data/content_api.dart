@@ -46,6 +46,7 @@ class ContentApiClientImpl implements ContentApiClient {
       }
 
       final response = await _client.getRoutes(request);
+      _logger.i('response: $response');
       return response.routes;
     } on Exception catch (error, stackTrace) {
       _logger.e('Error in getRoutes: $error', stackTrace: stackTrace);

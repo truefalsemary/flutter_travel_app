@@ -32,7 +32,6 @@ dependencies:
   # di
   yx_scope: ^1.0.2
   yx_scope_flutter: ^1.0.2
-  yx_scope_linter: ^0.1.2
 
   # data
   json_annotation: ^4.9.0
@@ -40,6 +39,10 @@ dependencies:
 
   # logging
   logger: ^2.5.0
+
+  theme_extensions_builder: ^4.0.1
+  blurhash_ffi: ^1.2.7
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

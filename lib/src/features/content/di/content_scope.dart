@@ -1,5 +1,5 @@
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
-import 'package:flutter_travel_app/src/common/named_logger_factory.dart';
+import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/data/content_api.dart';
 import 'package:flutter_travel_app/src/features/content/data/content_api_constants.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.dart';

@@ -1,12 +1,13 @@
-import 'package:flutter_travel_app/src/common/named_logger_factory.dart';
+import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/data/content_api_constants.dart';
 import 'package:flutter_travel_app/src/mock_server/mock_content_service.dart';
 import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
 
 Future<void> main(List<String> args) async {
-  final logger = NamedLoggerFactory().getNamedLogger(
+  final logger = NamedLoggerFactory().getLogger(
     name: 'MockServer',
+    feature: LoggerFeature.content,
     layer: LoggerLayers.data,
     type: LoggerTypes.server,
   );
