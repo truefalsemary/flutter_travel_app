@@ -26,7 +26,6 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return ScopeProvider(
       holder: _appScopeHolder,
-      // Scope-виджеты поддерживают работу со Scope-интерфейсами.
       child: ScopeBuilder<AppScopeContainer>.withPlaceholder(
         builder: (context, appScope) {
           return MaterialApp.router(
@@ -34,7 +33,6 @@ class _MainAppState extends State<MainApp> {
             routerConfig: appScope.routerDelegate,
           );
         },
-        // Этот виджет будет отображаться, пока [appScopeHolder] инициализируется
         placeholder: const Center(child: CircularProgressIndicator()),
       ),
     );

@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: lib/src/features/routes/data/proto/content.proto
+//  source: lib/src/features/content/data/proto/content.proto
 //
 // @dart = 3.3
 
@@ -83,6 +83,7 @@ const Route$json = {
     {'1': 'path_points', '3': 4, '4': 3, '5': 11, '6': '.content.Point', '10': 'pathPoints'},
     {'1': 'places', '3': 5, '4': 3, '5': 11, '6': '.content.Place', '10': 'places'},
     {'1': 'user_id', '3': 6, '4': 1, '5': 9, '10': 'userId'},
+    {'1': 'route_id', '3': 7, '4': 1, '5': 9, '10': 'routeId'},
   ],
 };
 
@@ -92,7 +93,7 @@ final $typed_data.Uint8List routeDescriptor = $convert.base64Decode(
     'RpZmZpY3VsdHkSHwoLZGlzdGFuY2Vfa20YAiABKAJSCmRpc3RhbmNlS20SEgoEbmFtZRgDIAEo'
     'CVIEbmFtZRIvCgtwYXRoX3BvaW50cxgEIAMoCzIOLmNvbnRlbnQuUG9pbnRSCnBhdGhQb2ludH'
     'MSJgoGcGxhY2VzGAUgAygLMg4uY29udGVudC5QbGFjZVIGcGxhY2VzEhcKB3VzZXJfaWQYBiAB'
-    'KAlSBnVzZXJJZA==');
+    'KAlSBnVzZXJJZBIZCghyb3V0ZV9pZBgHIAEoCVIHcm91dGVJZA==');
 
 @$core.Deprecated('Use pointDescriptor instead')
 const Point$json = {
@@ -107,20 +108,6 @@ const Point$json = {
 final $typed_data.Uint8List pointDescriptor = $convert.base64Decode(
     'CgVQb2ludBIQCgNsYXQYASABKAFSA2xhdBIQCgNsb24YAiABKAFSA2xvbg==');
 
-@$core.Deprecated('Use placeImageDescriptor instead')
-const PlaceImage$json = {
-  '1': 'PlaceImage',
-  '2': [
-    {'1': 'url', '3': 1, '4': 1, '5': 9, '10': 'url'},
-    {'1': 'placeholder', '3': 2, '4': 1, '5': 9, '10': 'placeholder'},
-  ],
-};
-
-/// Descriptor for `PlaceImage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List placeImageDescriptor = $convert.base64Decode(
-    'CgpQbGFjZUltYWdlEhAKA3VybBgBIAEoCVIDdXJsEiAKC3BsYWNlaG9sZGVyGAIgASgJUgtwbG'
-    'FjZWhvbGRlcg==');
-
 @$core.Deprecated('Use placeDescriptor instead')
 const Place$json = {
   '1': 'Place',
@@ -129,7 +116,8 @@ const Place$json = {
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'address', '3': 3, '4': 1, '5': 9, '10': 'address'},
     {'1': 'description', '3': 4, '4': 1, '5': 9, '10': 'description'},
-    {'1': 'place_images', '3': 5, '4': 3, '5': 11, '6': '.content.PlaceImage', '10': 'placeImages'},
+    {'1': 'images', '3': 5, '4': 3, '5': 11, '6': '.content.Image', '10': 'images'},
+    {'1': 'place_id', '3': 7, '4': 1, '5': 9, '10': 'placeId'},
   ],
 };
 
@@ -137,6 +125,20 @@ const Place$json = {
 final $typed_data.Uint8List placeDescriptor = $convert.base64Decode(
     'CgVQbGFjZRIqCghsb2NhdGlvbhgBIAEoCzIOLmNvbnRlbnQuUG9pbnRSCGxvY2F0aW9uEhIKBG'
     '5hbWUYAiABKAlSBG5hbWUSGAoHYWRkcmVzcxgDIAEoCVIHYWRkcmVzcxIgCgtkZXNjcmlwdGlv'
-    'bhgEIAEoCVILZGVzY3JpcHRpb24SNgoMcGxhY2VfaW1hZ2VzGAUgAygLMhMuY29udGVudC5QbG'
-    'FjZUltYWdlUgtwbGFjZUltYWdlcw==');
+    'bhgEIAEoCVILZGVzY3JpcHRpb24SJgoGaW1hZ2VzGAUgAygLMg4uY29udGVudC5JbWFnZVIGaW'
+    '1hZ2VzEhkKCHBsYWNlX2lkGAcgASgJUgdwbGFjZUlk');
+
+@$core.Deprecated('Use imageDescriptor instead')
+const Image$json = {
+  '1': 'Image',
+  '2': [
+    {'1': 'url', '3': 1, '4': 1, '5': 9, '10': 'url'},
+    {'1': 'placeholder', '3': 2, '4': 1, '5': 9, '10': 'placeholder'},
+  ],
+};
+
+/// Descriptor for `Image`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List imageDescriptor = $convert.base64Decode(
+    'CgVJbWFnZRIQCgN1cmwYASABKAlSA3VybBIgCgtwbGFjZWhvbGRlchgCIAEoCVILcGxhY2Vob2'
+    'xkZXI=');
 

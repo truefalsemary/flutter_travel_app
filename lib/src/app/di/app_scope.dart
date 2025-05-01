@@ -1,14 +1,13 @@
+import 'package:flutter_travel_app/src/features/content/ui/content_page.dart';
+import 'package:flutter_travel_app/src/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yx_scope/yx_scope.dart';
 
-import '../../features/content/ui/content_page.dart';
-import '../../router/app_routes.dart';
-
-abstract class AppScopeContainer extends ScopeContainer {
+abstract class AppScope implements Scope {
   GoRouter get routerDelegate;
 }
 
-class _AppScopeContainerImpl extends AppScopeContainer {
+class AppScopeContainer extends ScopeContainer implements AppScope {
   @override
   GoRouter get routerDelegate => _routerDelegateDep.get;
 
@@ -29,5 +28,5 @@ class _AppScopeContainerImpl extends AppScopeContainer {
 
 class AppScopeHolder extends ScopeHolder<AppScopeContainer> {
   @override
-  AppScopeContainer createContainer() => _AppScopeContainerImpl();
+  AppScopeContainer createContainer() => AppScopeContainer();
 }

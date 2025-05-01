@@ -1,4 +1,4 @@
-import 'package:flutter_travel_app/src/generated/lib/src/features/routes/data/proto/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class MockRoutesContentService extends ContentServiceBase {
@@ -13,7 +13,7 @@ class MockRoutesContentService extends ContentServiceBase {
   void _generateMockData() {
     _mockRoutes.addAll([
       _createMockRoute(
-        name: "Горный трек",
+        name: 'Горный трек',
         difficulty: DifficultyLevel.HARD,
         distance: 15.5,
         points: [
@@ -22,33 +22,33 @@ class MockRoutesContentService extends ContentServiceBase {
         ],
         places: [
           Place()
-            ..name = "Пик Горный"
-            ..address = "Горный хребет"
-            ..description = "Самая высокая точка маршрута с панорамным видом"
-            ..placeImages.addAll([
-              PlaceImage()..url = 'https://example.com/mountain.jpg',
+            ..name = 'Пик Горный'
+            ..address = 'Горный хребет'
+            ..description = 'Самая высокая точка маршрута с панорамным видом'
+            ..images.addAll([
+              Image()..url = 'https://example.com/mountain.jpg',
             ])
             ..location = Point(lat: 43.585472, lon: 39.723099),
           Place()
-            ..name = "Лесная поляна"
-            ..address = "Средняя часть маршрута"
-            ..description = "Место для отдыха среди вековых сосен"
-            ..placeImages.addAll([
-              PlaceImage()..url = 'https://example.com/mountain.jpg',
+            ..name = 'Лесная поляна'
+            ..address = 'Средняя часть маршрута'
+            ..description = 'Место для отдыха среди вековых сосен'
+            ..images.addAll([
+              Image()..url = 'https://example.com/mountain.jpg',
             ])
             ..location = Point(lat: 43.578901, lon: 39.745612),
           Place()
-            ..name = "Водопад Скрытый"
-            ..address = "Северный склон"
-            ..description = "Живописный каскадный водопад высотой 15 метров"
-            ..placeImages.addAll([
-              PlaceImage()..url = 'https://example.com/mountain.jpg',
+            ..name = 'Водопад Скрытый'
+            ..address = 'Северный склон'
+            ..description = 'Живописный каскадный водопад высотой 15 метров'
+            ..images.addAll([
+              Image()..url = 'https://example.com/mountain.jpg',
             ])
             ..location = Point(lat: 43.563217, lon: 39.808642),
         ],
       ),
       _createMockRoute(
-        name: "Прогулка по центру",
+        name: 'Прогулка по центру',
         difficulty: DifficultyLevel.EASY,
         distance: 5.2,
         points: [
@@ -57,27 +57,27 @@ class MockRoutesContentService extends ContentServiceBase {
         ],
         places: [
           Place()
-            ..name = "Главная площадь"
-            ..address = "ул. Центральная, 1"
-            ..description = "Исторический центр города с фонтанами"
-            ..placeImages.addAll([
-              PlaceImage()..url = 'https://example.com/mountain.jpg',
+            ..name = 'Главная площадь'
+            ..address = 'ул. Центральная, 1'
+            ..description = 'Исторический центр города с фонтанами'
+            ..images.addAll([
+              Image()..url = 'https://example.com/mountain.jpg',
             ])
             ..location = Point(lat: 43.585472, lon: 39.723099),
           Place()
-            ..name = "Художественный музей"
-            ..address = "пр. Культуры, 15"
-            ..description = "Коллекция современного искусства"
-            ..placeImages.addAll([
-              PlaceImage()..url = 'https://example.com/mountain.jpg',
+            ..name = 'Художественный музей'
+            ..address = 'пр. Культуры, 15'
+            ..description = 'Коллекция современного искусства'
+            ..images.addAll([
+              Image()..url = 'https://example.com/mountain.jpg',
             ])
             ..location = Point(lat: 43.582341, lon: 39.725678),
           Place()
             ..name = "Кафе 'Старый город'"
-            ..address = "пер. Кофейный, 5"
-            ..description = "Атмосферное кафе с домашней выпечкой"
-            ..placeImages.addAll([
-              PlaceImage()..url = 'https://example.com/mountain.jpg',
+            ..address = 'пер. Кофейный, 5'
+            ..description = 'Атмосферное кафе с домашней выпечкой'
+            ..images.addAll([
+              Image()..url = 'https://example.com/mountain.jpg',
             ])
             ..location = Point(lat: 43.579536, lon: 39.724925),
         ],
@@ -114,14 +114,12 @@ class MockRoutesContentService extends ContentServiceBase {
     await Future.delayed(responseDelay);
 
     // Фильтрация данных
-    var filteredRoutes = _mockRoutes.where((route) {
-      final difficultyMatch = request.hasDifficultyFilter()
-          ? route.difficulty == request.difficultyFilter
-          : true;
+    final filteredRoutes = _mockRoutes.where((route) {
+      final difficultyMatch = !request.hasDifficultyFilter() ||
+          route.difficulty == request.difficultyFilter;
 
-      final distanceMatch = request.hasDistanceFilter()
-          ? _checkDistance(route.distanceKm, request.distanceFilter)
-          : true;
+      final distanceMatch = !request.hasDistanceFilter() ||
+          _checkDistance(route.distanceKm, request.distanceFilter);
 
       return difficultyMatch && distanceMatch;
     }).toList();
@@ -138,6 +136,6 @@ class MockRoutesContentService extends ContentServiceBase {
   // Методы для управления моковым сервисом в тестах
   void addTestRoute(Route route) => _mockRoutes.add(route);
   void clearRoutes() => _mockRoutes.clear();
-  void setErrorState(bool state) => shouldThrowError = state;
+  void setErrorState({required bool state}) => shouldThrowError = state;
   void setResponseDelay(Duration delay) => responseDelay = delay;
 }

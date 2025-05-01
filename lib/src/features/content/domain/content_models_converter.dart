@@ -1,0 +1,70 @@
+import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/place_model.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/point_model.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
+
+abstract class ContentModelsConverter {
+  Route converRouteModelToRoute(RouteModel routeModel);
+  RouteModel convertRouteToRouteModel(Route route);
+  RouteModels convertRoutesToRouteModels(Iterable<Route> routes);
+  Iterable<Route> converRouteModelsToRoutes(Iterable<RouteModel> routeModels);
+}
+
+final class ContentModelsConverterImpl implements ContentModelsConverter {
+  @override
+  Route converRouteModelToRoute(RouteModel routeModel) => Route();
+
+  @override
+  RouteModel convertRouteToRouteModel(Route route) => RouteModel(
+        name: route.name,
+        distanceKm: route.distanceKm,
+        userId: route.userId,
+        routeId: route.routeId,
+        difficultyLevel: route.difficulty,
+        pathPoints: _convertPointsToPointsModel(route.pathPoints),
+        places: _convertPlacesToPlaceModels(route.places),
+      );
+
+  @override
+  Iterable<Route> converRouteModelsToRoutes(Iterable<RouteModel> routeModels) =>
+      routeModels.map(
+        converRouteModelToRoute,
+      );
+
+  @override
+  RouteModels convertRoutesToRouteModels(Iterable<Route> routes) => routes.map(
+        convertRouteToRouteModel,
+      );
+
+  PointModel _convertPointToPointModel(Point point) => PointModel(
+        lat: point.lat,
+        lon: point.lon,
+      );
+
+  PointModels _convertPointsToPointsModel(Iterable<Point> points) => points.map(
+        (point) => PointModel(lat: point.lat, lon: point.lon),
+      );
+
+  ImageModel _convertImageToImageModel(Image image) => ImageModel(
+        url: image.url,
+        placeholder: image.placeholder,
+      );
+
+  ImageModels _convertImagesToImageModels(Iterable<Image> images) => images.map(
+        _convertImageToImageModel,
+      );
+
+  PlaceModel _convertPlaceToPlaceModel(Place place) => PlaceModel(
+        name: place.name,
+        address: place.address,
+        description: place.description,
+        location: _convertPointToPointModel(place.location),
+        images: _convertImagesToImageModels(place.images),
+        placeId: place.placeId,
+      );
+
+  PlaceModels _convertPlacesToPlaceModels(Iterable<Place> places) => places.map(
+        _convertPlaceToPlaceModel,
+      );
+}

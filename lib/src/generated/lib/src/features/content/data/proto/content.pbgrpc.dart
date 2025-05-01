@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: lib/src/features/routes/data/proto/content.proto
+//  source: lib/src/features/content/data/proto/content.proto
 //
 // @dart = 3.3
 
@@ -21,18 +21,18 @@ export 'content.pb.dart';
 
 @$pb.GrpcServiceName('content.ContentService')
 class ContentServiceClient extends $grpc.Client {
-  static final _$getRoutes =
-      $grpc.ClientMethod<$0.GetRoutesRequest, $0.GetRoutesResponse>(
-          '/content.ContentService/GetRoutes',
-          ($0.GetRoutesRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.GetRoutesResponse.fromBuffer(value));
+  static final _$getRoutes = $grpc.ClientMethod<$0.GetRoutesRequest, $0.GetRoutesResponse>(
+      '/content.ContentService/GetRoutes',
+      ($0.GetRoutesRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GetRoutesResponse.fromBuffer(value));
 
-  ContentServiceClient(super.channel, {super.options, super.interceptors});
+  ContentServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options,
+        interceptors: interceptors);
 
-  $grpc.ResponseFuture<$0.GetRoutesResponse> getRoutes(
-      $0.GetRoutesRequest request,
-      {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$0.GetRoutesResponse> getRoutes($0.GetRoutesRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getRoutes, request, options: options);
   }
 }
@@ -51,11 +51,9 @@ abstract class ContentServiceBase extends $grpc.Service {
         ($0.GetRoutesResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.GetRoutesResponse> getRoutes_Pre($grpc.ServiceCall $call,
-      $async.Future<$0.GetRoutesRequest> $request) async {
+  $async.Future<$0.GetRoutesResponse> getRoutes_Pre($grpc.ServiceCall $call, $async.Future<$0.GetRoutesRequest> $request) async {
     return getRoutes($call, await $request);
   }
 
-  $async.Future<$0.GetRoutesResponse> getRoutes(
-      $grpc.ServiceCall call, $0.GetRoutesRequest request);
+  $async.Future<$0.GetRoutesResponse> getRoutes($grpc.ServiceCall call, $0.GetRoutesRequest request);
 }

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package content;
 
+option go_package = "pb/content";
+
 service ContentService {
   rpc GetRoutes(GetRoutesRequest) returns (GetRoutesResponse) {}
 }
@@ -27,6 +29,7 @@ message Route {
   repeated Point path_points = 4;
   repeated Place places = 5;
   string user_id = 6; // UUID автора маршрута
+  string route_id = 7; // UUID
 }
 
 message Point {
@@ -34,17 +37,18 @@ message Point {
   double lon = 2;
 }
 
-message PlaceImage {
-  string url = 1;
-  string placeholder = 2;
-}
-
 message Place {
   Point location = 1;
   string name = 2;
   string address = 3;
   string description = 4;
-  repeated PlaceImage place_images = 5;
+  repeated Image images = 5;
+  string place_id = 7; // UUID
+}
+
+message Image {
+  string url = 1;
+  string placeholder = 2;
 }
 
 enum DifficultyLevel {

@@ -1,21 +1,21 @@
-import 'package:flutter_travel_app/src/generated/lib/src/features/routes/data/proto/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/route_params.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import 'package:logger/logger.dart';
 
 abstract class ContentApiClient {
-  Future<List<Route>> getRoutes({
-    DifficultyLevel? difficulty,
-    double? minDistance,
-    double? maxDistance,
-  });
+  Future<Iterable<Route>> getRoutes(RouteParams routeParams);
 }
 
 class ContentApiClientImpl implements ContentApiClient {
   final ContentServiceClient _client;
+  final Logger _logger;
 
   ContentApiClientImpl({
     required String host,
     required int port,
-  }) : _client = ContentServiceClient(
+    required Logger logger,
+  })  : _client = ContentServiceClient(
           ClientChannel(
             host,
             port: port,
@@ -23,19 +23,20 @@ class ContentApiClientImpl implements ContentApiClient {
               credentials: ChannelCredentials.insecure(),
             ),
           ),
-        );
+        ),
+        _logger = logger;
 
   @override
-  Future<List<Route>> getRoutes({
-    DifficultyLevel? difficulty,
-    double? minDistance,
-    double? maxDistance,
-  }) async {
+  Future<Iterable<Route>> getRoutes(RouteParams routeParams) async {
+    _logger.i('try to get routes');
     try {
       final request = GetRoutesRequest();
+      final difficultyLevel = routeParams.difficultyLevel;
+      final minDistance = routeParams.minDistance;
+      final maxDistance = routeParams.maxDistance;
 
-      if (difficulty != null) {
-        request.difficultyFilter = difficulty;
+      if (difficultyLevel != null) {
+        request.difficultyFilter = difficultyLevel;
       }
 
       if (minDistance != null || maxDistance != null) {
@@ -46,8 +47,8 @@ class ContentApiClientImpl implements ContentApiClient {
 
       final response = await _client.getRoutes(request);
       return response.routes;
-    } catch (e) {
-      print('Error in getRoutes: $e');
+    } on Exception catch (error, stackTrace) {
+      _logger.e('Error in getRoutes: $error', stackTrace: stackTrace);
       rethrow;
     }
   }

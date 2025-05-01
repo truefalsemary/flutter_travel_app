@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: lib/src/features/routes/data/proto/content.proto
+//  source: lib/src/features/content/data/proto/content.proto
 //
 // @dart = 3.3
 
@@ -201,6 +201,7 @@ class Route extends $pb.GeneratedMessage {
     $core.Iterable<Point>? pathPoints,
     $core.Iterable<Place>? places,
     $core.String? userId,
+    $core.String? routeId,
   }) {
     final $result = create();
     if (difficulty != null) {
@@ -221,6 +222,9 @@ class Route extends $pb.GeneratedMessage {
     if (userId != null) {
       $result.userId = userId;
     }
+    if (routeId != null) {
+      $result.routeId = routeId;
+    }
     return $result;
   }
   Route._() : super();
@@ -234,6 +238,7 @@ class Route extends $pb.GeneratedMessage {
     ..pc<Point>(4, _omitFieldNames ? '' : 'pathPoints', $pb.PbFieldType.PM, subBuilder: Point.create)
     ..pc<Place>(5, _omitFieldNames ? '' : 'places', $pb.PbFieldType.PM, subBuilder: Place.create)
     ..aOS(6, _omitFieldNames ? '' : 'userId')
+    ..aOS(7, _omitFieldNames ? '' : 'routeId')
     ..hasRequiredFields = false
   ;
 
@@ -299,6 +304,15 @@ class Route extends $pb.GeneratedMessage {
   $core.bool hasUserId() => $_has(5);
   @$pb.TagNumber(6)
   void clearUserId() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get routeId => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set routeId($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasRouteId() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearRouteId() => $_clearField(7);
 }
 
 class Point extends $pb.GeneratedMessage {
@@ -365,77 +379,14 @@ class Point extends $pb.GeneratedMessage {
   void clearLon() => $_clearField(2);
 }
 
-class PlaceImage extends $pb.GeneratedMessage {
-  factory PlaceImage({
-    $core.String? url,
-    $core.String? placeholder,
-  }) {
-    final $result = create();
-    if (url != null) {
-      $result.url = url;
-    }
-    if (placeholder != null) {
-      $result.placeholder = placeholder;
-    }
-    return $result;
-  }
-  PlaceImage._() : super();
-  factory PlaceImage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory PlaceImage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'PlaceImage', package: const $pb.PackageName(_omitMessageNames ? '' : 'content'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'url')
-    ..aOS(2, _omitFieldNames ? '' : 'placeholder')
-    ..hasRequiredFields = false
-  ;
-
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  PlaceImage clone() => PlaceImage()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  PlaceImage copyWith(void Function(PlaceImage) updates) => super.copyWith((message) => updates(message as PlaceImage)) as PlaceImage;
-
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static PlaceImage create() => PlaceImage._();
-  PlaceImage createEmptyInstance() => create();
-  static $pb.PbList<PlaceImage> createRepeated() => $pb.PbList<PlaceImage>();
-  @$core.pragma('dart2js:noInline')
-  static PlaceImage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PlaceImage>(create);
-  static PlaceImage? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get url => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set url($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasUrl() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearUrl() => $_clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get placeholder => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set placeholder($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasPlaceholder() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearPlaceholder() => $_clearField(2);
-}
-
 class Place extends $pb.GeneratedMessage {
   factory Place({
     Point? location,
     $core.String? name,
     $core.String? address,
     $core.String? description,
-    $core.Iterable<PlaceImage>? placeImages,
+    $core.Iterable<Image>? images,
+    $core.String? placeId,
   }) {
     final $result = create();
     if (location != null) {
@@ -450,8 +401,11 @@ class Place extends $pb.GeneratedMessage {
     if (description != null) {
       $result.description = description;
     }
-    if (placeImages != null) {
-      $result.placeImages.addAll(placeImages);
+    if (images != null) {
+      $result.images.addAll(images);
+    }
+    if (placeId != null) {
+      $result.placeId = placeId;
     }
     return $result;
   }
@@ -464,7 +418,8 @@ class Place extends $pb.GeneratedMessage {
     ..aOS(2, _omitFieldNames ? '' : 'name')
     ..aOS(3, _omitFieldNames ? '' : 'address')
     ..aOS(4, _omitFieldNames ? '' : 'description')
-    ..pc<PlaceImage>(5, _omitFieldNames ? '' : 'placeImages', $pb.PbFieldType.PM, subBuilder: PlaceImage.create)
+    ..pc<Image>(5, _omitFieldNames ? '' : 'images', $pb.PbFieldType.PM, subBuilder: Image.create)
+    ..aOS(7, _omitFieldNames ? '' : 'placeId')
     ..hasRequiredFields = false
   ;
 
@@ -528,7 +483,80 @@ class Place extends $pb.GeneratedMessage {
   void clearDescription() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $pb.PbList<PlaceImage> get placeImages => $_getList(4);
+  $pb.PbList<Image> get images => $_getList(4);
+
+  @$pb.TagNumber(7)
+  $core.String get placeId => $_getSZ(5);
+  @$pb.TagNumber(7)
+  set placeId($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasPlaceId() => $_has(5);
+  @$pb.TagNumber(7)
+  void clearPlaceId() => $_clearField(7);
+}
+
+class Image extends $pb.GeneratedMessage {
+  factory Image({
+    $core.String? url,
+    $core.String? placeholder,
+  }) {
+    final $result = create();
+    if (url != null) {
+      $result.url = url;
+    }
+    if (placeholder != null) {
+      $result.placeholder = placeholder;
+    }
+    return $result;
+  }
+  Image._() : super();
+  factory Image.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Image.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Image', package: const $pb.PackageName(_omitMessageNames ? '' : 'content'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'url')
+    ..aOS(2, _omitFieldNames ? '' : 'placeholder')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Image clone() => Image()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Image copyWith(void Function(Image) updates) => super.copyWith((message) => updates(message as Image)) as Image;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Image create() => Image._();
+  Image createEmptyInstance() => create();
+  static $pb.PbList<Image> createRepeated() => $pb.PbList<Image>();
+  @$core.pragma('dart2js:noInline')
+  static Image getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Image>(create);
+  static Image? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get url => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set url($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUrl() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUrl() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get placeholder => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set placeholder($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPlaceholder() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPlaceholder() => $_clearField(2);
 }
 
 

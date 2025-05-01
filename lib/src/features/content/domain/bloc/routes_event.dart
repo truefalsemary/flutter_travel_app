@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/routes/data/proto/content.pbenum.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbenum.dart';
 
 sealed class RoutesEvent extends Equatable {
   const RoutesEvent();

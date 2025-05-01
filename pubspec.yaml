@@ -32,6 +32,7 @@ dependencies:
   # di
   yx_scope: ^1.0.2
   yx_scope_flutter: ^1.0.2
+  yx_scope_linter: ^0.1.2
 
   # data
   json_annotation: ^4.9.0
@@ -43,7 +44,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  surf_lint_rules: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

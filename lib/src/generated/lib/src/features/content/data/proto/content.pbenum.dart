@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: lib/src/features/routes/data/proto/content.proto
+//  source: lib/src/features/content/data/proto/content.proto
 //
 // @dart = 3.3
 

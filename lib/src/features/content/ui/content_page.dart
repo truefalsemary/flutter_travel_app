@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/features/content/di/content_scope.dart';
+import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.dart';
+import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_event.dart';
+import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_state.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
-import '../domain/bloc/routes_bloc.dart';
-import '../domain/bloc/routes_event.dart';
-import '../domain/bloc/routes_state.dart';
-
 class ContentPage extends StatefulWidget {
-  final AppScopeContainer appScope;
+  final AppScope appScope;
 
   const ContentPage({
     required this.appScope,
@@ -50,12 +49,21 @@ class _ContentPageState extends State<ContentPage> {
                     case RoutesLoadInProgress():
                       return const Center(child: CircularProgressIndicator());
                     case RoutesLoadSuccess():
-                      // TODO: Лен, тут надо красивенько выводить список маршрутов
+                      // TODO(truefalsemary): Лен, тут надо красивенько
+                      // выводить список маршрутов
                       return ListView.builder(
                         itemCount: state.routes.length,
-                        itemBuilder: (_, index) => Text(
-                          state.routes[index].name,
-                        ),
+                        itemBuilder: (_, index) {
+                          final route = state.routes.elementAt(index);
+                          return Column(
+                            children: [
+                              Text(route.name),
+                              Text(route.routeId),
+                              Text(route.distanceKm.toString()),
+                              ...route.places.map((place) => Text(place.name)),
+                            ],
+                          );
+                        },
                       );
                     case RoutesLoadFailure():
                       return Center(
