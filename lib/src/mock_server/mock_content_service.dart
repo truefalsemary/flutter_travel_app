@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -30,6 +32,8 @@ class MockRoutesContentService extends ContentServiceBase {
               Point(lat: 43.585472, lon: 39.723099),
               Point(lat: 43.563217, lon: 39.808642),
             ],
+            description:
+                'Самый сложный маршрут в городе, с высокими горами и водопадами. Вы будуете вымотаны еще в середине пути, но зато станете сильнее и сможете потом тащить самые сложные таски. Вы можете потеряться в горах, но мы вас найдем, потому что вы арендовали наше оборудование.',
             places: [
               Place()
                 ..name = 'Пик Горный'
@@ -75,6 +79,8 @@ class MockRoutesContentService extends ContentServiceBase {
               Point(lat: 43.585472, lon: 39.723099),
               Point(lat: 43.579536, lon: 39.724925),
             ],
+            description:
+                'Самый простой маршрут в городе, с красивыми фонтанами и музеями. Вы кайфанете и увидите много красивых мест. Вас обольет машина из лужи, но вы не утонете. Вас обгонит ближайший трамвай, но вы не Наташа.',
             places: [
               Place()
                 ..name = 'Главная площадь'
@@ -129,6 +135,7 @@ class MockRoutesContentService extends ContentServiceBase {
 
   Route _createMockRoute({
     required String name,
+    required String description,
     required DifficultyLevel difficulty,
     required double distance,
     required List<Point> points,
@@ -136,6 +143,7 @@ class MockRoutesContentService extends ContentServiceBase {
   }) {
     return Route()
       ..name = name
+      ..description = description
       ..difficulty = difficulty
       ..distanceKm = distance
       ..pathPoints.addAll(points)
@@ -185,4 +193,28 @@ class MockRoutesContentService extends ContentServiceBase {
   void clearRoutes() => _mockRoutes.clear();
   void setErrorState({required bool state}) => shouldThrowError = state;
   void setResponseDelay(Duration delay) => responseDelay = delay;
+
+  @override
+  Future<CreatePlaceResponse> createPlace(
+    ServiceCall call,
+    CreatePlaceRequest request,
+  ) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<CreateRouteResponse> createRoute(
+    ServiceCall call,
+    CreateRouteRequest request,
+  ) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UploadImageResponse> uploadImages(
+    ServiceCall call,
+    Stream<UploadImageRequest> request,
+  ) {
+    throw UnimplementedError();
+  }
 }

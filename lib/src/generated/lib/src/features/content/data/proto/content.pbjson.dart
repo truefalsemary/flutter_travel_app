@@ -33,6 +33,7 @@ const GetRoutesRequest$json = {
   '2': [
     {'1': 'difficulty_filter', '3': 1, '4': 1, '5': 11, '6': '.content.DifficultyFilter', '10': 'difficultyFilter'},
     {'1': 'distance_filter', '3': 2, '4': 1, '5': 11, '6': '.content.DistanceFilter', '10': 'distanceFilter'},
+    {'1': 'search_query', '3': 3, '4': 1, '5': 9, '10': 'searchQuery'},
   ],
 };
 
@@ -40,25 +41,8 @@ const GetRoutesRequest$json = {
 final $typed_data.Uint8List getRoutesRequestDescriptor = $convert.base64Decode(
     'ChBHZXRSb3V0ZXNSZXF1ZXN0EkYKEWRpZmZpY3VsdHlfZmlsdGVyGAEgASgLMhkuY29udGVudC'
     '5EaWZmaWN1bHR5RmlsdGVyUhBkaWZmaWN1bHR5RmlsdGVyEkAKD2Rpc3RhbmNlX2ZpbHRlchgC'
-    'IAEoCzIXLmNvbnRlbnQuRGlzdGFuY2VGaWx0ZXJSDmRpc3RhbmNlRmlsdGVy');
-
-@$core.Deprecated('Use distanceFilterDescriptor instead')
-const DistanceFilter$json = {
-  '1': 'DistanceFilter',
-  '2': [
-    {'1': 'min_km', '3': 1, '4': 1, '5': 2, '9': 0, '10': 'minKm', '17': true},
-    {'1': 'max_km', '3': 2, '4': 1, '5': 2, '9': 1, '10': 'maxKm', '17': true},
-  ],
-  '8': [
-    {'1': '_min_km'},
-    {'1': '_max_km'},
-  ],
-};
-
-/// Descriptor for `DistanceFilter`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List distanceFilterDescriptor = $convert.base64Decode(
-    'Cg5EaXN0YW5jZUZpbHRlchIaCgZtaW5fa20YASABKAJIAFIFbWluS22IAQESGgoGbWF4X2ttGA'
-    'IgASgCSAFSBW1heEttiAEBQgkKB19taW5fa21CCQoHX21heF9rbQ==');
+    'IAEoCzIXLmNvbnRlbnQuRGlzdGFuY2VGaWx0ZXJSDmRpc3RhbmNlRmlsdGVyEiEKDHNlYXJjaF'
+    '9xdWVyeRgDIAEoCVILc2VhcmNoUXVlcnk=');
 
 @$core.Deprecated('Use difficultyFilterDescriptor instead')
 const DifficultyFilter$json = {
@@ -79,6 +63,24 @@ final $typed_data.Uint8List difficultyFilterDescriptor = $convert.base64Decode(
     'ZmaWN1bHR5TGV2ZWxIAFINbWluRGlmZmljdWx0eYgBARJECg5tYXhfZGlmZmljdWx0eRgCIAEo'
     'DjIYLmNvbnRlbnQuRGlmZmljdWx0eUxldmVsSAFSDW1heERpZmZpY3VsdHmIAQFCEQoPX21pbl'
     '9kaWZmaWN1bHR5QhEKD19tYXhfZGlmZmljdWx0eQ==');
+
+@$core.Deprecated('Use distanceFilterDescriptor instead')
+const DistanceFilter$json = {
+  '1': 'DistanceFilter',
+  '2': [
+    {'1': 'min_km', '3': 1, '4': 1, '5': 2, '9': 0, '10': 'minKm', '17': true},
+    {'1': 'max_km', '3': 2, '4': 1, '5': 2, '9': 1, '10': 'maxKm', '17': true},
+  ],
+  '8': [
+    {'1': '_min_km'},
+    {'1': '_max_km'},
+  ],
+};
+
+/// Descriptor for `DistanceFilter`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List distanceFilterDescriptor = $convert.base64Decode(
+    'Cg5EaXN0YW5jZUZpbHRlchIaCgZtaW5fa20YASABKAJIAFIFbWluS22IAQESGgoGbWF4X2ttGA'
+    'IgASgCSAFSBW1heEttiAEBQgkKB19taW5fa21CCQoHX21heF9rbQ==');
 
 @$core.Deprecated('Use getRoutesResponseDescriptor instead')
 const GetRoutesResponse$json = {
@@ -104,6 +106,7 @@ const Route$json = {
     {'1': 'places', '3': 5, '4': 3, '5': 11, '6': '.content.Place', '10': 'places'},
     {'1': 'user_id', '3': 6, '4': 1, '5': 9, '10': 'userId'},
     {'1': 'route_id', '3': 7, '4': 1, '5': 9, '10': 'routeId'},
+    {'1': 'description', '3': 8, '4': 1, '5': 9, '10': 'description'},
   ],
 };
 
@@ -113,7 +116,8 @@ final $typed_data.Uint8List routeDescriptor = $convert.base64Decode(
     'RpZmZpY3VsdHkSHwoLZGlzdGFuY2Vfa20YAiABKAJSCmRpc3RhbmNlS20SEgoEbmFtZRgDIAEo'
     'CVIEbmFtZRIvCgtwYXRoX3BvaW50cxgEIAMoCzIOLmNvbnRlbnQuUG9pbnRSCnBhdGhQb2ludH'
     'MSJgoGcGxhY2VzGAUgAygLMg4uY29udGVudC5QbGFjZVIGcGxhY2VzEhcKB3VzZXJfaWQYBiAB'
-    'KAlSBnVzZXJJZBIZCghyb3V0ZV9pZBgHIAEoCVIHcm91dGVJZA==');
+    'KAlSBnVzZXJJZBIZCghyb3V0ZV9pZBgHIAEoCVIHcm91dGVJZBIgCgtkZXNjcmlwdGlvbhgIIA'
+    'EoCVILZGVzY3JpcHRpb24=');
 
 @$core.Deprecated('Use pointDescriptor instead')
 const Point$json = {
@@ -161,4 +165,98 @@ const Image$json = {
 final $typed_data.Uint8List imageDescriptor = $convert.base64Decode(
     'CgVJbWFnZRIQCgN1cmwYASABKAlSA3VybBIgCgtwbGFjZWhvbGRlchgCIAEoCVILcGxhY2Vob2'
     'xkZXI=');
+
+@$core.Deprecated('Use createPlaceRequestDescriptor instead')
+const CreatePlaceRequest$json = {
+  '1': 'CreatePlaceRequest',
+  '2': [
+    {'1': 'location', '3': 1, '4': 1, '5': 11, '6': '.content.Point', '10': 'location'},
+    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'address', '3': 3, '4': 1, '5': 9, '10': 'address'},
+    {'1': 'description', '3': 4, '4': 1, '5': 9, '10': 'description'},
+  ],
+};
+
+/// Descriptor for `CreatePlaceRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createPlaceRequestDescriptor = $convert.base64Decode(
+    'ChJDcmVhdGVQbGFjZVJlcXVlc3QSKgoIbG9jYXRpb24YASABKAsyDi5jb250ZW50LlBvaW50Ug'
+    'hsb2NhdGlvbhISCgRuYW1lGAIgASgJUgRuYW1lEhgKB2FkZHJlc3MYAyABKAlSB2FkZHJlc3MS'
+    'IAoLZGVzY3JpcHRpb24YBCABKAlSC2Rlc2NyaXB0aW9u');
+
+@$core.Deprecated('Use createPlaceResponseDescriptor instead')
+const CreatePlaceResponse$json = {
+  '1': 'CreatePlaceResponse',
+  '2': [
+    {'1': 'place_id', '3': 1, '4': 1, '5': 9, '10': 'placeId'},
+  ],
+};
+
+/// Descriptor for `CreatePlaceResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createPlaceResponseDescriptor = $convert.base64Decode(
+    'ChNDcmVhdGVQbGFjZVJlc3BvbnNlEhkKCHBsYWNlX2lkGAEgASgJUgdwbGFjZUlk');
+
+@$core.Deprecated('Use uploadImageRequestDescriptor instead')
+const UploadImageRequest$json = {
+  '1': 'UploadImageRequest',
+  '2': [
+    {'1': 'place_id', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'placeId', '17': true},
+    {'1': 'filename', '3': 2, '4': 1, '5': 9, '10': 'filename'},
+    {'1': 'content', '3': 3, '4': 1, '5': 12, '10': 'content'},
+  ],
+  '8': [
+    {'1': '_place_id'},
+  ],
+};
+
+/// Descriptor for `UploadImageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List uploadImageRequestDescriptor = $convert.base64Decode(
+    'ChJVcGxvYWRJbWFnZVJlcXVlc3QSHgoIcGxhY2VfaWQYASABKAlIAFIHcGxhY2VJZIgBARIaCg'
+    'hmaWxlbmFtZRgCIAEoCVIIZmlsZW5hbWUSGAoHY29udGVudBgDIAEoDFIHY29udGVudEILCglf'
+    'cGxhY2VfaWQ=');
+
+@$core.Deprecated('Use uploadImageResponseDescriptor instead')
+const UploadImageResponse$json = {
+  '1': 'UploadImageResponse',
+  '2': [
+    {'1': 'images', '3': 1, '4': 3, '5': 11, '6': '.content.Image', '10': 'images'},
+  ],
+};
+
+/// Descriptor for `UploadImageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List uploadImageResponseDescriptor = $convert.base64Decode(
+    'ChNVcGxvYWRJbWFnZVJlc3BvbnNlEiYKBmltYWdlcxgBIAMoCzIOLmNvbnRlbnQuSW1hZ2VSBm'
+    'ltYWdlcw==');
+
+@$core.Deprecated('Use createRouteRequestDescriptor instead')
+const CreateRouteRequest$json = {
+  '1': 'CreateRouteRequest',
+  '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'difficulty', '3': 2, '4': 1, '5': 14, '6': '.content.DifficultyLevel', '10': 'difficulty'},
+    {'1': 'distance_km', '3': 3, '4': 1, '5': 2, '10': 'distanceKm'},
+    {'1': 'path_points', '3': 4, '4': 3, '5': 11, '6': '.content.Point', '10': 'pathPoints'},
+    {'1': 'place_ids', '3': 5, '4': 3, '5': 9, '10': 'placeIds'},
+    {'1': 'description', '3': 6, '4': 1, '5': 9, '10': 'description'},
+  ],
+};
+
+/// Descriptor for `CreateRouteRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createRouteRequestDescriptor = $convert.base64Decode(
+    'ChJDcmVhdGVSb3V0ZVJlcXVlc3QSEgoEbmFtZRgBIAEoCVIEbmFtZRI4CgpkaWZmaWN1bHR5GA'
+    'IgASgOMhguY29udGVudC5EaWZmaWN1bHR5TGV2ZWxSCmRpZmZpY3VsdHkSHwoLZGlzdGFuY2Vf'
+    'a20YAyABKAJSCmRpc3RhbmNlS20SLwoLcGF0aF9wb2ludHMYBCADKAsyDi5jb250ZW50LlBvaW'
+    '50UgpwYXRoUG9pbnRzEhsKCXBsYWNlX2lkcxgFIAMoCVIIcGxhY2VJZHMSIAoLZGVzY3JpcHRp'
+    'b24YBiABKAlSC2Rlc2NyaXB0aW9u');
+
+@$core.Deprecated('Use createRouteResponseDescriptor instead')
+const CreateRouteResponse$json = {
+  '1': 'CreateRouteResponse',
+  '2': [
+    {'1': 'route_id', '3': 1, '4': 1, '5': 9, '10': 'routeId'},
+  ],
+};
+
+/// Descriptor for `CreateRouteResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createRouteResponseDescriptor = $convert.base64Decode(
+    'ChNDcmVhdGVSb3V0ZVJlc3BvbnNlEhkKCHJvdXRlX2lkGAEgASgJUgdyb3V0ZUlk');
 

@@ -5,22 +5,26 @@ package content;
 option go_package = "pb/content";
 
 service ContentService {
-  rpc GetRoutes(GetRoutesRequest) returns (GetRoutesResponse) {}
+  rpc GetRoutes     (GetRoutesRequest)          returns (GetRoutesResponse) {}
+  rpc CreatePlace   (CreatePlaceRequest)        returns (CreatePlaceResponse) {}
+  rpc UploadImages  (stream UploadImageRequest) returns (UploadImageResponse) {}
+  rpc CreateRoute   (CreateRouteRequest)        returns (CreateRouteResponse) {}
 }
 
 message GetRoutesRequest {
   DifficultyFilter difficulty_filter = 1;
   DistanceFilter distance_filter = 2;
-}
-
-message DistanceFilter {
-  optional float min_km = 1;
-  optional float max_km = 2;
+  string search_query = 3;
 }
 
 message DifficultyFilter {
   optional DifficultyLevel min_difficulty = 1;
   optional DifficultyLevel max_difficulty = 2;
+}
+
+message DistanceFilter {
+  optional float min_km = 1;
+  optional float max_km = 2;
 }
 
 message GetRoutesResponse {
@@ -35,6 +39,7 @@ message Route {
   repeated Place places = 5;
   string user_id = 6; // UUID автора маршрута
   string route_id = 7; // UUID
+  string description = 8;
 }
 
 message Point {
@@ -60,4 +65,38 @@ enum DifficultyLevel {
   EASY = 0;
   MEDIUM = 1;
   HARD = 2;
+}
+
+message CreatePlaceRequest {
+  Point  location    = 1;
+  string name        = 2;
+  string address     = 3;
+  string description = 4;
+}
+
+message CreatePlaceResponse {
+  string place_id = 1;
+}
+
+message UploadImageRequest {
+  optional string place_id = 1; // UUID
+  string          filename = 2;
+  bytes           content  = 3;
+}
+
+message UploadImageResponse {
+  repeated Image images = 1;
+}
+
+message CreateRouteRequest {
+  string name = 1;
+  DifficultyLevel difficulty = 2;
+  float distance_km = 3;
+  repeated Point path_points = 4;
+  repeated string place_ids = 5; // UUIDs of associated places
+  string description = 6;
+}
+
+message CreateRouteResponse {
+  string route_id = 1; // UUID
 }

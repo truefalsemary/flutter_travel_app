@@ -18,6 +18,7 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
   @override
   RouteModel convertRouteToRouteModel(Route route) => RouteModel(
         name: route.name,
+        description: route.description,
         distanceKm: route.distanceKm,
         userId: route.userId,
         routeId: route.routeId,

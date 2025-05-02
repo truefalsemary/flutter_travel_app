@@ -7,6 +7,7 @@ typedef RouteModels = Iterable<RouteModel>;
 
 final class RouteModel with EquatableMixin {
   final String name;
+  final String description;
   final double? distanceKm;
   final String? userId;
   final String routeId;
@@ -16,6 +17,7 @@ final class RouteModel with EquatableMixin {
 
   RouteModel({
     required this.name,
+    required this.description,
     required this.distanceKm,
     required this.userId,
     required this.routeId,
@@ -27,6 +29,7 @@ final class RouteModel with EquatableMixin {
   @override
   List<Object?> get props => [
         name,
+        description,
         distanceKm,
         userId,
         routeId,
