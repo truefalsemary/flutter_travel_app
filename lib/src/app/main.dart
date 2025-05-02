@@ -5,7 +5,7 @@ import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/l10n/app_localizations.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
-void main() {
+void main() async {
   runApp(const MainApp());
 }
 

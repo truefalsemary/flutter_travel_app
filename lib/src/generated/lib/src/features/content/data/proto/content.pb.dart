@@ -21,7 +21,7 @@ export 'content.pbenum.dart';
 
 class GetRoutesRequest extends $pb.GeneratedMessage {
   factory GetRoutesRequest({
-    DifficultyLevel? difficultyFilter,
+    DifficultyFilter? difficultyFilter,
     DistanceFilter? distanceFilter,
   }) {
     final $result = create();
@@ -38,7 +38,7 @@ class GetRoutesRequest extends $pb.GeneratedMessage {
   factory GetRoutesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'GetRoutesRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'content'), createEmptyInstance: create)
-    ..e<DifficultyLevel>(1, _omitFieldNames ? '' : 'difficultyFilter', $pb.PbFieldType.OE, defaultOrMaker: DifficultyLevel.EASY, valueOf: DifficultyLevel.valueOf, enumValues: DifficultyLevel.values)
+    ..aOM<DifficultyFilter>(1, _omitFieldNames ? '' : 'difficultyFilter', subBuilder: DifficultyFilter.create)
     ..aOM<DistanceFilter>(2, _omitFieldNames ? '' : 'distanceFilter', subBuilder: DistanceFilter.create)
     ..hasRequiredFields = false
   ;
@@ -65,13 +65,15 @@ class GetRoutesRequest extends $pb.GeneratedMessage {
   static GetRoutesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  DifficultyLevel get difficultyFilter => $_getN(0);
+  DifficultyFilter get difficultyFilter => $_getN(0);
   @$pb.TagNumber(1)
-  set difficultyFilter(DifficultyLevel v) { $_setField(1, v); }
+  set difficultyFilter(DifficultyFilter v) { $_setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasDifficultyFilter() => $_has(0);
   @$pb.TagNumber(1)
   void clearDifficultyFilter() => $_clearField(1);
+  @$pb.TagNumber(1)
+  DifficultyFilter ensureDifficultyFilter() => $_ensure(0);
 
   @$pb.TagNumber(2)
   DistanceFilter get distanceFilter => $_getN(1);
@@ -147,6 +149,70 @@ class DistanceFilter extends $pb.GeneratedMessage {
   $core.bool hasMaxKm() => $_has(1);
   @$pb.TagNumber(2)
   void clearMaxKm() => $_clearField(2);
+}
+
+class DifficultyFilter extends $pb.GeneratedMessage {
+  factory DifficultyFilter({
+    DifficultyLevel? minDifficulty,
+    DifficultyLevel? maxDifficulty,
+  }) {
+    final $result = create();
+    if (minDifficulty != null) {
+      $result.minDifficulty = minDifficulty;
+    }
+    if (maxDifficulty != null) {
+      $result.maxDifficulty = maxDifficulty;
+    }
+    return $result;
+  }
+  DifficultyFilter._() : super();
+  factory DifficultyFilter.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DifficultyFilter.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'DifficultyFilter', package: const $pb.PackageName(_omitMessageNames ? '' : 'content'), createEmptyInstance: create)
+    ..e<DifficultyLevel>(1, _omitFieldNames ? '' : 'minDifficulty', $pb.PbFieldType.OE, defaultOrMaker: DifficultyLevel.EASY, valueOf: DifficultyLevel.valueOf, enumValues: DifficultyLevel.values)
+    ..e<DifficultyLevel>(2, _omitFieldNames ? '' : 'maxDifficulty', $pb.PbFieldType.OE, defaultOrMaker: DifficultyLevel.EASY, valueOf: DifficultyLevel.valueOf, enumValues: DifficultyLevel.values)
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DifficultyFilter clone() => DifficultyFilter()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DifficultyFilter copyWith(void Function(DifficultyFilter) updates) => super.copyWith((message) => updates(message as DifficultyFilter)) as DifficultyFilter;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DifficultyFilter create() => DifficultyFilter._();
+  DifficultyFilter createEmptyInstance() => create();
+  static $pb.PbList<DifficultyFilter> createRepeated() => $pb.PbList<DifficultyFilter>();
+  @$core.pragma('dart2js:noInline')
+  static DifficultyFilter getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DifficultyFilter>(create);
+  static DifficultyFilter? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  DifficultyLevel get minDifficulty => $_getN(0);
+  @$pb.TagNumber(1)
+  set minDifficulty(DifficultyLevel v) { $_setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasMinDifficulty() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMinDifficulty() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  DifficultyLevel get maxDifficulty => $_getN(1);
+  @$pb.TagNumber(2)
+  set maxDifficulty(DifficultyLevel v) { $_setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasMaxDifficulty() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMaxDifficulty() => $_clearField(2);
 }
 
 class GetRoutesResponse extends $pb.GeneratedMessage {

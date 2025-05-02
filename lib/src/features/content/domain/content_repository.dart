@@ -5,7 +5,7 @@ import 'package:flutter_travel_app/src/features/content/domain/models/route_para
 import 'package:logger/logger.dart';
 
 abstract class ContentRepository {
-  Future<RouteModels?> getRouteModels(RouteParams routeParams);
+  Future<RouteModels?> getRouteModels(RouteParams? routeParams);
 }
 
 final class ContentRepositoryImpl implements ContentRepository {
@@ -22,7 +22,7 @@ final class ContentRepositoryImpl implements ContentRepository {
         _logger = logger;
 
   @override
-  Future<RouteModels?> getRouteModels(RouteParams routeParams) async {
+  Future<RouteModels?> getRouteModels(RouteParams? routeParams) async {
     _logger.i('try to get routes');
     final routes = await _apiClient.getRoutes(routeParams);
     return _modelsConverter.convertRoutesToRouteModels(routes);

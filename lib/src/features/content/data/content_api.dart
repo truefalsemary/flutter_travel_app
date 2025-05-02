@@ -4,7 +4,7 @@ import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
 
 abstract class ContentApiClient {
-  Future<Iterable<Route>> getRoutes(RouteParams routeParams);
+  Future<Iterable<Route>> getRoutes(RouteParams? routeParams);
 }
 
 class ContentApiClientImpl implements ContentApiClient {
@@ -27,16 +27,23 @@ class ContentApiClientImpl implements ContentApiClient {
         _logger = logger;
 
   @override
-  Future<Iterable<Route>> getRoutes(RouteParams routeParams) async {
+  Future<Iterable<Route>> getRoutes(RouteParams? routeParams) async {
     _logger.i('try to get routes');
     try {
       final request = GetRoutesRequest();
-      final difficultyLevel = routeParams.difficultyLevel;
-      final minDistance = routeParams.minDistance;
-      final maxDistance = routeParams.maxDistance;
+      final minDifficulty = routeParams?.minDifficulty;
+      final maxDifficulty = routeParams?.maxDifficulty;
+      final minDistance = routeParams?.minDistance;
+      final maxDistance = routeParams?.maxDistance;
 
-      if (difficultyLevel != null) {
-        request.difficultyFilter = difficultyLevel;
+      if (minDifficulty != null || maxDifficulty != null) {
+        request.difficultyFilter = DifficultyFilter();
+        if (minDifficulty != null) {
+          request.difficultyFilter.minDifficulty = minDifficulty;
+        }
+        if (maxDifficulty != null) {
+          request.difficultyFilter.maxDifficulty = maxDifficulty;
+        }
       }
 
       if (minDistance != null || maxDistance != null) {

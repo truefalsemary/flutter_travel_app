@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_event.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_state.dart';
 import 'package:flutter_travel_app/src/features/content/domain/content_repository.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
 
 class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
@@ -23,15 +24,9 @@ class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
   ) async {
     emit(RoutesLoadInProgress());
     try {
-      final routes = await _contentRepository.getRouteModels(
-        (
-          difficultyLevel: event.difficulty,
-          minDistance: event.minDistance,
-          maxDistance: event.maxDistance,
-        ),
-      );
+      final routes = await _contentRepository.getRouteModels(event.routeParams);
       if (routes != null) {
-        emit(RoutesLoadSuccess(routes: routes));
+        emit(RoutesLoadSuccess(routes: routes, routeParams: event.routeParams));
       } else {
         emit(RoutesLoadFailure());
       }

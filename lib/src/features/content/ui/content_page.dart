@@ -10,12 +10,12 @@ import 'package:flutter_travel_app/src/features/content/di/content_scope.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_event.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_state.dart';
+import 'package:flutter_travel_app/src/features/content/domain/constants/filter_constants.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
 import 'package:flutter_travel_app/src/features/content/ui/filter_modal.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbenum.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pb.dart';
 import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
-import 'package:logger/logger.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 class ContentPage extends StatefulWidget {
@@ -32,34 +32,12 @@ class ContentPage extends StatefulWidget {
 
 class _ContentPageState extends State<ContentPage> {
   late final ContentScopeHolder _contentScopeHolder;
-  final _logger = Logger();
 
   @override
   void initState() {
     super.initState();
     _contentScopeHolder = ContentScopeHolder(widget.appScope);
     _contentScopeHolder.create();
-  }
-
-  void _showFilterModal(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => FilterModal(
-        onFilterRoutes: ({
-          minDistance,
-          maxDistance,
-          minDifficulty,
-          maxDifficulty,
-        }) {
-          // TODO(truefalsemary): Лен, нужно будет сделать фильтрацию маршрутов
-          _logger
-            ..i('Applying filters:')
-            ..i('Distance: $minDistance - $maxDistance km')
-            ..i('Difficulty: $minDifficulty - $maxDifficulty');
-        },
-      ),
-    );
   }
 
   @override
@@ -92,7 +70,10 @@ class _ContentPageState extends State<ContentPage> {
                     Icons.tune,
                     color: context.colors.mainText,
                   ),
-                  onPressed: () => _showFilterModal(context),
+                  onPressed: () => _showFilterModal(
+                    context,
+                    routesBloc: routesBloc,
+                  ),
                 ),
                 IconButton(
                   icon: Icon(
@@ -155,6 +136,48 @@ class _ContentPageState extends State<ContentPage> {
   void dispose() {
     _contentScopeHolder.drop();
     super.dispose();
+  }
+
+  void _showFilterModal(
+    BuildContext context, {
+    required RoutesBloc routesBloc,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        final routeBlocState = routesBloc.state;
+        return FilterModal(
+          routeParams: routeBlocState is RoutesLoadSuccess
+              ? (routeBlocState.routeParams?.toFilterRoutesParams ??
+                  (
+                    minDistance: RouteParamsFilterConstants.defaultMinDistance,
+                    maxDistance: RouteParamsFilterConstants.defaultMaxDistance,
+                    minDifficulty:
+                        RouteParamsFilterConstants.defaultMinDifficulty,
+                    maxDifficulty:
+                        RouteParamsFilterConstants.defaultMaxDifficulty,
+                  ))
+              : (
+                  minDistance: RouteParamsFilterConstants.defaultMinDistance,
+                  maxDistance: RouteParamsFilterConstants.defaultMaxDistance,
+                  minDifficulty:
+                      RouteParamsFilterConstants.defaultMinDifficulty,
+                  maxDifficulty:
+                      RouteParamsFilterConstants.defaultMaxDifficulty,
+                ),
+          onFilterRoutes: ({
+            routeParams,
+          }) {
+            routesBloc.add(
+              RoutesFetched(
+                routeParams: routeParams,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
 

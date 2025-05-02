@@ -1,21 +1,17 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbenum.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/route_params.dart';
 
 sealed class RoutesEvent extends Equatable {
   const RoutesEvent();
 }
 
 final class RoutesFetched extends RoutesEvent {
-  final DifficultyLevel? difficulty;
-  final double? minDistance;
-  final double? maxDistance;
+  final RouteParams? routeParams;
 
   const RoutesFetched({
-    this.difficulty,
-    this.minDistance,
-    this.maxDistance,
+    this.routeParams,
   });
 
   @override
-  List<Object?> get props => [difficulty, minDistance, maxDistance];
+  List<Object?> get props => [routeParams];
 }
