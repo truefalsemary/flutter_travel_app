@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travel_app/src/common/ui/app_colors.dart';
-import 'package:flutter_travel_app/src/common/ui/app_fonts.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
 
 class AppText extends StatelessWidget {
   final String text;
@@ -19,7 +19,7 @@ class AppText extends StatelessWidget {
     return Text(
       text,
       style: (style ?? AppFonts.regularText).copyWith(
-        color: color ?? context.appColorsTheme.mainText,
+        color: color ?? context.colors.mainText,
       ),
     );
   }

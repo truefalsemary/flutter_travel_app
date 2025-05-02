@@ -3,7 +3,6 @@ import 'package:theme_extensions_builder_annotation/theme_extensions_builder_ann
 
 part 'app_colors.g.theme.dart';
 
-@immutable
 @themeExtensions
 class AppColorsTheme extends ThemeExtension<AppColorsTheme>
     with _$ThemeExtensionMixin {

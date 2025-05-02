@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
-import 'package:flutter_travel_app/src/common/ui/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/l10n/app_localizations.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
@@ -36,11 +36,36 @@ class _MainAppState extends State<MainApp> {
             routerConfig: appScope.routerDelegate,
             themeMode: themeMode,
             theme: ThemeData.light(useMaterial3: true).copyWith(
+              sliderTheme: SliderThemeData(
+                activeTrackColor: AppColors.gold,
+                thumbColor: AppColors.gold,
+                inactiveTrackColor: AppColors.veryLightGrey,
+                inactiveTickMarkColor: AppColors.veryLightGrey,
+                activeTickMarkColor: AppColors.gold,
+                rangeTickMarkShape: RoundRangeSliderTickMarkShape(
+                  tickMarkRadius: 13,
+                ),
+                rangeThumbShape: RoundRangeSliderThumbShape(
+                  enabledThumbRadius: 16,
+                  disabledThumbRadius: 13,
+                ),
+                disabledThumbColor: AppColors.veryLightGrey,
+                disabledActiveTrackColor: AppColors.veryLightGrey,
+                disabledInactiveTrackColor: AppColors.veryLightGrey,
+                secondaryActiveTrackColor: AppColors.gold,
+                showValueIndicator: ShowValueIndicator.never,
+              ),
               extensions: <ThemeExtension>[
                 AppColorsTheme.light(),
               ],
             ),
             darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+              sliderTheme: SliderThemeData(
+                activeTrackColor: AppColors.gold,
+                thumbColor: AppColors.gold,
+                inactiveTrackColor: AppColors.veryLightGrey,
+                showValueIndicator: ShowValueIndicator.never,
+              ),
               extensions: <ThemeExtension>[
                 AppColorsTheme.dark(),
               ],
@@ -59,7 +84,8 @@ class _MainAppState extends State<MainApp> {
             locale: const Locale('ru'),
           ),
         ),
-        // TODO(truefalsemary): Лен, тут надо красивенько сделать
+        // TODO(truefalsemary): Лен, тут надо красивенько сделать загрузочку
+        // Например, кота рисовать крутящегося
         placeholder: const Center(child: CircularProgressIndicator()),
       ),
     );

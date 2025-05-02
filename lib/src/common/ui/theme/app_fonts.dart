@@ -8,6 +8,12 @@ class AppFonts {
     height: 20.0 / 16,
   );
 
+  static const TextStyle boldText = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    height: 20.0 / 16,
+  );
+
   static const TextStyle appBarTitle = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,

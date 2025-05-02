@@ -3,16 +3,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
-import 'package:flutter_travel_app/src/common/ui/app_colors.dart';
-import 'package:flutter_travel_app/src/common/ui/app_fonts.dart';
-import 'package:flutter_travel_app/src/common/ui/app_text.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
 import 'package:flutter_travel_app/src/features/content/di/content_scope.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_event.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_state.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
+import 'package:flutter_travel_app/src/features/content/ui/filter_modal.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbenum.dart';
+import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
+import 'package:logger/logger.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 class ContentPage extends StatefulWidget {
@@ -29,12 +32,34 @@ class ContentPage extends StatefulWidget {
 
 class _ContentPageState extends State<ContentPage> {
   late final ContentScopeHolder _contentScopeHolder;
+  final _logger = Logger();
 
   @override
   void initState() {
     super.initState();
     _contentScopeHolder = ContentScopeHolder(widget.appScope);
     _contentScopeHolder.create();
+  }
+
+  void _showFilterModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => FilterModal(
+        onFilterRoutes: ({
+          minDistance,
+          maxDistance,
+          minDifficulty,
+          maxDifficulty,
+        }) {
+          // TODO(truefalsemary): Лен, нужно будет сделать фильтрацию маршрутов
+          _logger
+            ..i('Applying filters:')
+            ..i('Distance: $minDistance - $maxDistance km')
+            ..i('Difficulty: $minDifficulty - $maxDifficulty');
+        },
+      ),
+    );
   }
 
   @override
@@ -46,19 +71,36 @@ class _ContentPageState extends State<ContentPage> {
           final routesBloc = scope.routesBloc;
 
           return Scaffold(
-            backgroundColor: context.appColorsTheme.separator,
+            backgroundColor: context.colors.separator,
             appBar: AppBar(
-              backgroundColor: context.appColorsTheme.mainBg,
-              title: const AppText('Маршруты', style: AppFonts.appBarTitle),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
+              ),
+              surfaceTintColor: context.colors.mainBg,
+              shadowColor: context.colors.mainBg,
+              backgroundColor: context.colors.mainBg,
+              title: AppText(
+                context.strings.routesTitle,
+                style: AppFonts.appBarTitle,
+              ),
               actions: [
                 IconButton(
                   icon: Icon(
-                    Icons.brightness_6,
-                    color: context.appColorsTheme.mainText,
+                    Icons.tune,
+                    color: context.colors.mainText,
                   ),
-                  onPressed: () {
-                    widget.appScope.themeModeProvider.toggleTheme();
-                  },
+                  onPressed: () => _showFilterModal(context),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.brightness_6,
+                    color: context.colors.mainText,
+                  ),
+                  onPressed: () =>
+                      widget.appScope.themeModeProvider.toggleTheme(),
                 ),
               ],
             ),
@@ -73,8 +115,6 @@ class _ContentPageState extends State<ContentPage> {
                     case RoutesLoadInProgress():
                       return const Center(child: CircularProgressIndicator());
                     case RoutesLoadSuccess():
-                      // TODO(truefalsemary): Лен, тут надо красивенько
-                      // выводить список маршрутов
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: ListView.builder(
@@ -90,11 +130,11 @@ class _ContentPageState extends State<ContentPage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Center(
-                              child: AppText('Заебись. Чето полетело опять...'),
-                            ),
+                            AppText(context.strings.errorMessage),
                             ElevatedButton(
-                              child: const AppText('Пожалуйста, заработай!'),
+                              child: AppText(
+                                context.strings.retryButton,
+                              ),
                               onPressed: () => routesBloc.add(RoutesFetched()),
                             ),
                           ],
@@ -126,7 +166,7 @@ class _RouteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: context.appColorsTheme.cardBg,
+      color: context.colors.cardBg,
       margin: const EdgeInsets.only(
         bottom: 11,
       ),
@@ -135,7 +175,6 @@ class _RouteCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Carousel of photos from all places
             _ImageModelsCarouselWidget(
               imageModels: route.places.expand(
                 (place) => place.images,
@@ -169,14 +208,12 @@ class _CardBodyWidget extends StatelessWidget {
               difficultyLevel: route.difficultyLevel,
               distanceKm: route.distanceKm,
             ),
-
             const SizedBox(height: 9),
-            // Places list
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  'Места на маршруте:',
+                  context.strings.placesOnRoute,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const SizedBox(height: 8),
@@ -192,7 +229,7 @@ class _CardBodyWidget extends StatelessWidget {
                         Expanded(
                           child: AppText(
                             place.name,
-                            color: context.appColorsTheme.cardText,
+                            color: context.colors.cardText,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
@@ -224,31 +261,29 @@ class _CardBodyTitleWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Route name
         AppText(
           title,
-          color: context.appColorsTheme.cardText,
+          color: context.colors.cardText,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
         ),
         const SizedBox(height: 2),
-        // Distance and difficulty
         Row(
           children: [
             Icon(Icons.house, size: 16),
             const SizedBox(width: 7),
             AppText(
               '${distanceKm?.toStringAsFixed(1) ?? 0} км',
-              color: context.appColorsTheme.cardText,
+              color: context.colors.cardText,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
             const SizedBox(width: 10),
             AppText(
-              _getDifficultyText(difficultyLevel),
-              color: context.appColorsTheme.minorText,
+              _getDifficultyText(context, difficultyLevel),
+              color: context.colors.minorText,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -259,19 +294,16 @@ class _CardBodyTitleWidget extends StatelessWidget {
     );
   }
 
-  // TODO(truefalsemary): нужно добавить локализацию еще
-  String _getDifficultyText(DifficultyLevel? difficulty) {
-    switch (difficulty) {
-      case DifficultyLevel.EASY:
-        return 'простой';
-      case DifficultyLevel.MEDIUM:
-        return 'средний';
-      case DifficultyLevel.HARD:
-        return 'сложный';
-      default:
-        return 'Не указано';
-    }
-  }
+  String _getDifficultyText(
+    BuildContext context,
+    DifficultyLevel? difficulty,
+  ) =>
+      switch (difficulty) {
+        DifficultyLevel.EASY => context.strings.easyDifficulty,
+        DifficultyLevel.MEDIUM => context.strings.mediumDifficulty,
+        DifficultyLevel.HARD => context.strings.hardDifficulty,
+        _ => context.strings.unknownDifficulty
+      };
 }
 
 class _ImageModelsCarouselWidget extends StatelessWidget {
