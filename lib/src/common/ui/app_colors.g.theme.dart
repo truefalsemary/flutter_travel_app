@@ -1,4 +1,3 @@
-// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, unused_element
@@ -22,6 +21,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? mainElevatedButtonText,
     Color? minorElevatedButtonBg,
     Color? minorElevatedButtonText,
+    Color? sliderSelected,
+    Color? sliderUnselected,
   }) {
     final object = this as AppColorsTheme;
 
@@ -39,6 +40,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
           minorElevatedButtonBg ?? object.minorElevatedButtonBg,
       minorElevatedButtonText:
           minorElevatedButtonText ?? object.minorElevatedButtonText,
+      sliderSelected: sliderSelected ?? object.sliderSelected,
+      sliderUnselected: sliderUnselected ?? object.sliderUnselected,
     );
   }
 
@@ -106,6 +109,16 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.minorElevatedButtonText,
         t,
       )!,
+      sliderSelected: Color.lerp(
+        value.sliderSelected,
+        otherValue.sliderSelected,
+        t,
+      )!,
+      sliderUnselected: Color.lerp(
+        value.sliderUnselected,
+        otherValue.sliderUnselected,
+        t,
+      )!,
     );
   }
 
@@ -128,7 +141,9 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
             identical(
                 value.minorElevatedButtonBg, other.minorElevatedButtonBg) &&
             identical(
-                value.minorElevatedButtonText, other.minorElevatedButtonText));
+                value.minorElevatedButtonText, other.minorElevatedButtonText) &&
+            identical(value.sliderSelected, other.sliderSelected) &&
+            identical(value.sliderUnselected, other.sliderUnselected));
   }
 
   @override
@@ -147,6 +162,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.mainElevatedButtonText,
       value.minorElevatedButtonBg,
       value.minorElevatedButtonText,
+      value.sliderSelected,
+      value.sliderUnselected,
     );
   }
 }

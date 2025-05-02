@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/common/ui/app_colors.dart';
+import 'package:flutter_travel_app/src/l10n/app_localizations.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 void main() {
@@ -43,8 +45,21 @@ class _MainAppState extends State<MainApp> {
                 AppColorsTheme.dark(),
               ],
             ),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              // TODO(truefalsemary): когда бек будет поддерживать, добавим
+              // Locale('en'),
+              Locale('ru'),
+            ],
+            locale: const Locale('ru'),
           ),
         ),
+        // TODO(truefalsemary): Лен, тут надо красивенько сделать
         placeholder: const Center(child: CircularProgressIndicator()),
       ),
     );

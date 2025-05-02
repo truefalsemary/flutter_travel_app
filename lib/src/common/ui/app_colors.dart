@@ -17,6 +17,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
   final Color mainElevatedButtonText;
   final Color minorElevatedButtonBg;
   final Color minorElevatedButtonText;
+  final Color sliderSelected;
+  final Color sliderUnselected;
 
   const AppColorsTheme({
     required this.mainBg,
@@ -29,6 +31,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
     required this.mainElevatedButtonText,
     required this.minorElevatedButtonBg,
     required this.minorElevatedButtonText,
+    required this.sliderSelected,
+    required this.sliderUnselected,
   });
 
   factory AppColorsTheme.light() => const AppColorsTheme(
@@ -41,7 +45,9 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         mainElevatedButtonBg: AppColors.gold,
         mainElevatedButtonText: AppColors.trueWhite,
         minorElevatedButtonBg: AppColors.veryLightGrey,
-        minorElevatedButtonText: AppColors.lightGrey,
+        minorElevatedButtonText: AppColors.darkerGrey,
+        sliderSelected: AppColors.gold,
+        sliderUnselected: AppColors.veryLightGrey,
       );
 
   factory AppColorsTheme.dark() => const AppColorsTheme(
@@ -55,6 +61,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         mainElevatedButtonText: AppColors.veryLightGrey,
         minorElevatedButtonBg: AppColors.trueGrey,
         minorElevatedButtonText: AppColors.lightGrey,
+        sliderSelected: AppColors.gold,
+        sliderUnselected: AppColors.veryLightGrey,
       );
 }
 
@@ -66,6 +74,7 @@ class AppColors {
 
   static const trueBlack = Color(0xFF000000);
   static const darkCardBg = Color(0xFF000000);
+  static const darkerGrey = Color(0xFF767474);
   static const trueGrey = Color(0xFF808080);
   static const wetAsphaltGrey = Color(0xFF505050);
   static const silverGrey = Color(0xFFc0c0c0);

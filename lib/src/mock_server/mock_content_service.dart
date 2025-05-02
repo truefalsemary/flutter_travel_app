@@ -19,96 +19,112 @@ class MockRoutesContentService extends ContentServiceBase {
   }
 
   void _generateMockData() {
-    _mockRoutes.addAll([
-      _createMockRoute(
-        name: 'Горный трек',
-        difficulty: DifficultyLevel.HARD,
-        distance: 15.5,
-        points: [
-          Point(lat: 43.585472, lon: 39.723099),
-          Point(lat: 43.563217, lon: 39.808642),
-        ],
-        places: [
-          Place()
-            ..name = 'Пик Горный'
-            ..address = 'Горный хребет'
-            ..description = 'Самая высокая точка маршрута с панорамным видом'
-            ..images.addAll([
-              Image()
-                ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
-                ..url =
-                    'https://images.unsplash.com/photo-1745666606096-9776c7e71bf6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            ])
-            ..location = Point(lat: 43.585472, lon: 39.723099),
-          Place()
-            ..name = 'Лесная поляна'
-            ..address = 'Средняя часть маршрута'
-            ..description = 'Место для отдыха среди вековых сосен'
-            ..images.addAll([
-              Image()
-                ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
-                ..url =
-                    'https://images.unsplash.com/photo-1744479357124-ef43ab9d6a9f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDMwfEZ6bzN6dU9ITjZ3fHxlbnwwfHx8fHw%3D',
-            ])
-            ..location = Point(lat: 43.578901, lon: 39.745612),
-          Place()
-            ..name = 'Водопад Скрытый'
-            ..address = 'Северный склон'
-            ..description = 'Живописный каскадный водопад высотой 15 метров'
-            ..images.addAll([
-              Image()
-                ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
-                ..url =
-                    'https://plus.unsplash.com/premium_photo-1661883809211-eb59f508b3d9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            ])
-            ..location = Point(lat: 43.563217, lon: 39.808642),
+    _mockRoutes.addAll(
+      _repeatRoutes(
+        routes: [
+          _createMockRoute(
+            name: 'Горный трек',
+            difficulty: DifficultyLevel.HARD,
+            distance: 15.5,
+            points: [
+              Point(lat: 43.585472, lon: 39.723099),
+              Point(lat: 43.563217, lon: 39.808642),
+            ],
+            places: [
+              Place()
+                ..name = 'Пик Горный'
+                ..address = 'Горный хребет'
+                ..description =
+                    'Самая высокая точка маршрута с панорамным видом'
+                ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://images.unsplash.com/photo-1745666606096-9776c7e71bf6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                ])
+                ..location = Point(lat: 43.585472, lon: 39.723099),
+              Place()
+                ..name = 'Лесная поляна'
+                ..address = 'Средняя часть маршрута'
+                ..description = 'Место для отдыха среди вековых сосен'
+                ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://images.unsplash.com/photo-1744479357124-ef43ab9d6a9f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDMwfEZ6bzN6dU9ITjZ3fHxlbnwwfHx8fHw%3D',
+                ])
+                ..location = Point(lat: 43.578901, lon: 39.745612),
+              Place()
+                ..name = 'Водопад Скрытый'
+                ..address = 'Северный склон'
+                ..description = 'Живописный каскадный водопад высотой 15 метров'
+                ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://plus.unsplash.com/premium_photo-1661883809211-eb59f508b3d9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                ])
+                ..location = Point(lat: 43.563217, lon: 39.808642),
+            ],
+          ),
+          _createMockRoute(
+            name: 'Прогулка по центру',
+            difficulty: DifficultyLevel.EASY,
+            distance: 5.2,
+            points: [
+              Point(lat: 43.585472, lon: 39.723099),
+              Point(lat: 43.579536, lon: 39.724925),
+            ],
+            places: [
+              Place()
+                ..name = 'Главная площадь'
+                ..address = 'ул. Центральная, 1'
+                ..description = 'Исторический центр города с фонтанами'
+                ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://images.unsplash.com/photo-1725291004626-28db152bdddb?q=80&w=2666&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                ])
+                ..location = Point(lat: 43.585472, lon: 39.723099),
+              Place()
+                ..name = 'Художественный музей'
+                ..address = 'пр. Культуры, 15'
+                ..description = 'Коллекция современного искусства'
+                ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://images.unsplash.com/photo-1554907984-15263bfd63bd?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                ])
+                ..location = Point(lat: 43.582341, lon: 39.725678),
+              Place()
+                ..name = "Кафе 'Старый город'"
+                ..address = 'пер. Кофейный, 5'
+                ..description = 'Атмосферное кафе с домашней выпечкой'
+                ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                ])
+                ..location = Point(lat: 43.579536, lon: 39.724925),
+            ],
+          ),
         ],
       ),
-      _createMockRoute(
-        name: 'Прогулка по центру',
-        difficulty: DifficultyLevel.EASY,
-        distance: 5.2,
-        points: [
-          Point(lat: 43.585472, lon: 39.723099),
-          Point(lat: 43.579536, lon: 39.724925),
-        ],
-        places: [
-          Place()
-            ..name = 'Главная площадь'
-            ..address = 'ул. Центральная, 1'
-            ..description = 'Исторический центр города с фонтанами'
-            ..images.addAll([
-              Image()
-                ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
-                ..url =
-                    'https://images.unsplash.com/photo-1725291004626-28db152bdddb?q=80&w=2666&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            ])
-            ..location = Point(lat: 43.585472, lon: 39.723099),
-          Place()
-            ..name = 'Художественный музей'
-            ..address = 'пр. Культуры, 15'
-            ..description = 'Коллекция современного искусства'
-            ..images.addAll([
-              Image()
-                ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
-                ..url =
-                    'https://images.unsplash.com/photo-1554907984-15263bfd63bd?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            ])
-            ..location = Point(lat: 43.582341, lon: 39.725678),
-          Place()
-            ..name = "Кафе 'Старый город'"
-            ..address = 'пер. Кофейный, 5'
-            ..description = 'Атмосферное кафе с домашней выпечкой'
-            ..images.addAll([
-              Image()
-                ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
-                ..url =
-                    'https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            ])
-            ..location = Point(lat: 43.579536, lon: 39.724925),
-        ],
-      ),
-    ]);
+    );
+  }
+
+  List<Route> _repeatRoutes({required List<Route> routes, int count = 3}) {
+    final repeatedRoutes = <Route>[];
+    for (var i = 0; i < count; i++) {
+      // ignore: prefer_foreach
+      for (final route in routes) {
+        repeatedRoutes.add(route);
+      }
+    }
+    return repeatedRoutes;
   }
 
   Route _createMockRoute({
