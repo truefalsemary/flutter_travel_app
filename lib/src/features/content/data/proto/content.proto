@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package content;
+
+option go_package = "pb/content";
+
+service ContentService {
+  rpc GetRoutes(GetRoutesRequest) returns (GetRoutesResponse) {}
+}
+
+message GetRoutesRequest {
+  DifficultyLevel difficulty_filter = 1;
+  DistanceFilter distance_filter = 2;
+}
+
+message DistanceFilter {
+  optional float min_km = 1;
+  optional float max_km = 2;
+}
+
+message GetRoutesResponse {
+  repeated Route routes = 1;
+}
+
+message Route {
+  DifficultyLevel difficulty = 1;
+  float distance_km = 2;
+  string name = 3;
+  repeated Point path_points = 4;
+  repeated Place places = 5;
+  string user_id = 6; // UUID автора маршрута
+  string route_id = 7; // UUID
+}
+
+message Point {
+  double lat = 1;
+  double lon = 2;
+}
+
+message Place {
+  Point location = 1;
+  string name = 2;
+  string address = 3;
+  string description = 4;
+  repeated Image images = 5;
+  string place_id = 7; // UUID
+}
+
+message Image {
+  string url = 1;
+  string placeholder = 2;
+}
+
+enum DifficultyLevel {
+  EASY = 0;
+  MEDIUM = 1;
+  HARD = 2;
+}

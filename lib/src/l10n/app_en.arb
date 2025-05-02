@@ -1,0 +1,20 @@
+{
+  "routesTitle": "Routes",
+  "errorMessage": "Failed to load routes",
+  "retryButton": "Retry",
+  "placesOnRoute": "Places on route",
+  "easyDifficulty": "Easy",
+  "mediumDifficulty": "Medium",
+  "hardDifficulty": "Hard",
+  "unknownDifficulty": "Unknown",
+  "filtersTitle": "Filters",
+  "distanceKm": "Distance, km:",
+  "from": "from",
+  "to": "to",
+  "difficulty": "Difficulty:",
+  "easy": "Easy",
+  "medium": "Medium",
+  "hard": "Hard",
+  "clear": "Clear",
+  "apply": "Apply"
+}
