@@ -232,35 +232,12 @@ class _CardBodyWidget extends StatelessWidget {
               distanceKm: route.distanceKm,
             ),
             const SizedBox(height: 9),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(
-                  context.strings.placesOnRoute,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                const SizedBox(height: 8),
-                ...route.places.map(
-                  (place) => Padding(
-                    padding: place != route.places.last
-                        ? const EdgeInsets.only(bottom: 8)
-                        : EdgeInsets.zero,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.location_on, size: 16),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: AppText(
-                            place.name,
-                            color: context.colors.cardText,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: AppText(
+                route.description,
+                color: context.colors.minorText,
+              ),
             ),
           ],
         ),
