@@ -3,7 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
-import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
+import 'package:flutter_travel_app/src/common/ui/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/app_fonts.dart';
+import 'package:flutter_travel_app/src/common/ui/app_text.dart';
 import 'package:flutter_travel_app/src/features/content/di/content_scope.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_event.dart';
@@ -44,7 +46,22 @@ class _ContentPageState extends State<ContentPage> {
           final routesBloc = scope.routesBloc;
 
           return Scaffold(
-            backgroundColor: Color(0xFFEEEEEE),
+            backgroundColor: context.appColorsTheme.separator,
+            appBar: AppBar(
+              backgroundColor: context.appColorsTheme.mainBg,
+              title: const AppText('Маршруты', style: AppFonts.appBarTitle),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    Icons.brightness_6,
+                    color: context.appColorsTheme.mainText,
+                  ),
+                  onPressed: () {
+                    widget.appScope.themeModeProvider.toggleTheme();
+                  },
+                ),
+              ],
+            ),
             body: BlocProvider(
               create: (_) => routesBloc,
               child: BlocBuilder<RoutesBloc, RoutesState>(
@@ -58,12 +75,15 @@ class _ContentPageState extends State<ContentPage> {
                     case RoutesLoadSuccess():
                       // TODO(truefalsemary): Лен, тут надо красивенько
                       // выводить список маршрутов
-                      return ListView.builder(
-                        itemCount: state.routes.length,
-                        itemBuilder: (_, index) {
-                          final route = state.routes.elementAt(index);
-                          return _RouteCard(route: route);
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: ListView.builder(
+                          itemCount: state.routes.length,
+                          itemBuilder: (_, index) {
+                            final route = state.routes.elementAt(index);
+                            return _RouteCard(route: route);
+                          },
+                        ),
                       );
                     case RoutesLoadFailure():
                       return Center(
@@ -71,10 +91,10 @@ class _ContentPageState extends State<ContentPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Center(
-                              child: Text('Заебись. Чето полетело опять...'),
+                              child: AppText('Заебись. Чето полетело опять...'),
                             ),
                             ElevatedButton(
-                              child: const Text('Пожалуйста, заработай!'),
+                              child: const AppText('Пожалуйста, заработай!'),
                               onPressed: () => routesBloc.add(RoutesFetched()),
                             ),
                           ],
@@ -106,7 +126,7 @@ class _RouteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: context.appColorsTheme.cardBg,
       margin: const EdgeInsets.only(
         bottom: 11,
       ),
@@ -155,7 +175,7 @@ class _CardBodyWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                AppText(
                   'Места на маршруте:',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
@@ -170,8 +190,9 @@ class _CardBodyWidget extends StatelessWidget {
                         const Icon(Icons.location_on, size: 16),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: Text(
+                          child: AppText(
                             place.name,
+                            color: context.appColorsTheme.cardText,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
@@ -204,8 +225,9 @@ class _CardBodyTitleWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         // Route name
-        Text(
+        AppText(
           title,
+          color: context.appColorsTheme.cardText,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -216,17 +238,18 @@ class _CardBodyTitleWidget extends StatelessWidget {
           children: [
             Icon(Icons.house, size: 16),
             const SizedBox(width: 7),
-            Text(
+            AppText(
               '${distanceKm?.toStringAsFixed(1) ?? 0} км',
+              color: context.appColorsTheme.cardText,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
             const SizedBox(width: 10),
-            Text(
+            AppText(
               _getDifficultyText(difficultyLevel),
+              color: context.appColorsTheme.minorText,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Color(0xFF949494),
                     fontWeight: FontWeight.bold,
                   ),
             ),
@@ -236,6 +259,7 @@ class _CardBodyTitleWidget extends StatelessWidget {
     );
   }
 
+  // TODO(truefalsemary): нужно добавить локализацию еще
   String _getDifficultyText(DifficultyLevel? difficulty) {
     switch (difficulty) {
       case DifficultyLevel.EASY:
@@ -269,26 +293,27 @@ class _ImageModelsCarouselWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: CachedNetworkImage(
-                  imageUrl: image.url,
-                  imageBuilder: (context, imageProvider) => DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) => DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: BlurhashFfiImage(image.placeholder),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )),
+                imageUrl: image.url,
+                imageBuilder: (context, imageProvider) => DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                fit: BoxFit.cover,
+                placeholder: (_, __) => DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: BlurhashFfiImage(image.placeholder),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
             );
           },
         ),
