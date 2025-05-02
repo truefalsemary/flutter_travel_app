@@ -16,5 +16,7 @@
   "medium": "Средний",
   "hard": "Сложный",
   "clear": "Очистить",
-  "apply": "Применить"
+  "apply": "Применить",
+  "doubleGisOpenButton": "Открыть в 2Gis",
+  "yMapOpenButton": "Открыть в Яндекс.Картах"
 }
