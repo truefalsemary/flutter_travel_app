@@ -9,13 +9,18 @@ service ContentService {
 }
 
 message GetRoutesRequest {
-  DifficultyLevel difficulty_filter = 1;
+  DifficultyFilter difficulty_filter = 1;
   DistanceFilter distance_filter = 2;
 }
 
 message DistanceFilter {
   optional float min_km = 1;
   optional float max_km = 2;
+}
+
+message DifficultyFilter {
+  optional DifficultyLevel min_difficulty = 1;
+  optional DifficultyLevel max_difficulty = 2;
 }
 
 message GetRoutesResponse {

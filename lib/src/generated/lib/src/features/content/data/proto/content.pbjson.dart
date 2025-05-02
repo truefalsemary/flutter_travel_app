@@ -31,16 +31,16 @@ final $typed_data.Uint8List difficultyLevelDescriptor = $convert.base64Decode(
 const GetRoutesRequest$json = {
   '1': 'GetRoutesRequest',
   '2': [
-    {'1': 'difficulty_filter', '3': 1, '4': 1, '5': 14, '6': '.content.DifficultyLevel', '10': 'difficultyFilter'},
+    {'1': 'difficulty_filter', '3': 1, '4': 1, '5': 11, '6': '.content.DifficultyFilter', '10': 'difficultyFilter'},
     {'1': 'distance_filter', '3': 2, '4': 1, '5': 11, '6': '.content.DistanceFilter', '10': 'distanceFilter'},
   ],
 };
 
 /// Descriptor for `GetRoutesRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getRoutesRequestDescriptor = $convert.base64Decode(
-    'ChBHZXRSb3V0ZXNSZXF1ZXN0EkUKEWRpZmZpY3VsdHlfZmlsdGVyGAEgASgOMhguY29udGVudC'
-    '5EaWZmaWN1bHR5TGV2ZWxSEGRpZmZpY3VsdHlGaWx0ZXISQAoPZGlzdGFuY2VfZmlsdGVyGAIg'
-    'ASgLMhcuY29udGVudC5EaXN0YW5jZUZpbHRlclIOZGlzdGFuY2VGaWx0ZXI=');
+    'ChBHZXRSb3V0ZXNSZXF1ZXN0EkYKEWRpZmZpY3VsdHlfZmlsdGVyGAEgASgLMhkuY29udGVudC'
+    '5EaWZmaWN1bHR5RmlsdGVyUhBkaWZmaWN1bHR5RmlsdGVyEkAKD2Rpc3RhbmNlX2ZpbHRlchgC'
+    'IAEoCzIXLmNvbnRlbnQuRGlzdGFuY2VGaWx0ZXJSDmRpc3RhbmNlRmlsdGVy');
 
 @$core.Deprecated('Use distanceFilterDescriptor instead')
 const DistanceFilter$json = {
@@ -59,6 +59,26 @@ const DistanceFilter$json = {
 final $typed_data.Uint8List distanceFilterDescriptor = $convert.base64Decode(
     'Cg5EaXN0YW5jZUZpbHRlchIaCgZtaW5fa20YASABKAJIAFIFbWluS22IAQESGgoGbWF4X2ttGA'
     'IgASgCSAFSBW1heEttiAEBQgkKB19taW5fa21CCQoHX21heF9rbQ==');
+
+@$core.Deprecated('Use difficultyFilterDescriptor instead')
+const DifficultyFilter$json = {
+  '1': 'DifficultyFilter',
+  '2': [
+    {'1': 'min_difficulty', '3': 1, '4': 1, '5': 14, '6': '.content.DifficultyLevel', '9': 0, '10': 'minDifficulty', '17': true},
+    {'1': 'max_difficulty', '3': 2, '4': 1, '5': 14, '6': '.content.DifficultyLevel', '9': 1, '10': 'maxDifficulty', '17': true},
+  ],
+  '8': [
+    {'1': '_min_difficulty'},
+    {'1': '_max_difficulty'},
+  ],
+};
+
+/// Descriptor for `DifficultyFilter`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List difficultyFilterDescriptor = $convert.base64Decode(
+    'ChBEaWZmaWN1bHR5RmlsdGVyEkQKDm1pbl9kaWZmaWN1bHR5GAEgASgOMhguY29udGVudC5EaW'
+    'ZmaWN1bHR5TGV2ZWxIAFINbWluRGlmZmljdWx0eYgBARJECg5tYXhfZGlmZmljdWx0eRgCIAEo'
+    'DjIYLmNvbnRlbnQuRGlmZmljdWx0eUxldmVsSAFSDW1heERpZmZpY3VsdHmIAQFCEQoPX21pbl'
+    '9kaWZmaWN1bHR5QhEKD19tYXhfZGlmZmljdWx0eQ==');
 
 @$core.Deprecated('Use getRoutesResponseDescriptor instead')
 const GetRoutesResponse$json = {

@@ -158,7 +158,10 @@ class MockRoutesContentService extends ContentServiceBase {
     // Фильтрация данных
     final filteredRoutes = _mockRoutes.where((route) {
       final difficultyMatch = !request.hasDifficultyFilter() ||
-          route.difficulty == request.difficultyFilter;
+          (route.difficulty.value >=
+                  request.difficultyFilter.minDifficulty.value &&
+              route.difficulty.value <=
+                  request.difficultyFilter.maxDifficulty.value);
 
       final distanceMatch = !request.hasDistanceFilter() ||
           _checkDistance(route.distanceKm, request.distanceFilter);
