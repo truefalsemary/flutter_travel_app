@@ -125,7 +125,7 @@ class _CardBodyTitleWidget extends StatelessWidget {
             Icon(
               Icons.house,
               size: 18,
-              color: context.colors.primary,
+              color: context.colors.main,
             ),
             const SizedBox(width: 10),
             AppText(
