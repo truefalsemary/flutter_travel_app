@@ -75,6 +75,9 @@ class _CardBodyWidget extends StatelessWidget {
                 Spacer(),
                 _SaveButton(),
               ],
+            ),
+            _RouteDeeplinksButtons(
+              route: route,
             )
           ],
         ),

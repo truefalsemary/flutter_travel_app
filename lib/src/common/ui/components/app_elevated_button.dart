@@ -53,6 +53,7 @@ class AppElevatedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 10)),
       );
 }
 

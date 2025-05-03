@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
+import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
