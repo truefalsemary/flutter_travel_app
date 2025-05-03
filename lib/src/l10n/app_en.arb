@@ -16,5 +16,7 @@
   "medium": "Medium",
   "hard": "Hard",
   "clear": "Clear",
-  "apply": "Apply"
+  "apply": "Apply",
+  "doubleGisOpenButton": "Open route in 2Gis",
+  "yMapOpenButton": "Open route in Yandex Map"
 }

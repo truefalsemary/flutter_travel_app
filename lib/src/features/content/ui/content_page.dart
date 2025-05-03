@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
@@ -11,8 +12,15 @@ import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_state
 import 'package:flutter_travel_app/src/features/content/domain/constants/filter_constants.dart';
 import 'package:flutter_travel_app/src/features/content/ui/filter_modal.dart';
 import 'package:flutter_travel_app/src/features/content/ui/route_card.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pb.dart'
+    as proto;
 import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
+
+part 'widgets/image_model_carousel.dart';
+part 'widgets/route_card.dart';
+part 'widgets/route_deeplinks_buttons.dart';
 
 class ContentPage extends StatefulWidget {
   final AppScope appScope;

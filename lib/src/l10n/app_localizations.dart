@@ -202,6 +202,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apply'**
   String get apply;
+
+  /// No description provided for @doubleGisOpenButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Open route in 2Gis'**
+  String get doubleGisOpenButton;
+
+  /// No description provided for @yMapOpenButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Open route in Yandex Map'**
+  String get yMapOpenButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
