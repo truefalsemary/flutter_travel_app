@@ -18,6 +18,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
   final Color minorElevatedButtonText;
   final Color sliderSelected;
   final Color sliderUnselected;
+  final Color primary;
 
   const AppColorsTheme({
     required this.mainBg,
@@ -32,6 +33,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
     required this.minorElevatedButtonText,
     required this.sliderSelected,
     required this.sliderUnselected,
+    required this.primary,
   });
 
   factory AppColorsTheme.light() => const AppColorsTheme(
@@ -47,6 +49,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         minorElevatedButtonText: AppColors.darkerGrey,
         sliderSelected: AppColors.gold,
         sliderUnselected: AppColors.veryLightGrey,
+        primary: AppColors.gold,
       );
 
   factory AppColorsTheme.dark() => const AppColorsTheme(
@@ -62,6 +65,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         minorElevatedButtonText: AppColors.lightGrey,
         sliderSelected: AppColors.gold,
         sliderUnselected: AppColors.veryLightGrey,
+        primary: AppColors.gold,
       );
 }
 
