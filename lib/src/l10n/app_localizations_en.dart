@@ -59,4 +59,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get apply => 'Apply';
+
+  @override
+  String get doubleGisOpenButton => 'Open route in 2Gis';
+
+  @override
+  String get yMapOpenButton => 'Open route in Yandex Map';
 }

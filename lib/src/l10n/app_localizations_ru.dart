@@ -59,4 +59,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get apply => 'Применить';
+
+  @override
+  String get doubleGisOpenButton => 'Открыть в 2Gis';
+
+  @override
+  String get yMapOpenButton => 'Открыть в Яндекс.Картах';
 }

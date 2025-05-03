@@ -53,11 +53,12 @@ dependencies:
   intl: any
   shared_preferences: ^2.2.2
   path_provider: ^2.1.5
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-    
+
   surf_lint_rules: ^4.0.0
   flutter_lints: ^5.0.0
   build_runner: ^2.4.15
@@ -65,4 +66,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-
+  assets:
+    - assets/images/
+    - assets/vectors/

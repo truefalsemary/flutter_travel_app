@@ -1,3 +1,3 @@
 part 'app_images.dart';
 
-part 'app_icons.dart';
+part 'app_vectors.dart';
