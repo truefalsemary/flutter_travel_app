@@ -296,7 +296,7 @@ class _LikeButtonState extends State<_LikeButton> {
           SizedBox(
             width: 6,
           ),
-          Text(likeCount.toString())
+          Text('$likeCount')
         ],
       ),
       onPressed: _toggleLike,
@@ -323,7 +323,7 @@ class _CommentButton extends StatelessWidget {
             width: 6,
           ),
           Text(
-            count.toString(),
+            '$count',
           ),
         ],
       ),
@@ -396,10 +396,11 @@ class _Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = this.imageUrl;
     return CircleAvatar(
       radius: 20,
       backgroundColor: imageUrl == null ? context.colors.separator : null,
-      backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
+      backgroundImage: imageUrl != null ? NetworkImage(imageUrl) : null,
       child: imageUrl == null
           ? Text(
               placeholderLetter,
