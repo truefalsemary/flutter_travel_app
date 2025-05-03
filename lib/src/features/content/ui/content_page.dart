@@ -1,5 +1,9 @@
+import 'package:blurhash_ffi/blurhashffi_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
@@ -10,11 +14,13 @@ import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_event.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_state.dart';
 import 'package:flutter_travel_app/src/features/content/domain/constants/filter_constants.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
 import 'package:flutter_travel_app/src/features/content/ui/filter_modal.dart';
-import 'package:flutter_travel_app/src/features/content/ui/route_card.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pb.dart'
     as proto;
 import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
@@ -106,7 +112,7 @@ class _ContentPageState extends State<ContentPage> {
                           itemCount: state.routes.length,
                           itemBuilder: (_, index) {
                             final route = state.routes.elementAt(index);
-                            return RouteCard(route: route);
+                            return _RouteCard(route: route);
                           },
                         ),
                       );
