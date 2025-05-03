@@ -300,14 +300,16 @@ class _ActionButtons extends StatelessWidget {
         Expanded(
           child: AppElevatedButton.minor(
             onPressed: onClear,
-            text: context.strings.clear,
+            child: Text(context.strings.clear),
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: AppElevatedButton.main(
             onPressed: onApply,
-            text: context.strings.apply,
+            child: Text(
+              context.strings.apply,
+            ),
           ),
         ),
       ],

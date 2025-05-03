@@ -73,7 +73,20 @@ class _CardBodyWidget extends StatelessWidget {
                   onTap: () {},
                 ),
                 Spacer(),
-                _SaveButton(),
+                AppElevatedButton.main(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.bookmark_border,
+                          size: 24,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text('Сохранить')
+                      ],
+                    ),
+                    onPressed: () {})
               ],
             ),
             _RouteDeeplinksButtons(
@@ -273,10 +286,20 @@ class _LikeButtonState extends State<_LikeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return _ActionButton(
-      icon: isLiked ? AppVectors.heartFilled : AppVectors.heartOutlined,
-      count: likeCount,
-      onTap: _toggleLike,
+    return AppElevatedButton.minor(
+      child: Row(
+        children: [
+          if (isLiked)
+            SvgPicture.asset(AppVectors.heartFilled)
+          else
+            SvgPicture.asset(AppVectors.heartOutlined),
+          SizedBox(
+            width: 6,
+          ),
+          Text(likeCount.toString())
+        ],
+      ),
+      onPressed: _toggleLike,
     );
   }
 }
@@ -292,84 +315,20 @@ class _CommentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _ActionButton(
-      icon: AppVectors.comment,
-      count: count,
-      onTap: onTap,
-    );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  final String icon;
-  final int count;
-  final VoidCallback onTap;
-
-  const _ActionButton({
-    required this.icon,
-    required this.count,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: context.colors.sliderUnselected,
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          height: 36,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Row(
-            //mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(icon),
-              const SizedBox(width: 6),
-              Text(
-                count.toString(),
-                style: AppFonts.subtitle.copyWith(
-                  color: context.colors.minorElevatedButtonText,
-                ),
-              ),
-            ],
+    return AppElevatedButton.minor(
+      child: Row(
+        children: [
+          SvgPicture.asset(AppVectors.comment),
+          SizedBox(
+            width: 6,
           ),
-        ),
+          Text(
+            count.toString(),
+          ),
+        ],
       ),
+      onPressed: onTap,
     );
-  }
-}
-
-class _SaveButton extends StatelessWidget {
-  const _SaveButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-            minimumSize: const Size(0, 36),
-            backgroundColor: context.colors.primary,
-            foregroundColor: context.colors.mainElevatedButtonText,
-            elevation: 0,
-            shadowColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 10)),
-        child: Row(
-          children: [
-            Icon(
-              Icons.bookmark_border,
-              size: 24,
-            ),
-            SizedBox(
-              width: 2,
-            ),
-            Text('Сохранить'),
-          ],
-        ));
   }
 }
 
