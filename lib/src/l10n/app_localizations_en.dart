@@ -65,4 +65,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yMapOpenButton => 'Open route in Yandex Map';
+
+  @override
+  String get km => 'km';
+
+  @override
+  String get more => 'Show more';
+
+  @override
+  String get less => 'Show less';
 }

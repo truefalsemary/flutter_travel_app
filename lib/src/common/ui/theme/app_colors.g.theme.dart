@@ -23,6 +23,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? minorElevatedButtonText,
     Color? sliderSelected,
     Color? sliderUnselected,
+    Color? main,
   }) {
     final object = this as AppColorsTheme;
 
@@ -42,6 +43,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
           minorElevatedButtonText ?? object.minorElevatedButtonText,
       sliderSelected: sliderSelected ?? object.sliderSelected,
       sliderUnselected: sliderUnselected ?? object.sliderUnselected,
+      main: main ?? object.main,
     );
   }
 
@@ -119,6 +121,11 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.sliderUnselected,
         t,
       )!,
+      main: Color.lerp(
+        value.main,
+        otherValue.main,
+        t,
+      )!,
     );
   }
 
@@ -143,7 +150,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
             identical(
                 value.minorElevatedButtonText, other.minorElevatedButtonText) &&
             identical(value.sliderSelected, other.sliderSelected) &&
-            identical(value.sliderUnselected, other.sliderUnselected));
+            identical(value.sliderUnselected, other.sliderUnselected) &&
+            identical(value.main, other.main));
   }
 
   @override
@@ -164,10 +172,12 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.minorElevatedButtonText,
       value.sliderSelected,
       value.sliderUnselected,
+      value.main,
     );
   }
 }
 
 extension AppColorsThemeBuildContext on BuildContext {
-  AppColorsTheme get colors => Theme.of(this).extension<AppColorsTheme>()!;
+  AppColorsTheme get colors =>
+      Theme.of(this).extension<AppColorsTheme>()!;
 }

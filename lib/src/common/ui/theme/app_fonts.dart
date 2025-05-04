@@ -18,4 +18,22 @@ class AppFonts {
     fontSize: 32,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle title = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    height: 1.2,
+  );
+
+  static const TextStyle subtitle = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    height: 1.2,
+  );
+
+  static const TextStyle smallText = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+    height: 1.2,
+  );
 }

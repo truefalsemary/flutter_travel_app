@@ -214,6 +214,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open route in Yandex Map'**
   String get yMapOpenButton;
+
+  /// No description provided for @km.
+  ///
+  /// In en, this message translates to:
+  /// **'km'**
+  String get km;
+
+  /// No description provided for @more.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get more;
+
+  /// No description provided for @less.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get less;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

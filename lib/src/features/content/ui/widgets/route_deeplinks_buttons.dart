@@ -17,6 +17,7 @@ class _RouteDeeplinksButtons extends StatelessWidget {
           url: yandexMapsUrl,
           imagePath: AppImages.yMaps,
         ),
+        SizedBox(width: 10,),
         _DeeplinkButton(
           context.strings.doubleGisOpenButton,
           url: doubleGisUrl,
@@ -40,8 +41,8 @@ class _DeeplinkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      label: AppText(label),
+    return AppElevatedButton.minor(
+      child: AppText(label),
       onPressed: () => url_launcher.launchUrl(Uri.parse(url)),
     );
   }

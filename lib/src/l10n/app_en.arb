@@ -18,5 +18,8 @@
   "clear": "Clear",
   "apply": "Apply",
   "doubleGisOpenButton": "Open route in 2Gis",
-  "yMapOpenButton": "Open route in Yandex Map"
+  "yMapOpenButton": "Open route in Yandex Map",
+  "km": "km",
+  "more": "Show more",
+  "less": "Show less"
 }
