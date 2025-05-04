@@ -74,4 +74,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get less => 'Скрыть';
+
+  @override
+  String get profileTabName => 'Профиль';
+
+  @override
+  String get searchTabName => 'Поиск';
+
+  @override
+  String get createRouteTabName => 'Создать';
+
+  @override
+  String get homeTabName => 'Главная';
 }

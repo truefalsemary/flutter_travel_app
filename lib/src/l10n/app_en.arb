@@ -21,5 +21,9 @@
   "yMapOpenButton": "Open route in Yandex Map",
   "km": "km",
   "more": "Show more",
-  "less": "Show less"
+  "less": "Show less",
+  "profileTabName": "Profile",
+  "searchTabName": "Search",
+  "createRouteTabName": "Create",
+  "homeTabName": "Home"
 }

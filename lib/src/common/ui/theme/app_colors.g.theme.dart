@@ -24,6 +24,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? sliderSelected,
     Color? sliderUnselected,
     Color? mainIconColor,
+    Color? selectedItemColor,
+    Color? unselectedItemColor,
   }) {
     final object = this as AppColorsTheme;
 
@@ -44,6 +46,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       sliderSelected: sliderSelected ?? object.sliderSelected,
       sliderUnselected: sliderUnselected ?? object.sliderUnselected,
       mainIconColor: mainIconColor ?? object.mainIconColor,
+      selectedItemColor: selectedItemColor ?? object.selectedItemColor,
+      unselectedItemColor: unselectedItemColor ?? object.unselectedItemColor,
     );
   }
 
@@ -126,6 +130,16 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.mainIconColor,
         t,
       )!,
+      selectedItemColor: Color.lerp(
+        value.selectedItemColor,
+        otherValue.selectedItemColor,
+        t,
+      )!,
+      unselectedItemColor: Color.lerp(
+        value.unselectedItemColor,
+        otherValue.unselectedItemColor,
+        t,
+      )!,
     );
   }
 
@@ -151,7 +165,9 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
                 value.minorElevatedButtonText, other.minorElevatedButtonText) &&
             identical(value.sliderSelected, other.sliderSelected) &&
             identical(value.sliderUnselected, other.sliderUnselected) &&
-            identical(value.mainIconColor, other.mainIconColor));
+            identical(value.mainIconColor, other.mainIconColor) &&
+            identical(value.selectedItemColor, other.selectedItemColor) &&
+            identical(value.unselectedItemColor, other.unselectedItemColor));
   }
 
   @override
@@ -173,6 +189,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.sliderSelected,
       value.sliderUnselected,
       value.mainIconColor,
+      value.selectedItemColor,
+      value.unselectedItemColor,
     );
   }
 }

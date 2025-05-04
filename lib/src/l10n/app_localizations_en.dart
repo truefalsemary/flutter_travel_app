@@ -74,4 +74,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get less => 'Show less';
+
+  @override
+  String get profileTabName => 'Profile';
+
+  @override
+  String get searchTabName => 'Search';
+
+  @override
+  String get createRouteTabName => 'Create';
+
+  @override
+  String get homeTabName => 'Home';
 }

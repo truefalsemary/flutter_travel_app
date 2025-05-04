@@ -19,6 +19,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
   final Color sliderSelected;
   final Color sliderUnselected;
   final Color mainIconColor;
+  final Color selectedItemColor;
+  final Color unselectedItemColor;
 
   const AppColorsTheme({
     required this.mainBg,
@@ -34,6 +36,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
     required this.sliderSelected,
     required this.sliderUnselected,
     required this.mainIconColor,
+    required this.selectedItemColor,
+    required this.unselectedItemColor,
   });
 
   factory AppColorsTheme.light() => const AppColorsTheme(
@@ -50,6 +54,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         sliderSelected: AppColors.gold,
         sliderUnselected: AppColors.veryLightGrey,
         mainIconColor: AppColors.gold,
+        selectedItemColor: AppColors.darkGrey,
+        unselectedItemColor: AppColors.lightGrey,
       );
 
   factory AppColorsTheme.dark() => const AppColorsTheme(
@@ -66,6 +72,8 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         sliderSelected: AppColors.gold,
         sliderUnselected: AppColors.veryLightGrey,
         mainIconColor: AppColors.gold,
+        selectedItemColor: AppColors.darkGrey,
+        unselectedItemColor: AppColors.lightGrey,
       );
 }
 
@@ -81,6 +89,8 @@ class AppColors {
   static const trueGrey = Color(0xFF808080);
   static const wetAsphaltGrey = Color(0xFF505050);
   static const silverGrey = Color(0xFFc0c0c0);
+
+  static const darkGrey = Color(0xFF33492A);
 
   AppColors._();
 }
