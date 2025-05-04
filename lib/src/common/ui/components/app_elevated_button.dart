@@ -5,16 +5,19 @@ class AppElevatedButton extends StatelessWidget {
   final Widget child;
   final VoidCallback onPressed;
   final AppElevatedButtonType _type;
+  final EdgeInsets? padding;
 
   const AppElevatedButton.main({
     required this.child,
     required this.onPressed,
+    this.padding,
     super.key,
   }) : _type = AppElevatedButtonType.main;
 
   const AppElevatedButton.minor({
     required this.child,
     required this.onPressed,
+    this.padding,
     super.key,
   }) : _type = AppElevatedButtonType.minor;
 
@@ -35,26 +38,26 @@ class AppElevatedButton extends StatelessWidget {
     required AppColorsTheme theme,
   }) =>
       ButtonStyle(
-          splashFactory: NoSplash.splashFactory,
-          backgroundColor:
-              WidgetStateProperty.resolveWith((states) => switch (type) {
-                    AppElevatedButtonType.main => theme.mainElevatedButtonBg,
-                    AppElevatedButtonType.minor => theme.minorElevatedButtonBg,
-                  }),
-          foregroundColor: WidgetStateProperty.resolveWith(
-            (states) => switch (type) {
-              AppElevatedButtonType.main => theme.mainElevatedButtonText,
-              AppElevatedButtonType.minor => theme.minorElevatedButtonText,
-            },
+        splashFactory: NoSplash.splashFactory,
+        backgroundColor:
+            WidgetStateProperty.resolveWith((states) => switch (type) {
+                  AppElevatedButtonType.main => theme.mainElevatedButtonBg,
+                  AppElevatedButtonType.minor => theme.minorElevatedButtonBg,
+                }),
+        foregroundColor: WidgetStateProperty.resolveWith(
+          (states) => switch (type) {
+            AppElevatedButtonType.main => theme.mainElevatedButtonText,
+            AppElevatedButtonType.minor => theme.minorElevatedButtonText,
+          },
+        ),
+        elevation: WidgetStateProperty.all(0),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          elevation: WidgetStateProperty.all(0),
-          shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          padding:
-              WidgetStateProperty.all(EdgeInsets.symmetric(horizontal: 10)));
+        ),
+        padding: WidgetStateProperty.all(padding),
+      );
 }
 
 enum AppElevatedButtonType {

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package content;
 
+import "google/protobuf/empty.proto";
+
 option go_package = "pb/content";
 
 service ContentService {
@@ -9,6 +11,7 @@ service ContentService {
   rpc CreatePlace   (CreatePlaceRequest)        returns (CreatePlaceResponse) {}
   rpc UploadImages  (stream UploadImageRequest) returns (UploadImageResponse) {}
   rpc CreateRoute   (CreateRouteRequest)        returns (CreateRouteResponse) {}
+  rpc GetRoutesFilterOptions (google.protobuf.Empty) returns (GetRoutesFilterOptionsResponse) {}
 }
 
 message GetRoutesRequest {
@@ -99,4 +102,9 @@ message CreateRouteRequest {
 
 message CreateRouteResponse {
   string route_id = 1; // UUID
+}
+
+message GetRoutesFilterOptionsResponse {
+  bool empty = 1;
+  DistanceFilter distance_bounds = 2;
 }

@@ -1,11 +1,15 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class MockRoutesContentService extends ContentServiceBase {
   final List<Route> _mockRoutes = [];
+  final DistanceFilter _mockDistanceFilters = DistanceFilter()
+    ..minKm = 0
+    ..maxKm = 100;
+
   late final _logger = NamedLoggerFactory().getLogger(
     feature: LoggerFeature.content,
     layer: LoggerLayers.data,
@@ -216,5 +220,16 @@ class MockRoutesContentService extends ContentServiceBase {
     Stream<UploadImageRequest> request,
   ) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<GetRoutesFilterOptionsResponse> getRoutesFilterOptions(
+    ServiceCall call,
+    // ignore: type_annotate_public_apis
+    request,
+  ) async {
+    await Future.delayed(responseDelay);
+    return GetRoutesFilterOptionsResponse()
+      ..distanceBounds = _mockDistanceFilters;
   }
 }

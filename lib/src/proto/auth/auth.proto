@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "pb/auth";
+
+service AuthService {
+  rpc RegisterStepOne (RegisterStepOneRequest) returns (RegisterStepOneResponse);
+  rpc ResendVerification (ResendVerificationRequest) returns (ResendVerificationResponse);
+  rpc VerifyRegistration (VerifyRegistrationRequest) returns (VerifyRegistrationResponse);
+
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc ValidateAccessToken (ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse);
+}
+
+message RegisterStepOneRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterStepOneResponse {
+  string message = 1;
+}
+
+message VerifyRegistrationRequest {
+  string email = 1;
+  string verification_code = 2;
+  string fingerprint = 3;
+}
+
+message VerifyRegistrationResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  string fingerprint = 3;
+}
+
+message LoginResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+  string fingerprint = 2;
+}
+
+message RefreshTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message ResendVerificationRequest {
+  string email = 1;
+}
+
+message ResendVerificationResponse {
+  string message = 1;
+}
+
+// `authorization: Bearer <token>`.
+message ValidateAccessTokenRequest {}
+
+message ValidateAccessTokenResponse {
+  string message = 1;
+}

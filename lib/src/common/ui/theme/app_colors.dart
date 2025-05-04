@@ -18,7 +18,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
   final Color minorElevatedButtonText;
   final Color sliderSelected;
   final Color sliderUnselected;
-  final Color main;
+  final Color mainIconColor;
 
   const AppColorsTheme({
     required this.mainBg,
@@ -33,7 +33,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
     required this.minorElevatedButtonText,
     required this.sliderSelected,
     required this.sliderUnselected,
-    required this.main,
+    required this.mainIconColor,
   });
 
   factory AppColorsTheme.light() => const AppColorsTheme(
@@ -49,7 +49,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         minorElevatedButtonText: AppColors.darkerGrey,
         sliderSelected: AppColors.gold,
         sliderUnselected: AppColors.veryLightGrey,
-        main: AppColors.gold,
+        mainIconColor: AppColors.gold,
       );
 
   factory AppColorsTheme.dark() => const AppColorsTheme(
@@ -65,7 +65,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         minorElevatedButtonText: AppColors.lightGrey,
         sliderSelected: AppColors.gold,
         sliderUnselected: AppColors.veryLightGrey,
-        main: AppColors.gold,
+        mainIconColor: AppColors.gold,
       );
 }
 
@@ -83,4 +83,8 @@ class AppColors {
   static const silverGrey = Color(0xFFc0c0c0);
 
   AppColors._();
+}
+
+extension AppColorsThemeBuildContextExtension on BuildContext {
+  AppColorsTheme get colors => Theme.of(this).extension<AppColorsTheme>()!;
 }

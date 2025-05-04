@@ -10,14 +10,17 @@ class _RouteDeeplinksButtons extends StatelessWidget {
     final yandexMapsUrl = route.yandexMapsUrl;
     final doubleGisUrl = route.doubleGisUrl;
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _DeeplinkButton(
           context.strings.yMapOpenButton,
           url: yandexMapsUrl,
           imagePath: AppImages.yMaps,
         ),
-        SizedBox(width: 10,),
+        const SizedBox(
+          width: 10,
+        ),
         _DeeplinkButton(
           context.strings.doubleGisOpenButton,
           url: doubleGisUrl,

@@ -19,6 +19,12 @@ class AppFonts {
     fontWeight: FontWeight.bold,
   );
 
+  static const TextStyle largeTitle = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 18,
+    height: 1.2,
+  );
+
   static const TextStyle title = TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 16,

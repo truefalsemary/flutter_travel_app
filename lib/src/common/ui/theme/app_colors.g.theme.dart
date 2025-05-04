@@ -23,7 +23,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? minorElevatedButtonText,
     Color? sliderSelected,
     Color? sliderUnselected,
-    Color? main,
+    Color? mainIconColor,
   }) {
     final object = this as AppColorsTheme;
 
@@ -43,7 +43,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
           minorElevatedButtonText ?? object.minorElevatedButtonText,
       sliderSelected: sliderSelected ?? object.sliderSelected,
       sliderUnselected: sliderUnselected ?? object.sliderUnselected,
-      main: main ?? object.main,
+      mainIconColor: mainIconColor ?? object.mainIconColor,
     );
   }
 
@@ -121,9 +121,9 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.sliderUnselected,
         t,
       )!,
-      main: Color.lerp(
-        value.main,
-        otherValue.main,
+      mainIconColor: Color.lerp(
+        value.mainIconColor,
+        otherValue.mainIconColor,
         t,
       )!,
     );
@@ -151,7 +151,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
                 value.minorElevatedButtonText, other.minorElevatedButtonText) &&
             identical(value.sliderSelected, other.sliderSelected) &&
             identical(value.sliderUnselected, other.sliderUnselected) &&
-            identical(value.main, other.main));
+            identical(value.mainIconColor, other.mainIconColor));
   }
 
   @override
@@ -172,12 +172,12 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.minorElevatedButtonText,
       value.sliderSelected,
       value.sliderUnselected,
-      value.main,
+      value.mainIconColor,
     );
   }
 }
 
 extension AppColorsThemeBuildContext on BuildContext {
-  AppColorsTheme get colors =>
+  AppColorsTheme get appColorsTheme =>
       Theme.of(this).extension<AppColorsTheme>()!;
 }
