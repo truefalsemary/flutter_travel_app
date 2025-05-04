@@ -2,13 +2,15 @@ import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/data/content_api.dart';
 import 'package:flutter_travel_app/src/features/content/data/content_api_constants.dart';
-import 'package:flutter_travel_app/src/features/content/domain/bloc/routes_bloc.dart';
+import 'package:flutter_travel_app/src/features/content/domain/bloc/filter_routes/filter_routes_bloc.dart';
+import 'package:flutter_travel_app/src/features/content/domain/bloc/routes/routes_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/content_models_converter.dart';
 import 'package:flutter_travel_app/src/features/content/domain/content_repository.dart';
 import 'package:yx_scope/yx_scope.dart';
 
 abstract class ContentScope implements Scope {
   RoutesBloc get routesBloc;
+  FilterRoutesBloc get filterRoutesBloc;
 }
 
 class ContentScopeContainer extends ChildScopeContainer<AppScope>
@@ -17,6 +19,9 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
 
   @override
   RoutesBloc get routesBloc => _routesBlocDep.get;
+
+  @override
+  FilterRoutesBloc get filterRoutesBloc => _filterRoutesBlocDep.get;
 
   late final _loggerFactory = dep(() => const NamedLoggerFactory());
 
@@ -53,6 +58,18 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
       contentRepository: _contentRepository.get,
       logger: _loggerFactory.get.getLogger(
         name: 'RoutesBloc',
+        feature: LoggerFeature.content,
+        layer: LoggerLayers.domain,
+        type: LoggerTypes.bloc,
+      ),
+    ),
+  );
+
+  late final _filterRoutesBlocDep = dep(
+    () => FilterRoutesBloc(
+      contentRepository: _contentRepository.get,
+      logger: _loggerFactory.get.getLogger(
+        name: 'FilterRoutesBloc',
         feature: LoggerFeature.content,
         layer: LoggerLayers.domain,
         type: LoggerTypes.bloc,

@@ -15,6 +15,7 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import '../google/protobuf/empty.pb.dart' as $2;
 import 'content.pb.dart' as $1;
 
 export 'content.pb.dart';
@@ -45,6 +46,12 @@ class ContentServiceClient extends $grpc.Client {
           ($1.CreateRouteRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.CreateRouteResponse.fromBuffer(value));
+  static final _$getRoutesFilterOptions =
+      $grpc.ClientMethod<$2.Empty, $1.GetRoutesFilterOptionsResponse>(
+          '/content.ContentService/GetRoutesFilterOptions',
+          ($2.Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.GetRoutesFilterOptionsResponse.fromBuffer(value));
 
   ContentServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -74,6 +81,12 @@ class ContentServiceClient extends $grpc.Client {
       $1.CreateRouteRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createRoute, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetRoutesFilterOptionsResponse>
+      getRoutesFilterOptions($2.Empty request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getRoutesFilterOptions, request,
+        options: options);
   }
 }
 
@@ -116,6 +129,13 @@ abstract class ContentServiceBase extends $grpc.Service {
             ($core.List<$core.int> value) =>
                 $1.CreateRouteRequest.fromBuffer(value),
             ($1.CreateRouteResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.Empty, $1.GetRoutesFilterOptionsResponse>(
+        'GetRoutesFilterOptions',
+        getRoutesFilterOptions_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.Empty.fromBuffer(value),
+        ($1.GetRoutesFilterOptionsResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.GetRoutesResponse> getRoutes_Pre($grpc.ServiceCall $call,
@@ -133,6 +153,11 @@ abstract class ContentServiceBase extends $grpc.Service {
     return createRoute($call, await $request);
   }
 
+  $async.Future<$1.GetRoutesFilterOptionsResponse> getRoutesFilterOptions_Pre(
+      $grpc.ServiceCall $call, $async.Future<$2.Empty> $request) async {
+    return getRoutesFilterOptions($call, await $request);
+  }
+
   $async.Future<$1.GetRoutesResponse> getRoutes(
       $grpc.ServiceCall call, $1.GetRoutesRequest request);
   $async.Future<$1.CreatePlaceResponse> createPlace(
@@ -141,4 +166,6 @@ abstract class ContentServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $async.Stream<$1.UploadImageRequest> request);
   $async.Future<$1.CreateRouteResponse> createRoute(
       $grpc.ServiceCall call, $1.CreateRouteRequest request);
+  $async.Future<$1.GetRoutesFilterOptionsResponse> getRoutesFilterOptions(
+      $grpc.ServiceCall call, $2.Empty request);
 }

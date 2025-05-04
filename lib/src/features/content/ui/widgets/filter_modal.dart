@@ -1,32 +1,65 @@
 part of '../content_page.dart';
 
-typedef OnFilterRoutes = Function({
-  RouteParams? routeParams,
+typedef FilterModalRoutesParams = ({
+  double minDistance,
+  double maxDistance,
+  proto.DifficultyLevel minDifficulty,
+  proto.DifficultyLevel maxDifficulty,
 });
 
-class FilterModal extends StatefulWidget {
-  final FilterRoutesParams routeParams;
-  final OnFilterRoutes onFilterRoutes;
+typedef OnDistanceFilterChanged = void Function(
+  ({
+    double minDistance,
+    double maxDistance,
+  }),
+);
+typedef OnDifficultyFilterChanged = void Function(
+  ({
+    proto.DifficultyLevel minDifficulty,
+    proto.DifficultyLevel maxDifficulty,
+  }),
+);
 
-  const FilterModal({
-    required this.routeParams,
-    required this.onFilterRoutes,
-    super.key,
+class _FilterModal extends StatelessWidget {
+  final FilterRoutesLoadSuccess filterRoutesState;
+  final FilterRoutesBloc filterRoutesBloc;
+
+  const _FilterModal({
+    required this.filterRoutesState,
+    required this.filterRoutesBloc,
   });
 
   @override
-  State<FilterModal> createState() => _FilterModalState();
+  Widget build(BuildContext context) => _FilterModelContent(
+        filterRoutesState: filterRoutesState,
+        filterRoutesBloc: filterRoutesBloc,
+        userFilterRoutesParams: filterRoutesState.userFilterRoutesParams,
+      );
 }
 
-class _FilterModalState extends State<FilterModal> {
-  late FilterRoutesParams _currentParams;
-  late final FilterRoutesParams _defaultParams;
+class _FilterModelContent extends StatefulWidget {
+  final FilterRoutesLoadSuccess filterRoutesState;
+  final FilterRoutesBloc filterRoutesBloc;
+  final UserFilterRoutesParams? userFilterRoutesParams;
+
+  const _FilterModelContent({
+    required this.filterRoutesState,
+    required this.filterRoutesBloc,
+    required this.userFilterRoutesParams,
+  });
+
+  @override
+  State<_FilterModelContent> createState() => __FilterModelContentState();
+}
+
+class __FilterModelContentState extends State<_FilterModelContent> {
+  late UserFilterRoutesParams _userFilterRoutesParams;
 
   @override
   void initState() {
     super.initState();
-    _currentParams = widget.routeParams;
-    _defaultParams = widget.routeParams;
+    _userFilterRoutesParams =
+        widget.userFilterRoutesParams ?? UserFilterRoutesParams();
   }
 
   @override
@@ -45,25 +78,47 @@ class _FilterModalState extends State<FilterModal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _DistanceFilter(
-                currentParams: _currentParams,
-                onChanged: (params) => setState(() => _currentParams = params),
+                availableMaxDistance: widget
+                    .filterRoutesState.availableFilterRoutesParams.maxDistance,
+                availableMinDistance: widget
+                    .filterRoutesState.availableFilterRoutesParams.minDistance,
+                userMaxDistance: _userFilterRoutesParams.maxDistance,
+                userMinDistance: _userFilterRoutesParams.minDistance,
+                onChanged: (params) => setState(() {
+                  _userFilterRoutesParams = _userFilterRoutesParams.copyWith(
+                    minDistance: params.minDistance,
+                    maxDistance: params.maxDistance,
+                  );
+                }),
               ),
               const SizedBox(height: 24),
               _DifficultyFilter(
-                currentParams: _currentParams,
-                onChanged: (params) => setState(() => _currentParams = params),
+                availableMinDifficulty: widget.filterRoutesState
+                    .availableFilterRoutesParams.minDifficulty,
+                availableMaxDifficulty: widget.filterRoutesState
+                    .availableFilterRoutesParams.maxDifficulty,
+                userMinDifficulty: _userFilterRoutesParams.minDifficulty,
+                userMaxDifficulty: _userFilterRoutesParams.maxDifficulty,
+                onChanged: (params) => setState(
+                  () {
+                    _userFilterRoutesParams = _userFilterRoutesParams.copyWith(
+                      minDifficulty: params.minDifficulty,
+                      maxDifficulty: params.maxDifficulty,
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 24),
               _FilterActionButtons(
-                currentParams: _currentParams,
-                defaultParams: _defaultParams,
-                onClear: () => setState(() => _currentParams = _defaultParams),
+                onClear: () => setState(
+                  () => _userFilterRoutesParams = UserFilterRoutesParams(),
+                ),
                 onApply: () {
-                  if (_currentParams != _defaultParams) {
-                    widget.onFilterRoutes(
-                      routeParams: _toRouteParams(_currentParams),
-                    );
-                  }
+                  widget.filterRoutesBloc.add(
+                    UserFilterRoutesChanged(
+                      userFilterRoutesParams: _userFilterRoutesParams,
+                    ),
+                  );
                   Navigator.pop(context);
                 },
               ),
@@ -73,13 +128,6 @@ class _FilterModalState extends State<FilterModal> {
       ),
     );
   }
-
-  RouteParams _toRouteParams(FilterRoutesParams params) => RouteParams(
-        minDistance: params.minDistance,
-        maxDistance: params.maxDistance,
-        minDifficulty: params.minDifficulty,
-        maxDifficulty: params.maxDifficulty,
-      );
 }
 
 class _FilterSection extends StatelessWidget {
@@ -130,39 +178,46 @@ class _FilterSection extends StatelessWidget {
 }
 
 class _DistanceFilter extends StatelessWidget {
-  final FilterRoutesParams currentParams;
-  final void Function(FilterRoutesParams) onChanged;
+  final double availableMinDistance;
+  final double availableMaxDistance;
+  final double? userMinDistance;
+  final double? userMaxDistance;
+  final OnDistanceFilterChanged onChanged;
 
   const _DistanceFilter({
-    required this.currentParams,
+    required this.availableMinDistance,
+    required this.availableMaxDistance,
     required this.onChanged,
+    this.userMinDistance,
+    this.userMaxDistance,
   });
 
   @override
   Widget build(BuildContext context) {
+    final minDistance = userMinDistance ?? availableMinDistance;
+    final maxDistance = userMaxDistance ?? availableMaxDistance;
+
     return _FilterSection(
       title: context.strings.distanceKm,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _RangeValuesDisplay(
-            minValue: currentParams.minDistance.toStringAsFixed(1),
-            maxValue: currentParams.maxDistance.toStringAsFixed(1),
+            minValue: minDistance.toStringAsFixed(1),
+            maxValue: maxDistance.toStringAsFixed(1),
           ),
           const SizedBox(height: 12),
           RangeSlider(
             values: RangeValues(
-              currentParams.minDistance,
-              currentParams.maxDistance,
+              minDistance,
+              maxDistance,
             ),
-            max: 50,
-            divisions: 50,
+            max: availableMaxDistance,
+            divisions: (availableMaxDistance - availableMinDistance).toInt(),
             onChanged: (values) => onChanged(
               (
                 minDistance: values.start,
                 maxDistance: values.end,
-                minDifficulty: currentParams.minDifficulty,
-                maxDifficulty: currentParams.maxDifficulty,
               ),
             ),
           ),
@@ -173,33 +228,45 @@ class _DistanceFilter extends StatelessWidget {
 }
 
 class _DifficultyFilter extends StatelessWidget {
-  final FilterRoutesParams currentParams;
-  final void Function(FilterRoutesParams) onChanged;
+  final proto.DifficultyLevel availableMinDifficulty;
+  final proto.DifficultyLevel availableMaxDifficulty;
+  final proto.DifficultyLevel? userMinDifficulty;
+  final proto.DifficultyLevel? userMaxDifficulty;
+
+  final OnDifficultyFilterChanged onChanged;
 
   const _DifficultyFilter({
-    required this.currentParams,
+    required this.availableMinDifficulty,
+    required this.availableMaxDifficulty,
     required this.onChanged,
+    this.userMinDifficulty,
+    this.userMaxDifficulty,
   });
 
   @override
   Widget build(BuildContext context) {
+    final minDifficulty = userMinDifficulty ?? availableMinDifficulty;
+    final maxDifficulty = userMaxDifficulty ?? availableMaxDifficulty;
+
     return _FilterSection(
       title: context.strings.difficulty,
-      value: _getDifficultyRangeText(context),
+      value: _getDifficultyRangeText(
+        context,
+        minDifficulty: minDifficulty,
+        maxDifficulty: maxDifficulty,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           RangeSlider(
             values: RangeValues(
-              _difficultyToIndex(currentParams.minDifficulty).toDouble(),
-              _difficultyToIndex(currentParams.maxDifficulty).toDouble(),
+              _difficultyToIndex(minDifficulty).toDouble(),
+              _difficultyToIndex(maxDifficulty).toDouble(),
             ),
             max: 2,
             divisions: 2,
             onChanged: (values) => onChanged(
               (
-                minDistance: currentParams.minDistance,
-                maxDistance: currentParams.maxDistance,
                 minDifficulty: _indexToDifficulty(values.start.round()),
                 maxDifficulty: _indexToDifficulty(values.end.round()),
               ),
@@ -225,16 +292,20 @@ class _DifficultyFilter extends StatelessWidget {
         _ => 0,
       };
 
-  String _getDifficultyRangeText(BuildContext context) {
-    final minDifficulty = _getDifficultyText(
+  String _getDifficultyRangeText(
+    BuildContext context, {
+    required proto.DifficultyLevel minDifficulty,
+    required proto.DifficultyLevel maxDifficulty,
+  }) {
+    final minDifficultyText = _getDifficultyText(
       context,
-      currentParams.minDifficulty,
+      minDifficulty,
     ).toLowerCase();
-    final maxDifficulty = _getDifficultyText(
+    final maxDifficultyText = _getDifficultyText(
       context,
-      currentParams.maxDifficulty,
+      maxDifficulty,
     ).toLowerCase();
-    return '$minDifficulty - $maxDifficulty';
+    return '$minDifficultyText - $maxDifficultyText';
   }
 
   String _getDifficultyText(
@@ -250,14 +321,10 @@ class _DifficultyFilter extends StatelessWidget {
 }
 
 class _FilterActionButtons extends StatelessWidget {
-  final FilterRoutesParams currentParams;
-  final FilterRoutesParams defaultParams;
   final VoidCallback onClear;
   final VoidCallback onApply;
 
   const _FilterActionButtons({
-    required this.currentParams,
-    required this.defaultParams,
     required this.onClear,
     required this.onApply,
   });

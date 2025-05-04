@@ -1313,6 +1313,91 @@ class CreateRouteResponse extends $pb.GeneratedMessage {
   void clearRouteId() => $_clearField(1);
 }
 
+class GetRoutesFilterOptionsResponse extends $pb.GeneratedMessage {
+  factory GetRoutesFilterOptionsResponse({
+    $core.bool? empty,
+    DistanceFilter? distanceBounds,
+  }) {
+    final $result = create();
+    if (empty != null) {
+      $result.empty = empty;
+    }
+    if (distanceBounds != null) {
+      $result.distanceBounds = distanceBounds;
+    }
+    return $result;
+  }
+  GetRoutesFilterOptionsResponse._() : super();
+  factory GetRoutesFilterOptionsResponse.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory GetRoutesFilterOptionsResponse.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'GetRoutesFilterOptionsResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'content'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'empty')
+    ..aOM<DistanceFilter>(2, _omitFieldNames ? '' : 'distanceBounds',
+        subBuilder: DistanceFilter.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  GetRoutesFilterOptionsResponse clone() =>
+      GetRoutesFilterOptionsResponse()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  GetRoutesFilterOptionsResponse copyWith(
+          void Function(GetRoutesFilterOptionsResponse) updates) =>
+      super.copyWith(
+              (message) => updates(message as GetRoutesFilterOptionsResponse))
+          as GetRoutesFilterOptionsResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static GetRoutesFilterOptionsResponse create() =>
+      GetRoutesFilterOptionsResponse._();
+  GetRoutesFilterOptionsResponse createEmptyInstance() => create();
+  static $pb.PbList<GetRoutesFilterOptionsResponse> createRepeated() =>
+      $pb.PbList<GetRoutesFilterOptionsResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetRoutesFilterOptionsResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<GetRoutesFilterOptionsResponse>(create);
+  static GetRoutesFilterOptionsResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get empty => $_getBF(0);
+  @$pb.TagNumber(1)
+  set empty($core.bool v) {
+    $_setBool(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasEmpty() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmpty() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  DistanceFilter get distanceBounds => $_getN(1);
+  @$pb.TagNumber(2)
+  set distanceBounds(DistanceFilter v) {
+    $_setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasDistanceBounds() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDistanceBounds() => $_clearField(2);
+  @$pb.TagNumber(2)
+  DistanceFilter ensureDistanceBounds() => $_ensure(1);
+}
+
 const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
 const _omitMessageNames =
     $core.bool.fromEnvironment('protobuf.omit_message_names');

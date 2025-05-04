@@ -371,3 +371,26 @@ const CreateRouteResponse$json = {
 final $typed_data.Uint8List createRouteResponseDescriptor =
     $convert.base64Decode(
         'ChNDcmVhdGVSb3V0ZVJlc3BvbnNlEhkKCHJvdXRlX2lkGAEgASgJUgdyb3V0ZUlk');
+
+@$core.Deprecated('Use getRoutesFilterOptionsResponseDescriptor instead')
+const GetRoutesFilterOptionsResponse$json = {
+  '1': 'GetRoutesFilterOptionsResponse',
+  '2': [
+    {'1': 'empty', '3': 1, '4': 1, '5': 8, '10': 'empty'},
+    {
+      '1': 'distance_bounds',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.content.DistanceFilter',
+      '10': 'distanceBounds'
+    },
+  ],
+};
+
+/// Descriptor for `GetRoutesFilterOptionsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getRoutesFilterOptionsResponseDescriptor =
+    $convert.base64Decode(
+        'Ch5HZXRSb3V0ZXNGaWx0ZXJPcHRpb25zUmVzcG9uc2USFAoFZW1wdHkYASABKAhSBWVtcHR5Ek'
+        'AKD2Rpc3RhbmNlX2JvdW5kcxgCIAEoCzIXLmNvbnRlbnQuRGlzdGFuY2VGaWx0ZXJSDmRpc3Rh'
+        'bmNlQm91bmRz');
