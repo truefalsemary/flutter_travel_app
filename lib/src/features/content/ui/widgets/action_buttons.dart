@@ -1,7 +1,7 @@
 part of '../content_page.dart';
 
 // Блок с кнопкой лайков, комментов, добвления в избранное
-// TODO(eln02): доделать
+// TODO(eln02): доделать https://tracker.yandex.ru/MOBILE-29
 /*
 class _ActionButtons extends StatelessWidget {
   const _ActionButtons();

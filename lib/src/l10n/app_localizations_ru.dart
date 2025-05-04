@@ -65,4 +65,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get yMapOpenButton => 'Открыть в Яндекс.Картах';
+
+  @override
+  String get km => 'км';
+
+  @override
+  String get more => 'Еще';
+
+  @override
+  String get less => 'Скрыть';
 }

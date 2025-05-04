@@ -42,7 +42,7 @@ class _DeeplinkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppElevatedButton.minor(
-      child: Text(label),
+      child: AppText(label),
       onPressed: () => url_launcher.launchUrl(Uri.parse(url)),
     );
   }

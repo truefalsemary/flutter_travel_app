@@ -18,5 +18,8 @@
   "clear": "Очистить",
   "apply": "Применить",
   "doubleGisOpenButton": "Открыть в 2Gis",
-  "yMapOpenButton": "Открыть в Яндекс.Картах"
+  "yMapOpenButton": "Открыть в Яндекс.Картах",
+  "km": "км",
+  "more": "Еще",
+  "less": "Скрыть"
 }

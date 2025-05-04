@@ -104,7 +104,7 @@ class _CardBodyTitleWidget extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             AppText(
-              '${distanceKm?.toStringAsFixed(1) ?? 0} км',
+              '${distanceKm?.toStringAsFixed(1) ?? 0} ${context.strings.km}',
               color: context.colors.cardText,
               style: AppFonts.subtitle,
             ),
@@ -166,7 +166,8 @@ class _DescriptionTextState extends State<_DescriptionText> {
             _trimmedText = _calculateTrimmedText(
                 widget.text,
                 constraints.maxWidth,
-                AppFonts.smallText.copyWith(color: context.colors.minorText));
+                AppFonts.smallText.copyWith(color: context.colors.minorText),
+                context.strings.more);
             return RichText(
               text: TextSpan(
                 style: AppFonts.smallText
@@ -174,7 +175,7 @@ class _DescriptionTextState extends State<_DescriptionText> {
                 children: [
                   TextSpan(text: _trimmedText),
                   TextSpan(
-                    text: ' Еще',
+                    text: ' ${context.strings.more}',
                     style: AppFonts.smallText
                         .copyWith(color: context.colors.mainText),
                     recognizer: TapGestureRecognizer()
@@ -191,7 +192,7 @@ class _DescriptionTextState extends State<_DescriptionText> {
             children: [
               TextSpan(text: widget.text),
               TextSpan(
-                text: ' Свернуть',
+                text: ' ${context.strings.less}',
                 style:
                     AppFonts.smallText.copyWith(color: context.colors.mainText),
                 recognizer: TapGestureRecognizer()
@@ -204,11 +205,11 @@ class _DescriptionTextState extends State<_DescriptionText> {
     );
   }
 
-  String _calculateTrimmedText(String text, double maxWidth, TextStyle style) {
-    const moreText = ' Еще';
-
+  String _calculateTrimmedText(
+      String text, double maxWidth, TextStyle style, String moreText) {
     var min = 0;
     var max = text.length;
+    const linesAmount = 3;
 
     while (min < max) {
       final mid = (min + max) ~/ 2;
@@ -216,7 +217,7 @@ class _DescriptionTextState extends State<_DescriptionText> {
           TextSpan(text: text.substring(0, mid) + moreText, style: style);
       final tp = TextPainter(
         text: span,
-        maxLines: 3,
+        maxLines: linesAmount,
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: maxWidth);
 
@@ -227,11 +228,9 @@ class _DescriptionTextState extends State<_DescriptionText> {
       }
     }
 
-    return '${text.substring(0, max > 3 ? max - 3 : max).trimRight()}...';
+    return '${text.substring(0, max > linesAmount ? max - linesAmount : max).trimRight()}...';
   }
 }
-
-
 
 class _PostHeader extends StatelessWidget {
   final String username;
