@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
