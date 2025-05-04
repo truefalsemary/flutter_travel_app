@@ -24,7 +24,7 @@ class _RouteCard extends StatelessWidget {
               createdAt: DateTime.now().subtract(const Duration(minutes: 10)),
               avatarUrl: tempAvatarUrl,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             _ImageModelsCarouselWidget(
@@ -61,12 +61,12 @@ class _CardBodyWidget extends StatelessWidget {
             _DescriptionText(
               text: route.description,
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             _RouteDeeplinksButtons(
               route: route,
-            )
+            ),
           ],
         ),
       );
@@ -128,7 +128,7 @@ class _CardBodyTitleWidget extends StatelessWidget {
         proto.DifficultyLevel.EASY => context.strings.easyDifficulty,
         proto.DifficultyLevel.MEDIUM => context.strings.mediumDifficulty,
         proto.DifficultyLevel.HARD => context.strings.hardDifficulty,
-        _ => context.strings.unknownDifficulty
+        _ => context.strings.unknownDifficulty,
       };
 }
 

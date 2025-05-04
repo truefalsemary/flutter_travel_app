@@ -1,32 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
-import 'package:flutter_travel_app/src/common/ui/components/app_range_slider_container.dart';
-import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
-import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
-import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
-import 'package:flutter_travel_app/src/features/content/domain/models/route_params.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbenum.dart';
-import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
-
-typedef FilterRoutesParams = ({
-  double minDistance,
-  double maxDistance,
-  DifficultyLevel minDifficulty,
-  DifficultyLevel maxDifficulty,
-});
+part of '../content_page.dart';
 
 typedef OnFilterRoutes = Function({
   RouteParams? routeParams,
 });
 
 class FilterModal extends StatefulWidget {
-  // TODO(truefalsemary): Лен, тут надо запросик к беку делать после фильтрацию
-  final OnFilterRoutes onFilterRoutes;
   final FilterRoutesParams routeParams;
+  final OnFilterRoutes onFilterRoutes;
 
   const FilterModal({
-    required this.onFilterRoutes,
     required this.routeParams,
+    required this.onFilterRoutes,
     super.key,
   });
 
@@ -60,11 +44,6 @@ class _FilterModalState extends State<FilterModal> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppText(
-                context.strings.filtersTitle,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 24),
               _DistanceFilter(
                 currentParams: _currentParams,
                 onChanged: (params) => setState(() => _currentParams = params),
@@ -75,7 +54,7 @@ class _FilterModalState extends State<FilterModal> {
                 onChanged: (params) => setState(() => _currentParams = params),
               ),
               const SizedBox(height: 24),
-              _ActionButtons(
+              _FilterActionButtons(
                 currentParams: _currentParams,
                 defaultParams: _defaultParams,
                 onClear: () => setState(() => _currentParams = _defaultParams),
@@ -105,23 +84,45 @@ class _FilterModalState extends State<FilterModal> {
 
 class _FilterSection extends StatelessWidget {
   final String title;
+  final String? value;
   final Widget child;
 
   const _FilterSection({
     required this.title,
     required this.child,
+    this.value,
   });
 
   @override
   Widget build(BuildContext context) {
+    final value = this.value;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppText(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
+        Row(
+          children: [
+            AppText(
+              title,
+              style: AppFonts.largeTitle,
+            ),
+            if (value != null)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 12,
+                  ),
+                  AppText(
+                    value,
+                    style: AppFonts.boldText,
+                  ),
+                ],
+              ),
+          ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         child,
       ],
     );
@@ -142,18 +143,20 @@ class _DistanceFilter extends StatelessWidget {
     return _FilterSection(
       title: context.strings.distanceKm,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _RangeValuesDisplay(
             minValue: currentParams.minDistance.toStringAsFixed(1),
             maxValue: currentParams.maxDistance.toStringAsFixed(1),
           ),
+          const SizedBox(height: 12),
           RangeSlider(
             values: RangeValues(
               currentParams.minDistance,
               currentParams.maxDistance,
             ),
-            max: 100,
-            divisions: 100,
+            max: 50,
+            divisions: 50,
             onChanged: (values) => onChanged(
               (
                 minDistance: values.start,
@@ -165,33 +168,6 @@ class _DistanceFilter extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _RangeValuesDisplay extends StatelessWidget {
-  final String minValue;
-  final String maxValue;
-
-  const _RangeValuesDisplay({
-    required this.minValue,
-    required this.maxValue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        AppRangeSliderContainer(
-          valuePrefix: context.strings.from,
-          value: minValue,
-        ),
-        const SizedBox(width: 8),
-        AppRangeSliderContainer(
-          valuePrefix: context.strings.to,
-          value: maxValue,
-        ),
-      ],
     );
   }
 }
@@ -209,21 +185,10 @@ class _DifficultyFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return _FilterSection(
       title: context.strings.difficulty,
+      value: _getDifficultyRangeText(context),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              AppText(
-                context.strings.difficulty,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(width: 8),
-              AppText(
-                _getDifficultyRangeText(context),
-                style: AppFonts.boldText,
-              ),
-            ],
-          ),
           RangeSlider(
             values: RangeValues(
               _difficultyToIndex(currentParams.minDifficulty).toDouble(),
@@ -245,17 +210,18 @@ class _DifficultyFilter extends StatelessWidget {
     );
   }
 
-  DifficultyLevel _indexToDifficulty(int index) => switch (index) {
-        0 => DifficultyLevel.EASY,
-        1 => DifficultyLevel.MEDIUM,
-        2 => DifficultyLevel.HARD,
-        _ => DifficultyLevel.EASY,
+  proto.DifficultyLevel _indexToDifficulty(int index) => switch (index) {
+        0 => proto.DifficultyLevel.EASY,
+        1 => proto.DifficultyLevel.MEDIUM,
+        2 => proto.DifficultyLevel.HARD,
+        _ => proto.DifficultyLevel.EASY,
       };
 
-  int _difficultyToIndex(DifficultyLevel difficulty) => switch (difficulty) {
-        DifficultyLevel.EASY => 0,
-        DifficultyLevel.MEDIUM => 1,
-        DifficultyLevel.HARD => 2,
+  int _difficultyToIndex(proto.DifficultyLevel difficulty) =>
+      switch (difficulty) {
+        proto.DifficultyLevel.EASY => 0,
+        proto.DifficultyLevel.MEDIUM => 1,
+        proto.DifficultyLevel.HARD => 2,
         _ => 0,
       };
 
@@ -271,22 +237,25 @@ class _DifficultyFilter extends StatelessWidget {
     return '$minDifficulty - $maxDifficulty';
   }
 
-  String _getDifficultyText(BuildContext context, DifficultyLevel difficulty) =>
+  String _getDifficultyText(
+    BuildContext context,
+    proto.DifficultyLevel difficulty,
+  ) =>
       switch (difficulty) {
-        DifficultyLevel.EASY => context.strings.easyDifficulty,
-        DifficultyLevel.MEDIUM => context.strings.mediumDifficulty,
-        DifficultyLevel.HARD => context.strings.hardDifficulty,
+        proto.DifficultyLevel.EASY => context.strings.easyDifficulty,
+        proto.DifficultyLevel.MEDIUM => context.strings.mediumDifficulty,
+        proto.DifficultyLevel.HARD => context.strings.hardDifficulty,
         _ => context.strings.unknownDifficulty,
       };
 }
 
-class _ActionButtons extends StatelessWidget {
+class _FilterActionButtons extends StatelessWidget {
   final FilterRoutesParams currentParams;
   final FilterRoutesParams defaultParams;
   final VoidCallback onClear;
   final VoidCallback onApply;
 
-  const _ActionButtons({
+  const _FilterActionButtons({
     required this.currentParams,
     required this.defaultParams,
     required this.onClear,
@@ -296,21 +265,54 @@ class _ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: AppElevatedButton.minor(
             onPressed: onClear,
-            child: Text(context.strings.clear),
+            child: AppText(
+              context.strings.clear,
+              color: context.colors.minorElevatedButtonText,
+            ),
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: AppElevatedButton.main(
             onPressed: onApply,
-            child: Text(
+            child: AppText(
               context.strings.apply,
+              color: context.colors.mainElevatedButtonText,
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class _RangeValuesDisplay extends StatelessWidget {
+  final String minValue;
+  final String maxValue;
+
+  const _RangeValuesDisplay({
+    required this.minValue,
+    required this.maxValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppRangeSliderContainer(
+          valuePrefix: context.strings.from,
+          value: minValue,
+        ),
+        const SizedBox(width: 8),
+        AppRangeSliderContainer(
+          valuePrefix: context.strings.to,
+          value: maxValue,
         ),
       ],
     );

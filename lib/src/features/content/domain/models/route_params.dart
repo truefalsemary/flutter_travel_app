@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_travel_app/src/features/content/domain/constants/filter_constants.dart';
-import 'package:flutter_travel_app/src/features/content/ui/filter_modal.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
 
 class RouteParams with EquatableMixin {
@@ -35,3 +34,10 @@ class RouteParams with EquatableMixin {
             maxDifficulty ?? RouteParamsFilterConstants.defaultMaxDifficulty,
       );
 }
+
+typedef FilterRoutesParams = ({
+  double minDistance,
+  double maxDistance,
+  DifficultyLevel minDifficulty,
+  DifficultyLevel maxDifficulty,
+});

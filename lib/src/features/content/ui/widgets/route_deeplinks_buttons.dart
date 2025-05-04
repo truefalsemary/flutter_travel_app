@@ -18,7 +18,7 @@ class _RouteDeeplinksButtons extends StatelessWidget {
           url: yandexMapsUrl,
           imagePath: AppImages.yMaps,
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         _DeeplinkButton(
