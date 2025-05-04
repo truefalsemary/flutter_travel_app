@@ -28,6 +28,7 @@ import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 part 'widgets/image_model_carousel.dart';
 part 'widgets/route_card.dart';
 part 'widgets/route_deeplinks_buttons.dart';
+part 'widgets/action_buttons.dart';
 
 class ContentPage extends StatefulWidget {
   final AppScope appScope;
