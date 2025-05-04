@@ -227,8 +227,9 @@ class _DescriptionTextState extends State<_DescriptionText> {
         min = mid + 1;
       }
     }
+    final textLength = max > linesAmount ? max - linesAmount : max;
 
-    return '${text.substring(0, max > linesAmount ? max - linesAmount : max).trimRight()}...';
+    return '${text.substring(0, textLength).trimRight()}...';
   }
 }
 
