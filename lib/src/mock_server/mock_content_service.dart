@@ -1,7 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class MockRoutesContentService extends ContentServiceBase {

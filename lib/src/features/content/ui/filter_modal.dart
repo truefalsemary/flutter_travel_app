@@ -5,7 +5,7 @@ import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/route_params.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbenum.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbenum.dart';
 import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
 
 typedef FilterRoutesParams = ({

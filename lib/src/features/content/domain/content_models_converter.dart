@@ -2,7 +2,7 @@ import 'package:flutter_travel_app/src/features/content/domain/models/image_mode
 import 'package:flutter_travel_app/src/features/content/domain/models/place_model.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/point_model.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
 
 abstract class ContentModelsConverter {
   Route converRouteModelToRoute(RouteModel routeModel);

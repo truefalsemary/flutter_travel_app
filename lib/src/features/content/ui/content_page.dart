@@ -17,7 +17,7 @@ import 'package:flutter_travel_app/src/features/content/domain/constants/filter_
 import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
 import 'package:flutter_travel_app/src/features/content/ui/filter_modal.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pb.dart'
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart'
     as proto;
 import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
 import 'package:intl/intl.dart' show DateFormat;

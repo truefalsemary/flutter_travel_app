@@ -1,4 +1,4 @@
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbenum.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
 
 class RouteParamsFilterConstants {
   static const double defaultMinDistance = 0;

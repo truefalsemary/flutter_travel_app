@@ -1,5 +1,5 @@
 import 'package:flutter_travel_app/src/features/content/domain/models/route_params.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/features/content/data/proto/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
 
