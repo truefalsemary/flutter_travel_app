@@ -100,7 +100,7 @@ class _CardBodyTitleWidget extends StatelessWidget {
             Icon(
               Icons.house,
               size: 18,
-              color: context.colors.main,
+              color: context.colors.mainIconColor,
             ),
             const SizedBox(width: 10),
             AppText(
@@ -134,10 +134,9 @@ class _CardBodyTitleWidget extends StatelessWidget {
 
 class _DescriptionText extends StatefulWidget {
   final String text;
+  static const int _maxLines = 3;
 
-  const _DescriptionText({
-    required this.text,
-  });
+  const _DescriptionText({required this.text});
 
   @override
   State<_DescriptionText> createState() => _DescriptionTextState();
@@ -145,58 +144,69 @@ class _DescriptionText extends StatefulWidget {
 
 class _DescriptionTextState extends State<_DescriptionText> {
   bool _expanded = false;
-  late String _trimmedText;
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = AppFonts.smallText.copyWith(
+      color: context.colors.minorText,
+    );
+    final more = context.strings.more;
+    final less = ' ${context.strings.less}';
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (!_expanded) {
-          final span = TextSpan(
-              text: widget.text,
-              style:
-                  AppFonts.smallText.copyWith(color: context.colors.minorText));
-          final tp = TextPainter(
-            text: span,
-            maxLines: 3,
-            textDirection: TextDirection.ltr,
-          )..layout(maxWidth: constraints.maxWidth);
-
-          if (tp.didExceedMaxLines) {
-            _trimmedText = _calculateTrimmedText(
-                widget.text,
-                constraints.maxWidth,
-                AppFonts.smallText.copyWith(color: context.colors.minorText),
-                context.strings.more);
-            return RichText(
-              text: TextSpan(
-                style: AppFonts.smallText
-                    .copyWith(color: context.colors.minorText),
-                children: [
-                  TextSpan(text: _trimmedText),
-                  TextSpan(
-                    text: ' ${context.strings.more}',
-                    style: AppFonts.smallText
-                        .copyWith(color: context.colors.mainText),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () => setState(() => _expanded = true),
-                  ),
-                ],
-              ),
-            );
-          }
+        if (_expanded) {
+          return RichText(
+            text: TextSpan(
+              style: textStyle,
+              children: [
+                TextSpan(text: widget.text),
+                TextSpan(
+                  text: less,
+                  style: textStyle.copyWith(color: context.colors.mainText),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => setState(() => _expanded = false),
+                ),
+              ],
+            ),
+          );
         }
+
+        // Проверяем, переполняет ли текст maxLines
+        final span = TextSpan(text: widget.text, style: textStyle);
+        final tp = TextPainter(
+          text: span,
+          maxLines: _DescriptionText._maxLines,
+          textDirection: TextDirection.ltr,
+        )..layout(maxWidth: constraints.maxWidth);
+
+        if (!tp.didExceedMaxLines) {
+          return Text(
+            widget.text,
+            style: textStyle,
+            maxLines: _DescriptionText._maxLines,
+            overflow: TextOverflow.ellipsis,
+          );
+        }
+
+        // Обрезаем текст так, чтобы влезло "ещё" в конце
+        final trimmed = _trimText(
+          widget.text,
+          maxWidth: constraints.maxWidth,
+          style: textStyle,
+          moreText: more,
+        );
+
         return RichText(
           text: TextSpan(
-            style: AppFonts.smallText.copyWith(color: context.colors.minorText),
+            style: textStyle,
             children: [
-              TextSpan(text: widget.text),
+              TextSpan(text: trimmed),
               TextSpan(
-                text: ' ${context.strings.less}',
-                style:
-                    AppFonts.smallText.copyWith(color: context.colors.mainText),
+                text: more,
+                style: textStyle.copyWith(color: context.colors.mainText),
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => setState(() => _expanded = false),
+                  ..onTap = () => setState(() => _expanded = true),
               ),
             ],
           ),
@@ -205,19 +215,21 @@ class _DescriptionTextState extends State<_DescriptionText> {
     );
   }
 
-  String _calculateTrimmedText(
-      String text, double maxWidth, TextStyle style, String moreText) {
+  String _trimText(
+    String text, {
+    required double maxWidth,
+    required TextStyle style,
+    required String moreText,
+  }) {
     var min = 0;
     var max = text.length;
-    const linesAmount = 3;
-
     while (min < max) {
       final mid = (min + max) ~/ 2;
       final span =
           TextSpan(text: text.substring(0, mid) + moreText, style: style);
       final tp = TextPainter(
         text: span,
-        maxLines: linesAmount,
+        maxLines: _DescriptionText._maxLines,
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: maxWidth);
 
@@ -227,8 +239,9 @@ class _DescriptionTextState extends State<_DescriptionText> {
         min = mid + 1;
       }
     }
-    final textLength = max > linesAmount ? max - linesAmount : max;
-
+    final textLength = max > _DescriptionText._maxLines
+        ? max - _DescriptionText._maxLines
+        : max;
     return '${text.substring(0, textLength).trimRight()}...';
   }
 }
