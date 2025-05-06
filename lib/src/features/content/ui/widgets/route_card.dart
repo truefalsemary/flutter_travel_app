@@ -91,6 +91,7 @@ class _CardBodyTitleWidget extends StatelessWidget {
       children: [
         AppText(
           title,
+          colors: context.colors,
           color: context.colors.cardText,
           style: AppFonts.title,
         ),
@@ -105,12 +106,14 @@ class _CardBodyTitleWidget extends StatelessWidget {
             const SizedBox(width: 10),
             AppText(
               '${distanceKm?.toStringAsFixed(1) ?? 0} ${context.strings.km}',
+              colors: context.colors,
               color: context.colors.cardText,
               style: AppFonts.subtitle,
             ),
             const SizedBox(width: 10),
             AppText(
               _getDifficultyText(context, difficultyLevel),
+              colors: context.colors,
               color: context.colors.minorText,
               style: AppFonts.subtitle,
             ),

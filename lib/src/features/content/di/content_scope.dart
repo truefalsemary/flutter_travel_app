@@ -1,11 +1,11 @@
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
+import 'package:flutter_travel_app/src/common/data/api_constants.dart';
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/data/content_api.dart';
-import 'package:flutter_travel_app/src/features/content/data/content_api_constants.dart';
+import 'package:flutter_travel_app/src/features/content/data/content_repository.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/filter_routes/filter_routes_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/bloc/routes/routes_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/domain/content_models_converter.dart';
-import 'package:flutter_travel_app/src/features/content/domain/content_repository.dart';
 import 'package:yx_scope/yx_scope.dart';
 
 abstract class ContentScope implements Scope {
@@ -27,8 +27,8 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
 
   late final _contentApiDep = dep(
     () => ContentApiClientImpl(
-      host: ContentApiConstants.host,
-      port: ContentApiConstants.port,
+      host: ApiConstants.host,
+      port: ApiConstants.port,
       logger: _loggerFactory.get.getLogger(
         feature: LoggerFeature.content,
         layer: LoggerLayers.data,

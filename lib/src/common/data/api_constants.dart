@@ -1,4 +1,4 @@
-abstract final class ContentApiConstants {
+abstract final class ApiConstants {
   // константы для реального сервера
   // static const port = 30080;
   // static const host = '109.196.98.55';

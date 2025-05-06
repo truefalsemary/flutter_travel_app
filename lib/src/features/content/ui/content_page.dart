@@ -83,6 +83,7 @@ class _ContentPageState extends State<ContentPage> {
                 backgroundColor: context.colors.mainBg,
                 title: AppText(
                   context.strings.routesTitle,
+                  colors: context.colors,
                   style: AppFonts.appBarTitle,
                 ),
                 actions: [
@@ -158,10 +159,14 @@ class _ContentPageState extends State<ContentPage> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  AppText(context.strings.errorMessage),
+                                  AppText(
+                                    context.strings.errorMessage,
+                                    colors: context.colors,
+                                  ),
                                   ElevatedButton(
                                     child: AppText(
                                       context.strings.retryButton,
+                                      colors: context.colors,
                                     ),
                                     onPressed: () => scope.routesBloc.add(
                                       RoutesFetched(),

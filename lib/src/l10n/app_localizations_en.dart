@@ -86,4 +86,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeTabName => 'Home';
+
+  @override
+  String get createRouteFirstPageAppBarName => 'Create route';
+
+  @override
+  String get createRouteFirstPageTextFieldHint => 'Route name';
 }

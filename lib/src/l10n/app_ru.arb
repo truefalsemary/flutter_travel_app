@@ -25,5 +25,7 @@
   "profileTabName": "Профиль",
   "searchTabName": "Поиск",
   "createRouteTabName": "Создать",
-  "homeTabName": "Главная"
+  "homeTabName": "Главная",
+  "createRouteFirstPageAppBarName": "Создать маршрут",
+  "createRouteFirstPageTextFieldHint": "Название маршрута"
 }

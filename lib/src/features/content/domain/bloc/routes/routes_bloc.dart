@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_travel_app/src/features/content/domain/content_repository.dart';
+import 'package:flutter_travel_app/src/features/content/data/content_repository.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/filter_routes_params.dart';
 import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';

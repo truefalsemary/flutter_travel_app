@@ -86,4 +86,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get homeTabName => 'Главная';
+
+  @override
+  String get createRouteFirstPageAppBarName => 'Создать маршрут';
+
+  @override
+  String get createRouteFirstPageTextFieldHint => 'Название маршрута';
 }

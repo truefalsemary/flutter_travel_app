@@ -1,25 +1,28 @@
 import 'package:flutter_travel_app/src/features/content/domain/models/filter_routes_params.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart';
+import 'package:flutter_travel_app/src/features/content/utils/exceptions/grpc_error_exception_parser.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart'
+    as proto;
 import 'package:flutter_travel_app/src/generated/lib/src/proto/google/protobuf/empty.pb.dart';
 import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
 
 abstract class ContentApiClient {
-  Future<Iterable<Route>> getRoutes(
+  Future<Iterable<proto.Route>> getRoutes(
     UserFilterRoutesParams? userFilterRoutesParams,
   );
-  Future<DistanceFilter> getDistanceFilter();
+  Future<proto.DistanceFilter> getDistanceFilter();
+  Future<void> createRoute(proto.CreateRouteRequest request);
 }
 
 class ContentApiClientImpl implements ContentApiClient {
-  final ContentServiceClient _client;
+  final proto.ContentServiceClient _client;
   final Logger _logger;
 
   ContentApiClientImpl({
     required String host,
     required int port,
     required Logger logger,
-  })  : _client = ContentServiceClient(
+  })  : _client = proto.ContentServiceClient(
           ClientChannel(
             host,
             port: port,
@@ -31,7 +34,7 @@ class ContentApiClientImpl implements ContentApiClient {
         _logger = logger;
 
   @override
-  Future<DistanceFilter> getDistanceFilter() async {
+  Future<proto.DistanceFilter> getDistanceFilter() async {
     _logger.d('getDistanceFilter');
     final response = await _client.getRoutesFilterOptions(Empty());
     _logger.i(
@@ -42,19 +45,19 @@ class ContentApiClientImpl implements ContentApiClient {
   }
 
   @override
-  Future<Iterable<Route>> getRoutes(
+  Future<Iterable<proto.Route>> getRoutes(
     UserFilterRoutesParams? userFilterRoutesParams,
   ) async {
     _logger.i('try to get routes');
     try {
-      final request = GetRoutesRequest();
+      final request = proto.GetRoutesRequest();
       final minDifficulty = userFilterRoutesParams?.minDifficulty;
       final maxDifficulty = userFilterRoutesParams?.maxDifficulty;
       final minDistance = userFilterRoutesParams?.minDistance;
       final maxDistance = userFilterRoutesParams?.maxDistance;
 
       if (minDifficulty != null || maxDifficulty != null) {
-        request.difficultyFilter = DifficultyFilter();
+        request.difficultyFilter = proto.DifficultyFilter();
         if (minDifficulty != null) {
           request.difficultyFilter.minDifficulty = minDifficulty;
         }
@@ -64,7 +67,7 @@ class ContentApiClientImpl implements ContentApiClient {
       }
 
       if (minDistance != null || maxDistance != null) {
-        request.distanceFilter = DistanceFilter();
+        request.distanceFilter = proto.DistanceFilter();
         if (minDistance != null) request.distanceFilter.minKm = minDistance;
         if (maxDistance != null) request.distanceFilter.maxKm = maxDistance;
       }
@@ -76,6 +79,17 @@ class ContentApiClientImpl implements ContentApiClient {
     } on Exception catch (error, stackTrace) {
       _logger.e('Error in getRoutes: $error', stackTrace: stackTrace);
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> createRoute(proto.CreateRouteRequest request) async {
+    _logger.i('try to create route');
+    try {
+      await _client.createRoute(request);
+      _logger.i('successfully create route');
+    } on GrpcError catch (error) {
+      throw error.exception;
     }
   }
 }

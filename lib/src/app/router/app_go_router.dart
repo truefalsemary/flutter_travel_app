@@ -44,11 +44,11 @@ abstract class AppGoRouter {
                       // SvgPicture.asset(AppVectors.add),
                       label: context.strings.createRouteTabName,
                     ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.person),
-                      // SvgPicture.asset(AppVectors.person),
-                      label: context.strings.profileTabName,
-                    ),
+                    // BottomNavigationBarItem(
+                    //   icon: Icon(Icons.person),
+                    //   // SvgPicture.asset(AppVectors.person),
+                    //   label: context.strings.profileTabName,
+                    // ),
                   ],
                 ),
               );
@@ -72,14 +72,19 @@ abstract class AppGoRouter {
                   ),
                 ],
               ),
-              StatefulShellBranch(
-                routes: [
-                  GoRoute(
-                    path: AppRoutes.createRouteFirstPage,
-                    builder: (context, state) => Scaffold(),
-                  ),
-                ],
-              ),
+              // StatefulShellBranch(
+              //   routes: [
+              //     GoRoute(
+              //         path: AppRoutes.createRouteFirstPage,
+              //         builder: (context, state) => CreateRouteStartPage(),
+              //         routes: [
+              //           GoRoute(
+              //             path: AppRoutes.createRouteSecondPage,
+              //             builder: (context, state) => Scaffold(),
+              //           ),
+              //         ]),
+              //   ],
+              // ),
             ],
           ),
         ],

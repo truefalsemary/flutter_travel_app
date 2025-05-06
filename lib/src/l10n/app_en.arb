@@ -25,5 +25,7 @@
   "profileTabName": "Profile",
   "searchTabName": "Search",
   "createRouteTabName": "Create",
-  "homeTabName": "Home"
+  "homeTabName": "Home",
+  "createRouteFirstPageAppBarName": "Create route",
+  "createRouteFirstPageTextFieldHint": "Route name"
 }

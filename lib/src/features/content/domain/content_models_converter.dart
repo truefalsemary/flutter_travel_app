@@ -9,6 +9,9 @@ abstract class ContentModelsConverter {
   RouteModel convertRouteToRouteModel(Route route);
   RouteModels convertRoutesToRouteModels(Iterable<Route> routes);
   Iterable<Route> converRouteModelsToRoutes(Iterable<RouteModel> routeModels);
+  CreateRouteRequest convertRouteModelToCreateRouteRequest(
+    RouteModel routeModel,
+  );
 }
 
 final class ContentModelsConverterImpl implements ContentModelsConverter {
@@ -38,6 +41,20 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
         convertRouteToRouteModel,
       );
 
+  @override
+  CreateRouteRequest convertRouteModelToCreateRouteRequest(
+    RouteModel routeModel,
+  ) =>
+      CreateRouteRequest(
+        name: routeModel.name,
+        description: routeModel.description,
+        difficulty: routeModel.difficultyLevel,
+        distanceKm: routeModel.distanceKm,
+        pathPoints: routeModel.pathPoints?.map(
+          (point) => Point(lat: point.lat, lon: point.lon),
+        ),
+        placeIds: routeModel.places.map((place) => place.placeId),
+      );
   PointModel _convertPointToPointModel(Point point) => PointModel(
         lat: point.lat,
         lon: point.lon,

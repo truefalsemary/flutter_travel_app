@@ -152,6 +152,7 @@ class _FilterSection extends StatelessWidget {
           children: [
             AppText(
               title,
+              colors: context.colors,
               style: AppFonts.largeTitle,
             ),
             if (value != null)
@@ -164,6 +165,7 @@ class _FilterSection extends StatelessWidget {
                   ),
                   AppText(
                     value,
+                    colors: context.colors,
                     style: AppFonts.boldText,
                   ),
                 ],
@@ -339,7 +341,7 @@ class _FilterActionButtons extends StatelessWidget {
             onPressed: onClear,
             child: AppText(
               context.strings.clear,
-              color: context.colors.minorElevatedButtonText,
+              colors: context.colors,
             ),
           ),
         ),
@@ -349,7 +351,7 @@ class _FilterActionButtons extends StatelessWidget {
             onPressed: onApply,
             child: AppText(
               context.strings.apply,
-              color: context.colors.mainElevatedButtonText,
+              colors: context.colors,
             ),
           ),
         ),

@@ -256,6 +256,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home'**
   String get homeTabName;
+
+  /// No description provided for @createRouteFirstPageAppBarName.
+  ///
+  /// In en, this message translates to:
+  /// **'Create route'**
+  String get createRouteFirstPageAppBarName;
+
+  /// No description provided for @createRouteFirstPageTextFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Route name'**
+  String get createRouteFirstPageTextFieldHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
