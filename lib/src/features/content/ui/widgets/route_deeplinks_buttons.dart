@@ -1,9 +1,15 @@
-part of '../content_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_travel_app/resources/resources.dart';
+import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/route_model.dart';
+import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
-class _RouteDeeplinksButtons extends StatelessWidget {
+class RouteDeeplinksButtons extends StatelessWidget {
   final RouteModel route;
 
-  const _RouteDeeplinksButtons({required this.route});
+  const RouteDeeplinksButtons({required this.route, super.key});
 
   @override
   Widget build(BuildContext context) {

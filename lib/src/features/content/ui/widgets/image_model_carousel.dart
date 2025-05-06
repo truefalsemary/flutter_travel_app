@@ -1,12 +1,18 @@
-part of '../content_page.dart';
+import 'package:blurhash_ffi/blurhashffi_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
 
-class _ImageModelsCarouselWidget extends StatelessWidget {
+class ImageModelsCarouselWidget extends StatelessWidget {
   final ImageModels imageModels;
   final double height;
+  final double padding;
 
-  const _ImageModelsCarouselWidget({
+  const ImageModelsCarouselWidget({
     required this.imageModels,
     required this.height,
+    this.padding = 0,
+    super.key,
   });
 
   @override
@@ -17,7 +23,7 @@ class _ImageModelsCarouselWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             final image = imageModels.elementAt(index);
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: EdgeInsets.symmetric(horizontal: padding),
               child: CachedNetworkImage(
                 imageUrl: image.url,
                 imageBuilder: (context, imageProvider) => DecoratedBox(
