@@ -46,11 +46,11 @@ class PostHeader extends StatelessWidget {
         ),
       ],
     );
-    
+  }
+
   String _formatDate(DateTime date) {
     final formatter = DateFormat('d MMM HH:mm', 'ru');
     return formatter.format(date);
-  }
   }
 }
 
