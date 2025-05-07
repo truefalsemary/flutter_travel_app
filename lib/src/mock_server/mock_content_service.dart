@@ -43,8 +43,12 @@ class MockRoutesContentService extends ContentServiceBase {
                 ..name = 'Пик Горный'
                 ..address = 'Горный хребет'
                 ..description =
-                    'Самая высокая точка маршрута с панорамным видом'
+                    'Самая высокая точка маршрута с панорамным видом. Самая высокая точка маршрута с панорамным видом. Сюда побольше текста чтобы посмотреть как же клево отрезаются две строки и еще развернуть и свернуть можно прикол да'
                 ..images.addAll([
+                  Image()
+                    ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
+                    ..url =
+                        'https://images.unsplash.com/photo-1745666606096-9776c7e71bf6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                   Image()
                     ..placeholder = 'L6Pj0^jE.AyE_3t7t7R**0o#DgR4'
                     ..url =
