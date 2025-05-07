@@ -15,11 +15,6 @@ class PostHeader extends StatelessWidget {
     this.avatarUrl,
   });
 
-  String _formatDate(DateTime date) {
-    final formatter = DateFormat('d MMM HH:mm', 'ru');
-    return formatter.format(date);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -51,6 +46,11 @@ class PostHeader extends StatelessWidget {
         ),
       ],
     );
+    
+  String _formatDate(DateTime date) {
+    final formatter = DateFormat('d MMM HH:mm', 'ru');
+    return formatter.format(date);
+  }
   }
 }
 
