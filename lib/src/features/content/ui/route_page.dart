@@ -149,10 +149,7 @@ class _PlaceContainer extends StatelessWidget {
             height: 170,
             padding: 6,
           ),
-          SizedBox(
-            height: 4,
-          ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: DescriptionText(
