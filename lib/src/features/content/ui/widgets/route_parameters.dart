@@ -6,11 +6,14 @@ import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.p
 import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
 
 class RouteParameters extends StatelessWidget {
-  const RouteParameters(
-      {required this.difficultyLevel, required this.distanceKm, super.key});
-
   final DifficultyLevel? difficultyLevel;
   final double? distanceKm;
+
+  const RouteParameters({
+    required this.difficultyLevel,
+    required this.distanceKm,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

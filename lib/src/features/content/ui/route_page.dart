@@ -66,30 +66,11 @@ class RoutePage extends StatelessWidget {
             ...route.places.toList().asMap().entries.map(
               (entry) {
                 final index = entry.key;
-                final place = entry.value;
-                final isFirst = index == 0;
-                final isLast = index == route.places.length - 1;
-                final placeCount = '${index + 1}/${route.places.length}';
-
-                return Stack(
-                  children: [
-                    Positioned(
-                      left: 16,
-                      top: 0,
-                      bottom: 0,
-                      child: CustomPaint(
-                        painter: _RouteLinePainter(
-                            isFirst: isFirst,
-                            isLast: isLast,
-                            color: context.colors.mainIconColor),
-                      ),
-                    ),
-                    _PlaceContainer(
-                      place: place,
-                      placeCount: placeCount,
-                    ),
-                  ],
-                );
+                return _PlaceTile(
+                    isFirst: index == 0,
+                    isLast: index == route.places.length - 1,
+                    place: entry.value,
+                    placeCount: '${index + 1}/${route.places.length}');
               },
             ),
             SizedBox(
@@ -101,6 +82,43 @@ class RoutePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _PlaceTile extends StatelessWidget {
+  final bool isFirst;
+  final bool isLast;
+  final PlaceModel place;
+  final String placeCount;
+
+  const _PlaceTile({
+    required this.isFirst,
+    required this.isLast,
+    required this.place,
+    required this.placeCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+          left: 16,
+          top: 0,
+          bottom: 0,
+          child: CustomPaint(
+            painter: _RouteLinePainter(
+                isFirst: isFirst,
+                isLast: isLast,
+                color: context.colors.mainIconColor),
+          ),
+        ),
+        _PlaceContainer(
+          place: place,
+          placeCount: placeCount,
+        ),
+      ],
     );
   }
 }
