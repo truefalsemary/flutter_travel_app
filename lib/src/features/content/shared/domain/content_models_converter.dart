@@ -1,25 +1,48 @@
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/filter_routes_params.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/image_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/place_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/point_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/route_model.dart';
-import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
+import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart'
+    as proto;
+import 'package:image_picker/image_picker.dart';
 
 abstract class ContentModelsConverter {
-  Route converRouteModelToRoute(RouteModel routeModel);
-  RouteModel convertRouteToRouteModel(Route route);
-  RouteModels convertRoutesToRouteModels(Iterable<Route> routes);
-  Iterable<Route> converRouteModelsToRoutes(Iterable<RouteModel> routeModels);
-  CreateRouteRequest convertRouteModelToCreateRouteRequest(
+  proto.Route converRouteModelToRoute(RouteModel routeModel);
+  RouteModel convertRouteToRouteModel(proto.Route route);
+  RouteModels convertRoutesToRouteModels(Iterable<proto.Route> routes);
+  Iterable<proto.Route> converRouteModelsToRoutes(
+      Iterable<RouteModel> routeModels);
+  proto.CreateRouteRequest convertRouteModelToCreateRouteRequest(
     RouteModel routeModel,
+  );
+
+  AvailableFilterRoutesParams
+      convertGetRoutesFilterOptionsResponseToAvailableFilterRoutesParams(
+    proto.GetRoutesFilterOptionsResponse response,
+  );
+
+  proto.CreatePlaceRequest convertPlaceModelToCreatePlaceRequest(
+    PlaceModel placeModel,
+  );
+
+  Future<proto.UploadImageRequest> convertXFileToUploadImageRequest(
+    XFile xFile,
   );
 }
 
 final class ContentModelsConverterImpl implements ContentModelsConverter {
   @override
-  Route converRouteModelToRoute(RouteModel routeModel) => Route();
+  proto.Route converRouteModelToRoute(RouteModel routeModel) => proto.Route(
+        name: routeModel.name,
+        description: routeModel.description,
+        distanceKm: routeModel.distanceKm,
+        userId: routeModel.userId,
+        routeId: routeModel.routeId,
+      );
 
   @override
-  RouteModel convertRouteToRouteModel(Route route) => RouteModel(
+  RouteModel convertRouteToRouteModel(proto.Route route) => RouteModel(
         name: route.name,
         description: route.description,
         distanceKm: route.distanceKm,
@@ -31,49 +54,83 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
       );
 
   @override
-  Iterable<Route> converRouteModelsToRoutes(Iterable<RouteModel> routeModels) =>
+  Iterable<proto.Route> converRouteModelsToRoutes(
+          Iterable<RouteModel> routeModels) =>
       routeModels.map(
         converRouteModelToRoute,
       );
 
   @override
-  RouteModels convertRoutesToRouteModels(Iterable<Route> routes) => routes.map(
+  RouteModels convertRoutesToRouteModels(Iterable<proto.Route> routes) =>
+      routes.map(
         convertRouteToRouteModel,
       );
 
   @override
-  CreateRouteRequest convertRouteModelToCreateRouteRequest(
+  proto.CreateRouteRequest convertRouteModelToCreateRouteRequest(
     RouteModel routeModel,
   ) =>
-      CreateRouteRequest(
+      proto.CreateRouteRequest(
         name: routeModel.name,
         description: routeModel.description,
         difficulty: routeModel.difficultyLevel,
         distanceKm: routeModel.distanceKm,
         pathPoints: routeModel.pathPoints?.map(
-          (point) => Point(lat: point.lat, lon: point.lon),
+          (point) => proto.Point(lat: point.lat, lon: point.lon),
         ),
         placeIds: routeModel.places.map((place) => place.placeId),
       );
-  PointModel _convertPointToPointModel(Point point) => PointModel(
+
+  @override
+  AvailableFilterRoutesParams
+      convertGetRoutesFilterOptionsResponseToAvailableFilterRoutesParams(
+    proto.GetRoutesFilterOptionsResponse response,
+  ) {
+    final empty = response.empty;
+
+    return AvailableFilterRoutesParams(
+      distanceFilter: empty
+          ? null
+          : DistanceFilterModel(
+              minDistance: response.distanceBounds.minKm,
+              maxDistance: response.distanceBounds.maxKm,
+            ),
+      minDifficulty: proto.DifficultyLevel.EASY,
+      maxDifficulty: proto.DifficultyLevel.HARD,
+    );
+  }
+
+  @override
+  Future<proto.UploadImageRequest> convertXFileToUploadImageRequest(
+    XFile xFile,
+  ) async {
+    return proto.UploadImageRequest(
+      filename: xFile.name,
+      content: await xFile.readAsBytes(),
+    );
+  }
+
+  PointModel _convertPointToPointModel(proto.Point point) => PointModel(
         lat: point.lat,
         lon: point.lon,
       );
 
-  PointModels _convertPointsToPointsModel(Iterable<Point> points) => points.map(
+  PointModels _convertPointsToPointsModel(Iterable<proto.Point> points) =>
+      points.map(
         (point) => PointModel(lat: point.lat, lon: point.lon),
       );
 
-  ImageModel _convertImageToImageModel(Image image) => ImageModel(
+  ImageModel _convertImageToImageModel(proto.Image image) => ImageModel(
         url: image.url,
         placeholder: image.placeholder,
       );
 
-  ImageModels _convertImagesToImageModels(Iterable<Image> images) => images.map(
+  ImageModels _convertImagesToImageModels(Iterable<proto.Image> images) =>
+      images.map(
         _convertImageToImageModel,
       );
 
-  PlaceModel _convertPlaceToPlaceModel(Place place) => PlaceModel(
+  PlaceModel _convertPlaceToPlaceModel(proto.Place place) => PlaceModel(
         name: place.name,
         address: place.address,
         description: place.description,
@@ -82,7 +139,23 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
         placeId: place.placeId,
       );
 
-  PlaceModels _convertPlacesToPlaceModels(Iterable<Place> places) => places.map(
+  PlaceModels _convertPlacesToPlaceModels(Iterable<proto.Place> places) =>
+      places.map(
         _convertPlaceToPlaceModel,
       );
+
+  @override
+  proto.CreatePlaceRequest convertPlaceModelToCreatePlaceRequest(
+    PlaceModel placeModel,
+  ) {
+    return proto.CreatePlaceRequest(
+      name: placeModel.name,
+      address: placeModel.address,
+      description: placeModel.description,
+      location: proto.Point(
+        lat: placeModel.location.lat,
+        lon: placeModel.location.lon,
+      ),
+    );
+  }
 }

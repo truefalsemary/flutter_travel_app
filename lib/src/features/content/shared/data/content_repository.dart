@@ -1,12 +1,11 @@
+import 'package:flutter_travel_app/src/common/utils/exceptions/grpc_exception.dart';
 import 'package:flutter_travel_app/src/features/content/shared/data/content_api.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/content_models_converter.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/create_place_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/filter_routes_params.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/route_model.dart';
-import 'package:flutter_travel_app/src/features/content/utils/exceptions/already_exists_exception.dart';
-import 'package:flutter_travel_app/src/features/content/utils/exceptions/internal_server_exception.dart';
-import 'package:flutter_travel_app/src/features/content/utils/exceptions/invalid_arguments_exception.dart';
-import 'package:flutter_travel_app/src/features/content/utils/exceptions/unknown_server_exception.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
+import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
 
 abstract class ContentRepository {
@@ -14,7 +13,10 @@ abstract class ContentRepository {
     UserFilterRoutesParams? userFilterRoutesParams,
   );
   Future<AvailableFilterRoutesParams> getAvailableFilterRoutesParams();
-  Future<void> createRoute(RouteModel route);
+
+  Future<void> createPlace(CreatePlaceModel place);
+
+  Future<CreateRouteResponse> createRoute(RouteModel route);
 }
 
 final class ContentRepositoryImpl implements ContentRepository {
@@ -35,38 +37,68 @@ final class ContentRepositoryImpl implements ContentRepository {
     UserFilterRoutesParams? userFilterRoutesParams,
   ) async {
     _logger.i('try to get routes');
-    final routes = await _apiClient.getRoutes(userFilterRoutesParams);
-    return _modelsConverter.convertRoutesToRouteModels(routes);
+    try {
+      final routes = await _apiClient.getRoutes(userFilterRoutesParams);
+      return _modelsConverter.convertRoutesToRouteModels(routes);
+    } on GrpcError catch (error) {
+      throw error.toCustomGrpcException(featureName: 'GetRoutes');
+    }
   }
 
   @override
   Future<AvailableFilterRoutesParams> getAvailableFilterRoutesParams() async {
     _logger.i('try to get available filter routes params');
-    final distanceFilter = await _apiClient.getDistanceFilter();
-    return AvailableFilterRoutesParams(
-      minDistance: distanceFilter.minKm,
-      maxDistance: distanceFilter.maxKm,
-      minDifficulty: DifficultyLevel.EASY,
-      maxDifficulty: DifficultyLevel.HARD,
-    );
+
+    try {
+      final routesFilter = await _apiClient.getRoutesFilter();
+      return _modelsConverter
+          .convertGetRoutesFilterOptionsResponseToAvailableFilterRoutesParams(
+        routesFilter,
+      );
+    } on GrpcError catch (error) {
+      throw error.toCustomGrpcException(
+        featureName: 'GetRouteFilterParams',
+      );
+    }
   }
 
   @override
-  Future<void> createRoute(RouteModel route) async {
+  Future<void> createPlace(CreatePlaceModel createPlaceModel) async {
+    final protoPlace = _modelsConverter.convertPlaceModelToCreatePlaceRequest(
+      createPlaceModel.place,
+    );
+
+    try {
+      await _apiClient.createPlace(protoPlace);
+    } on GrpcError catch (error) {
+      throw error.toCustomGrpcException(featureName: 'CreatePlace');
+    }
+    try {
+      createPlaceModel.images.map(
+        (image) async {
+          final uploadImageRequest =
+              await _modelsConverter.convertXFileToUploadImageRequest(
+            image,
+          );
+          return _apiClient.uploadImages(Stream.value(uploadImageRequest));
+        },
+      );
+    } on GrpcError catch (error) {
+      throw error.toCustomGrpcException(featureName: 'UploadImages');
+    }
+  }
+
+  @override
+  Future<CreateRouteResponse> createRoute(RouteModel route) async {
     _logger.i('try to create route');
     final protoRoute = _modelsConverter.convertRouteModelToCreateRouteRequest(
       route,
     );
     try {
-      await _apiClient.createRoute(protoRoute);
-    } on AlreadyExistsException catch (e) {
-      _logger.e('Route already exists: ${e.message}');
-    } on InvalidArgumentException catch (e) {
-      _logger.e('Invalid argument: ${e.message}');
-    } on InternalServerException catch (e) {
-      _logger.e('Internal server error: ${e.message}');
-    } on UnknownServerException catch (e) {
-      _logger.e('Unknown server error: ${e.message}');
+      final response = await _apiClient.createRoute(protoRoute);
+      return response;
+    } on GrpcError catch (error) {
+      throw error.toCustomGrpcException(featureName: 'CreateRoute');
     }
   }
 }

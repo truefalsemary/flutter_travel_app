@@ -64,6 +64,9 @@ class __FilterModelContentState extends State<_FilterModelContent> {
 
   @override
   Widget build(BuildContext context) {
+    final distanceFilter =
+        widget.filterRoutesState.availableFilterRoutesParams.distanceFilter;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -77,21 +80,22 @@ class __FilterModelContentState extends State<_FilterModelContent> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _DistanceFilter(
-                availableMaxDistance: widget
-                    .filterRoutesState.availableFilterRoutesParams.maxDistance,
-                availableMinDistance: widget
-                    .filterRoutesState.availableFilterRoutesParams.minDistance,
-                userMaxDistance: _userFilterRoutesParams.maxDistance,
-                userMinDistance: _userFilterRoutesParams.minDistance,
-                onChanged: (params) => setState(() {
-                  _userFilterRoutesParams = _userFilterRoutesParams.copyWith(
-                    minDistance: params.minDistance,
-                    maxDistance: params.maxDistance,
-                  );
-                }),
-              ),
-              const SizedBox(height: 24),
+              if (distanceFilter != null) ...[
+                _DistanceFilter(
+                  availableMaxDistance: distanceFilter.maxDistance,
+                  availableMinDistance: distanceFilter.minDistance,
+                  userMaxDistance: _userFilterRoutesParams.maxDistance,
+                  userMinDistance: _userFilterRoutesParams.minDistance,
+                  onChanged: (params) => setState(
+                    () => _userFilterRoutesParams =
+                        _userFilterRoutesParams.copyWith(
+                      minDistance: params.minDistance,
+                      maxDistance: params.maxDistance,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
               _DifficultyFilter(
                 availableMinDifficulty: widget.filterRoutesState
                     .availableFilterRoutesParams.minDifficulty,

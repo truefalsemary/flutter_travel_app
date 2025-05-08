@@ -5,25 +5,36 @@ part 'filter_routes_params.g.dart';
 
 @CopyWith()
 class AvailableFilterRoutesParams with EquatableMixin {
-  final double minDistance;
-  final double maxDistance;
+  final DistanceFilterModel? distanceFilter;
   final DifficultyLevel minDifficulty;
   final DifficultyLevel maxDifficulty;
 
   AvailableFilterRoutesParams({
-    required this.minDistance,
-    required this.maxDistance,
+    required this.distanceFilter,
     required this.minDifficulty,
     required this.maxDifficulty,
   });
 
   @override
   List<Object?> get props => [
-        minDistance,
-        maxDistance,
+        distanceFilter,
         minDifficulty,
         maxDifficulty,
       ];
+}
+
+@CopyWith()
+class DistanceFilterModel with EquatableMixin {
+  final double minDistance;
+  final double maxDistance;
+
+  DistanceFilterModel({
+    required this.minDistance,
+    required this.maxDistance,
+  });
+
+  @override
+  List<Object?> get props => [minDistance, maxDistance];
 }
 
 @CopyWith()

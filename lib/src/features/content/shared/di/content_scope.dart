@@ -29,11 +29,6 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
     () => ContentApiClientImpl(
       host: ApiConstants.host,
       port: ApiConstants.port,
-      logger: _loggerFactory.get.getLogger(
-        feature: LoggerFeature.content,
-        layer: LoggerLayers.data,
-        type: LoggerTypes.api,
-      ),
     ),
   );
 
