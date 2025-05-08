@@ -38,7 +38,10 @@ class _RouteCard extends StatelessWidget {
                   (place) => place.images,
                 ),
                 height: 200,
-                padding: 16,
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 12,
+                ),
               ),
               _CardBodyWidget(route: route),
             ],

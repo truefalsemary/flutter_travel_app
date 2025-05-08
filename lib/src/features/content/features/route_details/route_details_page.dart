@@ -106,6 +106,7 @@ class _RouteTimeline extends StatelessWidget {
               ImageModelsCarouselWidget(
                 imageModels: place.images,
                 height: 170,
+                padding: EdgeInsets.only(right: 6),
               ),
               const SizedBox(height: 12),
               ExpandableDescriptionText(

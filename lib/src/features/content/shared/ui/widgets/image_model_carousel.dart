@@ -6,12 +6,12 @@ import 'package:flutter_travel_app/src/features/content/shared/domain/models/ima
 class ImageModelsCarouselWidget extends StatelessWidget {
   final ImageModels imageModels;
   final double height;
-  final double padding;
+  final EdgeInsets padding;
 
   const ImageModelsCarouselWidget({
     required this.imageModels,
     required this.height,
-    this.padding = 0,
+    this.padding = EdgeInsets.zero,
     super.key,
   });
 
@@ -23,7 +23,7 @@ class ImageModelsCarouselWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             final image = imageModels.elementAt(index);
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: padding),
+              padding: padding,
               child: CachedNetworkImage(
                 imageUrl: image.url,
                 imageBuilder: (context, imageProvider) => DecoratedBox(
