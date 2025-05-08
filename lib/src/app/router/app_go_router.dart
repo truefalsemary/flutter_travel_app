@@ -77,7 +77,7 @@ abstract class AppGoRouter {
               StatefulShellBranch(
                 routes: [
                   GoRoute(
-                    path: AppRoutes.search,
+                    path: AppRoutes.createRoute,
                     builder: (context, state) => Scaffold(),
                   ),
                 ],
