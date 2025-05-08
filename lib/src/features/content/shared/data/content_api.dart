@@ -1,4 +1,4 @@
-import 'package:flutter_travel_app/src/features/content/domain/models/filter_routes_params.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/filter_routes_params.dart';
 import 'package:flutter_travel_app/src/features/content/utils/exceptions/grpc_error_exception_parser.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart'
     as proto;

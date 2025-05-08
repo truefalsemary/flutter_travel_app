@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_travel_app/src/features/content/domain/models/image_model.dart';
-import 'package:flutter_travel_app/src/features/content/domain/models/point_model.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/image_model.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/point_model.dart';
 
 typedef PlaceModels = Iterable<PlaceModel>;
 

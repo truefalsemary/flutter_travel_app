@@ -5,6 +5,7 @@ import 'package:yx_scope/yx_scope.dart';
 
 abstract class AppScope implements Scope {
   GoRouter get routerDelegate;
+
   ThemeModeProvider get themeModeProvider;
 }
 

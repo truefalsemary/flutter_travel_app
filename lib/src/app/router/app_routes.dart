@@ -5,4 +5,5 @@ final class AppRoutes {
   static const String profile = '/profile';
   static const String search = '/search';
   static const String bookmark = '/bookmark';
+  static const String routeDetails  = '/route-details';
 }

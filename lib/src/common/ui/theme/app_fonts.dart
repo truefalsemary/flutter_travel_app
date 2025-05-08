@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class AppFonts {
   static const TextStyle regularText = TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 16,
-    height: 20.0 / 16,
+    fontSize: 14,
+    height: 1.2,
   );
 
   static const TextStyle boldText = TextStyle(

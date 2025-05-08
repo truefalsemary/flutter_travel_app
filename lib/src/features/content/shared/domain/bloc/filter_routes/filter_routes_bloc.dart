@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_travel_app/src/features/content/data/content_repository.dart';
-import 'package:flutter_travel_app/src/features/content/domain/models/filter_routes_params.dart';
+import 'package:flutter_travel_app/src/features/content/shared/data/content_repository.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/filter_routes_params.dart';
 import 'package:logger/logger.dart';
 
 part 'filter_routes_event.dart';
