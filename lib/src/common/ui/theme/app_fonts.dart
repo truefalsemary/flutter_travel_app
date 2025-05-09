@@ -42,4 +42,9 @@ class AppFonts {
     fontSize: 12,
     height: 1.2,
   );
+
+  static const TextStyle mainTitle = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 32,
+  );
 }

@@ -21,5 +21,20 @@
   "yMapOpenButton": "Открыть в Яндекс.Картах",
   "km": "км",
   "more": "Еще",
-  "less": "Скрыть"
+  "less": "Скрыть",
+  "loginTitle": "Вход",
+  "emailHint": "Почта",
+  "passwordHint": "Пароль",
+  "emailEmptyError": "Введите почту",
+  "emailInvalidError": "Неверный формат почты",
+  "passwordEmptyError": "Введите пароль",
+  "passwordTooShortError": "Пароль должен быть не менее 6 символов",
+  "loginButton": "Войти",
+  "registerButton": "Зарегистрироваться",
+  "welcomeTitle": "Добро пожаловать!",
+  "registerTitle": "Регистрация",
+  "confirmPasswordHint": "Повторите пароль",
+  "confirmPasswordEmptyError": "Повторите пароль",
+  "passwordsNotMatchError": "Пароли не совпадают",
+  "alreadyHaveAccount": "Уже есть аккаунт? Войти"
 }

@@ -74,4 +74,49 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get less => 'Скрыть';
+
+  @override
+  String get loginTitle => 'Вход';
+
+  @override
+  String get emailHint => 'Почта';
+
+  @override
+  String get passwordHint => 'Пароль';
+
+  @override
+  String get emailEmptyError => 'Введите почту';
+
+  @override
+  String get emailInvalidError => 'Неверный формат почты';
+
+  @override
+  String get passwordEmptyError => 'Введите пароль';
+
+  @override
+  String get passwordTooShortError => 'Пароль должен быть не менее 6 символов';
+
+  @override
+  String get loginButton => 'Войти';
+
+  @override
+  String get registerButton => 'Зарегистрироваться';
+
+  @override
+  String get welcomeTitle => 'Добро пожаловать!';
+
+  @override
+  String get registerTitle => 'Регистрация';
+
+  @override
+  String get confirmPasswordHint => 'Повторите пароль';
+
+  @override
+  String get confirmPasswordEmptyError => 'Повторите пароль';
+
+  @override
+  String get passwordsNotMatchError => 'Пароли не совпадают';
+
+  @override
+  String get alreadyHaveAccount => 'Уже есть аккаунт? Войти';
 }

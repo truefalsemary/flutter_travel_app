@@ -13,6 +13,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
   final Color cardText;
   final Color separator;
   final Color mainElevatedButtonBg;
+  final Color extraMainElevatedButtonBg;
   final Color mainElevatedButtonText;
   final Color minorElevatedButtonBg;
   final Color minorElevatedButtonText;
@@ -28,6 +29,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
     required this.cardText,
     required this.separator,
     required this.mainElevatedButtonBg,
+    required this.extraMainElevatedButtonBg,
     required this.mainElevatedButtonText,
     required this.minorElevatedButtonBg,
     required this.minorElevatedButtonText,
@@ -44,6 +46,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         cardText: AppColors.trueBlack,
         separator: AppColors.veryLightGrey,
         mainElevatedButtonBg: AppColors.gold,
+        extraMainElevatedButtonBg: AppColors.darkGold,
         mainElevatedButtonText: AppColors.trueWhite,
         minorElevatedButtonBg: AppColors.veryLightGrey,
         minorElevatedButtonText: AppColors.darkerGrey,
@@ -60,6 +63,7 @@ class AppColorsTheme extends ThemeExtension<AppColorsTheme>
         cardText: AppColors.veryLightGrey,
         separator: AppColors.trueGrey,
         mainElevatedButtonBg: AppColors.gold,
+        extraMainElevatedButtonBg: AppColors.gold,
         mainElevatedButtonText: AppColors.veryLightGrey,
         minorElevatedButtonBg: AppColors.trueGrey,
         minorElevatedButtonText: AppColors.lightGrey,
@@ -73,6 +77,7 @@ class AppColors {
   static const trueWhite = Color(0xFFFFFFFF);
   static const lightGrey = Color(0xFF949494);
   static const gold = Color(0xFFDFA85E);
+  static const darkGold = Color(0xFFAC731F);
   static const veryLightGrey = Color(0xFFE9E9E9);
 
   static const trueBlack = Color(0xFF000000);
