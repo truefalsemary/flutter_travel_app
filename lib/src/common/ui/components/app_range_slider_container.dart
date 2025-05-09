@@ -28,10 +28,14 @@ class AppRangeSliderContainer extends StatelessWidget {
               children: [
                 AppText(
                   valuePrefix,
+                  colors: context.colors,
                   color: context.colors.minorElevatedButtonText,
                 ),
-                SizedBox(width: 6),
-                AppText(value),
+                const SizedBox(width: 6),
+                AppText(
+                  value,
+                  colors: context.colors,
+                ),
               ],
             ),
           ),

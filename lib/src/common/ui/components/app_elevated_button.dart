@@ -3,7 +3,7 @@ import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final AppElevatedButtonType _type;
   final EdgeInsets? padding;
 

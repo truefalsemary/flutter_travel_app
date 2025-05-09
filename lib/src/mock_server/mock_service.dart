@@ -1,5 +1,5 @@
+import 'package:flutter_travel_app/src/common/data/api_constants.dart';
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
-import 'package:flutter_travel_app/src/features/content/data/content_api_constants.dart';
 import 'package:flutter_travel_app/src/mock_server/mock_content_service.dart';
 import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
@@ -37,7 +37,7 @@ class MockServer {
 
     try {
       await _server.serve(
-        port: ContentApiConstants.port,
+        port: ApiConstants.port,
       );
       _isRunning = true;
       _logger.i('Mock server running on port ${_server.port}');
