@@ -18,6 +18,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? cardText,
     Color? separator,
     Color? mainElevatedButtonBg,
+    Color? extraMainElevatedButtonBg,
     Color? mainElevatedButtonText,
     Color? minorElevatedButtonBg,
     Color? minorElevatedButtonText,
@@ -35,6 +36,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       cardText: cardText ?? object.cardText,
       separator: separator ?? object.separator,
       mainElevatedButtonBg: mainElevatedButtonBg ?? object.mainElevatedButtonBg,
+      extraMainElevatedButtonBg:
+          extraMainElevatedButtonBg ?? object.extraMainElevatedButtonBg,
       mainElevatedButtonText:
           mainElevatedButtonText ?? object.mainElevatedButtonText,
       minorElevatedButtonBg:
@@ -96,6 +99,11 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.mainElevatedButtonBg,
         t,
       )!,
+      extraMainElevatedButtonBg: Color.lerp(
+        value.extraMainElevatedButtonBg,
+        otherValue.extraMainElevatedButtonBg,
+        t,
+      )!,
       mainElevatedButtonText: Color.lerp(
         value.mainElevatedButtonText,
         otherValue.mainElevatedButtonText,
@@ -143,6 +151,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
             identical(value.cardText, other.cardText) &&
             identical(value.separator, other.separator) &&
             identical(value.mainElevatedButtonBg, other.mainElevatedButtonBg) &&
+            identical(value.extraMainElevatedButtonBg,
+                other.extraMainElevatedButtonBg) &&
             identical(
                 value.mainElevatedButtonText, other.mainElevatedButtonText) &&
             identical(
@@ -167,6 +177,7 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.cardText,
       value.separator,
       value.mainElevatedButtonBg,
+      value.extraMainElevatedButtonBg,
       value.mainElevatedButtonText,
       value.minorElevatedButtonBg,
       value.minorElevatedButtonText,

@@ -62,8 +62,7 @@ import 'app_localizations_ru.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,8 +70,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -84,8 +82,7 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -235,10 +232,99 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show less'**
   String get less;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginTitle;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailHint;
+
+  /// No description provided for @passwordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordHint;
+
+  /// No description provided for @emailEmptyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get emailEmptyError;
+
+  /// No description provided for @emailInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email format'**
+  String get emailInvalidError;
+
+  /// No description provided for @passwordEmptyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get passwordEmptyError;
+
+  /// No description provided for @passwordTooShortError.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get passwordTooShortError;
+
+  /// No description provided for @loginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get loginButton;
+
+  /// No description provided for @registerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get registerButton;
+
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!'**
+  String get welcomeTitle;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration'**
+  String get registerTitle;
+
+  /// No description provided for @confirmPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPasswordHint;
+
+  /// No description provided for @confirmPasswordEmptyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm your password'**
+  String get confirmPasswordEmptyError;
+
+  /// No description provided for @passwordsNotMatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords don\'t match'**
+  String get passwordsNotMatchError;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Log in'**
+  String get alreadyHaveAccount;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -247,25 +333,25 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'ru'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ru'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return AppLocalizationsEn();
-    case 'ru':
-      return AppLocalizationsRu();
+    case 'en': return AppLocalizationsEn();
+    case 'ru': return AppLocalizationsRu();
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

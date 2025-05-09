@@ -21,5 +21,20 @@
   "yMapOpenButton": "Open route in Yandex Map",
   "km": "km",
   "more": "Show more",
-  "less": "Show less"
+  "less": "Show less",
+  "loginTitle": "Login",
+  "emailHint": "Email",
+  "passwordHint": "Password",
+  "emailEmptyError": "Please enter your email",
+  "emailInvalidError": "Invalid email format",
+  "passwordEmptyError": "Please enter your password",
+  "passwordTooShortError": "Password must be at least 6 characters",
+  "loginButton": "Log in",
+  "registerButton": "Register",
+  "welcomeTitle": "Welcome!",
+  "registerTitle": "Registration",
+  "confirmPasswordHint": "Confirm password",
+  "confirmPasswordEmptyError": "Please confirm your password",
+  "passwordsNotMatchError": "Passwords don't match",
+  "alreadyHaveAccount": "Already have an account? Log in"
 }

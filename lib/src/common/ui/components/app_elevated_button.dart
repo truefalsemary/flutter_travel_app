@@ -6,11 +6,13 @@ class AppElevatedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final AppElevatedButtonType _type;
   final EdgeInsets? padding;
+  final Color? color;
 
   const AppElevatedButton.main({
     required this.child,
     required this.onPressed,
     this.padding,
+    this.color,
     super.key,
   }) : _type = AppElevatedButtonType.main;
 
@@ -18,6 +20,7 @@ class AppElevatedButton extends StatelessWidget {
     required this.child,
     required this.onPressed,
     this.padding,
+    this.color,
     super.key,
   }) : _type = AppElevatedButtonType.minor;
 
@@ -39,11 +42,12 @@ class AppElevatedButton extends StatelessWidget {
   }) =>
       ButtonStyle(
         splashFactory: NoSplash.splashFactory,
-        backgroundColor:
-            WidgetStateProperty.resolveWith((states) => switch (type) {
-                  AppElevatedButtonType.main => theme.mainElevatedButtonBg,
-                  AppElevatedButtonType.minor => theme.minorElevatedButtonBg,
-                }),
+        backgroundColor: WidgetStateProperty.resolveWith((_) =>
+            color ??
+            switch (type) {
+              AppElevatedButtonType.main => theme.mainElevatedButtonBg,
+              AppElevatedButtonType.minor => theme.minorElevatedButtonBg,
+            }),
         foregroundColor: WidgetStateProperty.resolveWith(
           (states) => switch (type) {
             AppElevatedButtonType.main => theme.mainElevatedButtonText,

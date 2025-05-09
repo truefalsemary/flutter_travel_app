@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -74,4 +76,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get less => 'Show less';
+
+  @override
+  String get loginTitle => 'Login';
+
+  @override
+  String get emailHint => 'Email';
+
+  @override
+  String get passwordHint => 'Password';
+
+  @override
+  String get emailEmptyError => 'Please enter your email';
+
+  @override
+  String get emailInvalidError => 'Invalid email format';
+
+  @override
+  String get passwordEmptyError => 'Please enter your password';
+
+  @override
+  String get passwordTooShortError => 'Password must be at least 6 characters';
+
+  @override
+  String get loginButton => 'Log in';
+
+  @override
+  String get registerButton => 'Register';
+
+  @override
+  String get welcomeTitle => 'Welcome!';
+
+  @override
+  String get registerTitle => 'Registration';
+
+  @override
+  String get confirmPasswordHint => 'Confirm password';
+
+  @override
+  String get confirmPasswordEmptyError => 'Please confirm your password';
+
+  @override
+  String get passwordsNotMatchError => 'Passwords don\'t match';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? Log in';
 }
