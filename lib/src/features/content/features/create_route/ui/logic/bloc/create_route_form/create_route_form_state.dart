@@ -52,7 +52,11 @@ class CreateRouteFormEdited extends CreateRouteFormState with EquatableMixin {
     this.distanceKm,
   });
 
-  factory CreateRouteFormEdited.empty() => CreateRouteFormEdited();
+  factory CreateRouteFormEdited.empty() => CreateRouteFormEdited(
+        difficulty: proto.DifficultyLevel.EASY,
+        theme: proto.RouteTheme.ADVENTURE,
+        transportType: proto.RouteTransportType.WALKING,
+      );
 
   @override
   List<Object?> get props => [
