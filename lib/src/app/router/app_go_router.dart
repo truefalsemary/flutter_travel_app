@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/app/router/app_routes.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
+import 'package:flutter_travel_app/src/features/content/features/create_route/ui/create_route_page.dart';
 import 'package:flutter_travel_app/src/features/content/features/route_details/route_details_page.dart';
 import 'package:flutter_travel_app/src/features/content/features/routes_list/ui/content_page.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/route_model.dart';
@@ -78,23 +79,10 @@ abstract class AppGoRouter {
                 routes: [
                   GoRoute(
                     path: AppRoutes.createRoute,
-                    builder: (context, state) => Scaffold(),
+                    builder: (context, state) => CreateRoutePage(),
                   ),
                 ],
               ),
-              // StatefulShellBranch(
-              //   routes: [
-              //     GoRoute(
-              //         path: AppRoutes.createRouteFirstPage,
-              //         builder: (context, state) => CreateRouteStartPage(),
-              //         routes: [
-              //           GoRoute(
-              //             path: AppRoutes.createRouteSecondPage,
-              //             builder: (context, state) => Scaffold(),
-              //           ),
-              //         ]),
-              //   ],
-              // ),
             ],
           ),
         ],

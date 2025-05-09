@@ -22,7 +22,7 @@ import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 part 'widgets/filter_modal.dart';
 part 'widgets/route_card.dart';
 
-class ContentPage extends StatefulWidget {
+class ContentPage extends StatelessWidget {
   final AppScope appScope;
 
   const ContentPage({
@@ -31,24 +31,8 @@ class ContentPage extends StatefulWidget {
   });
 
   @override
-  State<ContentPage> createState() => _ContentPageState();
-}
-
-class _ContentPageState extends State<ContentPage> {
-  late final ContentScopeHolder _contentScopeHolder;
-
-  @override
-  void initState() {
-    super.initState();
-    _contentScopeHolder = ContentScopeHolder(widget.appScope);
-    _contentScopeHolder.create();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ScopeProvider(
-      holder: _contentScopeHolder,
-      child: ScopeBuilder<ContentScopeContainer>.withPlaceholder(
+  Widget build(BuildContext context) =>
+      ScopeBuilder<ContentScopeContainer>.withPlaceholder(
         builder: (context, scope) {
           return MultiBlocProvider(
             providers: [
@@ -103,8 +87,7 @@ class _ContentPageState extends State<ContentPage> {
                       Icons.brightness_6,
                       color: context.colors.mainText,
                     ),
-                    onPressed: () =>
-                        widget.appScope.themeModeProvider.toggleTheme(),
+                    onPressed: () => appScope.themeModeProvider.toggleTheme(),
                   ),
                 ],
               ),
@@ -178,15 +161,7 @@ class _ContentPageState extends State<ContentPage> {
           );
         },
         placeholder: const Center(child: CircularProgressIndicator()),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _contentScopeHolder.drop();
-    super.dispose();
-  }
+      );
 
   void _showFilterModal(
     BuildContext context, {

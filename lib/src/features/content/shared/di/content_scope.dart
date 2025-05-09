@@ -11,6 +11,8 @@ import 'package:yx_scope/yx_scope.dart';
 abstract class ContentScope implements Scope {
   RoutesBloc get routesBloc;
   FilterRoutesBloc get filterRoutesBloc;
+  ContentRepository get contentRepository;
+  ContentModelsConverter get modelsConverter;
 }
 
 class ContentScopeContainer extends ChildScopeContainer<AppScope>
@@ -23,6 +25,12 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
   @override
   FilterRoutesBloc get filterRoutesBloc => _filterRoutesBlocDep.get;
 
+  @override
+  ContentRepository get contentRepository => _contentRepositoryDep.get;
+
+  @override
+  ContentModelsConverter get modelsConverter => _modelsConverterDep.get;
+
   late final _loggerFactory = dep(() => const NamedLoggerFactory());
 
   late final _contentApiDep = dep(
@@ -32,14 +40,14 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
     ),
   );
 
-  late final _modelsConverter = dep(
+  late final _modelsConverterDep = dep(
     ContentModelsConverterImpl.new,
   );
 
-  late final _contentRepository = dep(
+  late final _contentRepositoryDep = dep(
     () => ContentRepositoryImpl(
       apiClient: _contentApiDep.get,
-      modelsConverter: _modelsConverter.get,
+      modelsConverter: _modelsConverterDep.get,
       logger: _loggerFactory.get.getLogger(
         feature: LoggerFeature.content,
         layer: LoggerLayers.domain,
@@ -50,7 +58,7 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
 
   late final _routesBlocDep = dep(
     () => RoutesBloc(
-      contentRepository: _contentRepository.get,
+      contentRepository: _contentRepositoryDep.get,
       logger: _loggerFactory.get.getLogger(
         name: 'RoutesBloc',
         feature: LoggerFeature.content,
@@ -62,7 +70,7 @@ class ContentScopeContainer extends ChildScopeContainer<AppScope>
 
   late final _filterRoutesBlocDep = dep(
     () => FilterRoutesBloc(
-      contentRepository: _contentRepository.get,
+      contentRepository: _contentRepositoryDep.get,
       logger: _loggerFactory.get.getLogger(
         name: 'FilterRoutesBloc',
         feature: LoggerFeature.content,

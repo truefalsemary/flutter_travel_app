@@ -18,6 +18,8 @@ message GetRoutesRequest {
   DifficultyFilter difficulty_filter = 1;
   DistanceFilter distance_filter = 2;
   string search_query = 3;
+  repeated RouteTransportType transport_types = 4;
+  repeated RouteTheme         themes          = 5;
 }
 
 message DifficultyFilter {
@@ -43,6 +45,23 @@ message Route {
   string user_id = 6; // UUID автора маршрута
   string route_id = 7; // UUID
   string description = 8;
+  RouteTransportType transport_type = 9;
+  RouteTheme theme = 10;
+}
+
+enum RouteTransportType {
+  WALKING = 0;
+  CYCLING = 1;
+  DRIVING = 2;
+  PUBLIC_TRANSPORT = 3;
+}
+
+enum RouteTheme {
+  URBAN = 0;
+  OUTDOOR = 1;
+  ADVENTURE = 2;
+  PHOTOGRAPHY = 3;
+  ROAD_TRIP = 4;
 }
 
 message Point {
@@ -98,6 +117,8 @@ message CreateRouteRequest {
   repeated Point path_points = 4;
   repeated string place_ids = 5; // UUIDs of associated places
   string description = 6;
+  RouteTransportType transport_type = 7;
+  RouteTheme theme = 8;
 }
 
 message CreateRouteResponse {

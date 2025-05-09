@@ -1,3 +1,5 @@
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/create_place_model.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/create_route_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/filter_routes_params.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/image_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/place_model.dart';
@@ -13,8 +15,8 @@ abstract class ContentModelsConverter {
   RouteModels convertRoutesToRouteModels(Iterable<proto.Route> routes);
   Iterable<proto.Route> converRouteModelsToRoutes(
       Iterable<RouteModel> routeModels);
-  proto.CreateRouteRequest convertRouteModelToCreateRouteRequest(
-    RouteModel routeModel,
+  proto.CreateRouteRequest convertCreateRouteModelToCreateRouteRequest(
+    CreateRouteModel routeModel,
   );
 
   AvailableFilterRoutesParams
@@ -22,11 +24,12 @@ abstract class ContentModelsConverter {
     proto.GetRoutesFilterOptionsResponse response,
   );
 
-  proto.CreatePlaceRequest convertPlaceModelToCreatePlaceRequest(
-    PlaceModel placeModel,
+  proto.CreatePlaceRequest convertCreatePlaceModelToCreatePlaceRequest(
+    CreatePlaceModel placeModel,
   );
 
   Future<proto.UploadImageRequest> convertXFileToUploadImageRequest(
+    String placeId,
     XFile xFile,
   );
 }
@@ -67,18 +70,18 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
       );
 
   @override
-  proto.CreateRouteRequest convertRouteModelToCreateRouteRequest(
-    RouteModel routeModel,
+  proto.CreateRouteRequest convertCreateRouteModelToCreateRouteRequest(
+    CreateRouteModel routeModel,
   ) =>
       proto.CreateRouteRequest(
         name: routeModel.name,
         description: routeModel.description,
-        difficulty: routeModel.difficultyLevel,
+        difficulty: routeModel.difficulty,
         distanceKm: routeModel.distanceKm,
-        pathPoints: routeModel.pathPoints?.map(
+        pathPoints: routeModel.pathPoints.map(
           (point) => proto.Point(lat: point.lat, lon: point.lon),
         ),
-        placeIds: routeModel.places.map((place) => place.placeId),
+        placeIds: routeModel.placeIds,
       );
 
   @override
@@ -102,9 +105,11 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
 
   @override
   Future<proto.UploadImageRequest> convertXFileToUploadImageRequest(
+    String placeId,
     XFile xFile,
   ) async {
     return proto.UploadImageRequest(
+      placeId: placeId,
       filename: xFile.name,
       content: await xFile.readAsBytes(),
     );
@@ -145,8 +150,8 @@ final class ContentModelsConverterImpl implements ContentModelsConverter {
       );
 
   @override
-  proto.CreatePlaceRequest convertPlaceModelToCreatePlaceRequest(
-    PlaceModel placeModel,
+  proto.CreatePlaceRequest convertCreatePlaceModelToCreatePlaceRequest(
+    CreatePlaceModel placeModel,
   ) {
     return proto.CreatePlaceRequest(
       name: placeModel.name,

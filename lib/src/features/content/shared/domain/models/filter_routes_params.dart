@@ -1,6 +1,7 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
+
 part 'filter_routes_params.g.dart';
 
 @CopyWith()

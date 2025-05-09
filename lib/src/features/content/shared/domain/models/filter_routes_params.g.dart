@@ -7,9 +7,8 @@ part of 'filter_routes_params.dart';
 // **************************************************************************
 
 abstract class _$AvailableFilterRoutesParamsCWProxy {
-  AvailableFilterRoutesParams minDistance(double minDistance);
-
-  AvailableFilterRoutesParams maxDistance(double maxDistance);
+  AvailableFilterRoutesParams distanceFilter(
+      DistanceFilterModel? distanceFilter);
 
   AvailableFilterRoutesParams minDifficulty(DifficultyLevel minDifficulty);
 
@@ -22,8 +21,7 @@ abstract class _$AvailableFilterRoutesParamsCWProxy {
   /// AvailableFilterRoutesParams(...).copyWith(id: 12, name: "My name")
   /// ````
   AvailableFilterRoutesParams call({
-    double minDistance,
-    double maxDistance,
+    DistanceFilterModel? distanceFilter,
     DifficultyLevel minDifficulty,
     DifficultyLevel maxDifficulty,
   });
@@ -37,12 +35,9 @@ class _$AvailableFilterRoutesParamsCWProxyImpl
   final AvailableFilterRoutesParams _value;
 
   @override
-  AvailableFilterRoutesParams minDistance(double minDistance) =>
-      this(minDistance: minDistance);
-
-  @override
-  AvailableFilterRoutesParams maxDistance(double maxDistance) =>
-      this(maxDistance: maxDistance);
+  AvailableFilterRoutesParams distanceFilter(
+          DistanceFilterModel? distanceFilter) =>
+      this(distanceFilter: distanceFilter);
 
   @override
   AvailableFilterRoutesParams minDifficulty(DifficultyLevel minDifficulty) =>
@@ -61,20 +56,15 @@ class _$AvailableFilterRoutesParamsCWProxyImpl
   /// AvailableFilterRoutesParams(...).copyWith(id: 12, name: "My name")
   /// ````
   AvailableFilterRoutesParams call({
-    Object? minDistance = const $CopyWithPlaceholder(),
-    Object? maxDistance = const $CopyWithPlaceholder(),
+    Object? distanceFilter = const $CopyWithPlaceholder(),
     Object? minDifficulty = const $CopyWithPlaceholder(),
     Object? maxDifficulty = const $CopyWithPlaceholder(),
   }) {
     return AvailableFilterRoutesParams(
-      minDistance: minDistance == const $CopyWithPlaceholder()
-          ? _value.minDistance
+      distanceFilter: distanceFilter == const $CopyWithPlaceholder()
+          ? _value.distanceFilter
           // ignore: cast_nullable_to_non_nullable
-          : minDistance as double,
-      maxDistance: maxDistance == const $CopyWithPlaceholder()
-          ? _value.maxDistance
-          // ignore: cast_nullable_to_non_nullable
-          : maxDistance as double,
+          : distanceFilter as DistanceFilterModel?,
       minDifficulty: minDifficulty == const $CopyWithPlaceholder()
           ? _value.minDifficulty
           // ignore: cast_nullable_to_non_nullable
@@ -92,6 +82,69 @@ extension $AvailableFilterRoutesParamsCopyWith on AvailableFilterRoutesParams {
   // ignore: library_private_types_in_public_api
   _$AvailableFilterRoutesParamsCWProxy get copyWith =>
       _$AvailableFilterRoutesParamsCWProxyImpl(this);
+}
+
+abstract class _$DistanceFilterModelCWProxy {
+  DistanceFilterModel minDistance(double minDistance);
+
+  DistanceFilterModel maxDistance(double maxDistance);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `DistanceFilterModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// DistanceFilterModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  DistanceFilterModel call({
+    double minDistance,
+    double maxDistance,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfDistanceFilterModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfDistanceFilterModel.copyWith.fieldName(...)`
+class _$DistanceFilterModelCWProxyImpl implements _$DistanceFilterModelCWProxy {
+  const _$DistanceFilterModelCWProxyImpl(this._value);
+
+  final DistanceFilterModel _value;
+
+  @override
+  DistanceFilterModel minDistance(double minDistance) =>
+      this(minDistance: minDistance);
+
+  @override
+  DistanceFilterModel maxDistance(double maxDistance) =>
+      this(maxDistance: maxDistance);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `DistanceFilterModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// DistanceFilterModel(...).copyWith(id: 12, name: "My name")
+  /// ````
+  DistanceFilterModel call({
+    Object? minDistance = const $CopyWithPlaceholder(),
+    Object? maxDistance = const $CopyWithPlaceholder(),
+  }) {
+    return DistanceFilterModel(
+      minDistance: minDistance == const $CopyWithPlaceholder()
+          ? _value.minDistance
+          // ignore: cast_nullable_to_non_nullable
+          : minDistance as double,
+      maxDistance: maxDistance == const $CopyWithPlaceholder()
+          ? _value.maxDistance
+          // ignore: cast_nullable_to_non_nullable
+          : maxDistance as double,
+    );
+  }
+}
+
+extension $DistanceFilterModelCopyWith on DistanceFilterModel {
+  /// Returns a callable class that can be used as follows: `instanceOfDistanceFilterModel.copyWith(...)` or like so:`instanceOfDistanceFilterModel.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
+  _$DistanceFilterModelCWProxy get copyWith =>
+      _$DistanceFilterModelCWProxyImpl(this);
 }
 
 abstract class _$UserFilterRoutesParamsCWProxy {

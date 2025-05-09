@@ -1,10 +1,14 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/place_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/point_model.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
 
+part 'route_model.g.dart';
+
 typedef RouteModels = Iterable<RouteModel>;
 
+@CopyWith()
 final class RouteModel with EquatableMixin {
   final String name;
   final String description;

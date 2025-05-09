@@ -2,11 +2,14 @@ import 'package:flutter_travel_app/src/common/utils/exceptions/grpc_exception.da
 import 'package:flutter_travel_app/src/features/content/shared/data/content_api.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/content_models_converter.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/create_place_model.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/create_route_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/filter_routes_params.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/route_model.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart';
 import 'package:grpc/grpc.dart';
 import 'package:logger/logger.dart';
+
+typedef PlaceId = String;
 
 abstract class ContentRepository {
   Future<RouteModels?> getRouteModels(
@@ -14,9 +17,9 @@ abstract class ContentRepository {
   );
   Future<AvailableFilterRoutesParams> getAvailableFilterRoutesParams();
 
-  Future<void> createPlace(CreatePlaceModel place);
+  Future<PlaceId> createPlace(CreatePlaceModel place);
 
-  Future<CreateRouteResponse> createRoute(RouteModel route);
+  Future<CreateRouteResponse> createRoute(CreateRouteModel route);
 }
 
 final class ContentRepositoryImpl implements ContentRepository {
@@ -39,6 +42,10 @@ final class ContentRepositoryImpl implements ContentRepository {
     _logger.i('try to get routes');
     try {
       final routes = await _apiClient.getRoutes(userFilterRoutesParams);
+      _logger.d(
+        // ignore: lines_longer_than_80_chars
+        'routes: ${routes.map((route) => route.places.map((place) => '\nLocation(lat: ${place.location.lat},  lon: ${place.location.lon}, \n name: ${place.name}, \n  address: ${place.address})'))}',
+      );
       return _modelsConverter.convertRoutesToRouteModels(routes);
     } on GrpcError catch (error) {
       throw error.toCustomGrpcException(featureName: 'GetRoutes');
@@ -63,39 +70,53 @@ final class ContentRepositoryImpl implements ContentRepository {
   }
 
   @override
-  Future<void> createPlace(CreatePlaceModel createPlaceModel) async {
-    final protoPlace = _modelsConverter.convertPlaceModelToCreatePlaceRequest(
-      createPlaceModel.place,
-    );
-
+  Future<PlaceId> createPlace(
+    CreatePlaceModel createPlaceModel,
+  ) async {
     try {
-      await _apiClient.createPlace(protoPlace);
+      final protoPlace =
+          _modelsConverter.convertCreatePlaceModelToCreatePlaceRequest(
+        createPlaceModel,
+      );
+
+      final response = await _apiClient.createPlace(protoPlace);
+      final placeId = response.placeId;
+
+      try {
+        final imageUploadRequests = await Future.wait(
+          createPlaceModel.images.map(
+            (image) => _modelsConverter.convertXFileToUploadImageRequest(
+              placeId,
+              image,
+            ),
+          ),
+        );
+        await _apiClient.uploadImages(
+          Stream.fromIterable(imageUploadRequests),
+        );
+
+        return placeId;
+      } on GrpcError catch (error) {
+        throw error.toCustomGrpcException(featureName: 'UploadImages');
+      }
     } on GrpcError catch (error) {
       throw error.toCustomGrpcException(featureName: 'CreatePlace');
-    }
-    try {
-      createPlaceModel.images.map(
-        (image) async {
-          final uploadImageRequest =
-              await _modelsConverter.convertXFileToUploadImageRequest(
-            image,
-          );
-          return _apiClient.uploadImages(Stream.value(uploadImageRequest));
-        },
-      );
-    } on GrpcError catch (error) {
-      throw error.toCustomGrpcException(featureName: 'UploadImages');
     }
   }
 
   @override
-  Future<CreateRouteResponse> createRoute(RouteModel route) async {
-    _logger.i('try to create route');
-    final protoRoute = _modelsConverter.convertRouteModelToCreateRouteRequest(
-      route,
-    );
+  Future<CreateRouteResponse> createRoute(CreateRouteModel route) async {
+    _logger.d('try to create route');
+
     try {
+      final protoRoute =
+          _modelsConverter.convertCreateRouteModelToCreateRouteRequest(
+        route,
+      );
+
       final response = await _apiClient.createRoute(protoRoute);
+
+      _logger.d('route created: $response');
       return response;
     } on GrpcError catch (error) {
       throw error.toCustomGrpcException(featureName: 'CreateRoute');
