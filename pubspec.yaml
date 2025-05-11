@@ -1,0 +1,87 @@
+name: flutter_travel_app
+description: "Приложение путешествия по России"
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.3 <4.0.0"
+  flutter: ">=3.27.1"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  provider: ^6.1.2
+
+  # state management
+  bloc: ^9.0.0
+  flutter_bloc: ^9.1.0
+  hydrated_bloc: ^10.0.0
+
+  # navigation
+  go_router: ^14.8.1
+
+  # networking
+  grpc: ^4.0.4
+  protobuf: ^4.0.0
+  fixnum: ^1.1.1
+  protoc_plugin: ^22.0.1
+
+  # di
+  yx_scope: ^1.0.2
+  yx_scope_flutter: ^1.0.2
+
+  # data
+  equatable: ^2.0.7
+
+  # logging
+  logger: ^2.5.0
+
+  theme_extensions_builder: ^3.1.0
+  blurhash_ffi: ^1.2.7
+  cached_network_image: ^3.4.1
+  theme_extensions_builder_annotation: ^3.0.0
+  wolt_modal_sheet: ^0.11.0
+  spider: ^4.2.2
+  flutter_svg: ^2.1.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_gen: ^5.10.0
+  intl: any
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.5
+  url_launcher: ^6.3.1
+  copy_with_extension: ^6.0.1
+  copy_with_extension_gen: ^6.0.0
+  collection: ^1.19.0
+  image_picker: ^1.1.2
+  uuid: ^4.5.1
+  yandex_maps_mapkit_lite: ^4.15.0-beta
+  geolocator: ^14.0.0
+  permission_handler: ^11.0.1
+  rxdart: ^0.27.7
+  # yandex_mapkit: ^4.1.0
+  
+  # envied: ^1.1.1
+  # dgis_mobile_sdk_map: ^12.6.2
+
+  # freezed: ^3.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # json_annotation: ^4.9.0
+  # json_serializable: ^6.7.0
+  surf_lint_rules: ^4.0.0
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.15
+  envied_generator: ^1.1.1
+  # freezed_annotation: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/images/
+    - assets/vectors/
