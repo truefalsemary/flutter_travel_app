@@ -23,10 +23,9 @@ const RegisterStepOneRequest$json = {
 };
 
 /// Descriptor for `RegisterStepOneRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List registerStepOneRequestDescriptor =
-    $convert.base64Decode(
-        'ChZSZWdpc3RlclN0ZXBPbmVSZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBIaCghwYXNzd2'
-        '9yZBgCIAEoCVIIcGFzc3dvcmQ=');
+final $typed_data.Uint8List registerStepOneRequestDescriptor = $convert.base64Decode(
+    'ChZSZWdpc3RlclN0ZXBPbmVSZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBIaCghwYXNzd2'
+    '9yZBgCIAEoCVIIcGFzc3dvcmQ=');
 
 @$core.Deprecated('Use registerStepOneResponseDescriptor instead')
 const RegisterStepOneResponse$json = {
@@ -37,22 +36,15 @@ const RegisterStepOneResponse$json = {
 };
 
 /// Descriptor for `RegisterStepOneResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List registerStepOneResponseDescriptor =
-    $convert.base64Decode(
-        'ChdSZWdpc3RlclN0ZXBPbmVSZXNwb25zZRIYCgdtZXNzYWdlGAEgASgJUgdtZXNzYWdl');
+final $typed_data.Uint8List registerStepOneResponseDescriptor = $convert.base64Decode(
+    'ChdSZWdpc3RlclN0ZXBPbmVSZXNwb25zZRIYCgdtZXNzYWdlGAEgASgJUgdtZXNzYWdl');
 
 @$core.Deprecated('Use verifyRegistrationRequestDescriptor instead')
 const VerifyRegistrationRequest$json = {
   '1': 'VerifyRegistrationRequest',
   '2': [
     {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
-    {
-      '1': 'verification_code',
-      '3': 2,
-      '4': 1,
-      '5': 9,
-      '10': 'verificationCode'
-    },
+    {'1': 'verification_code', '3': 2, '4': 1, '5': 9, '10': 'verificationCode'},
     {'1': 'fingerprint', '3': 3, '4': 1, '5': 9, '10': 'fingerprint'},
   ],
 };
@@ -73,10 +65,9 @@ const VerifyRegistrationResponse$json = {
 };
 
 /// Descriptor for `VerifyRegistrationResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List verifyRegistrationResponseDescriptor =
-    $convert.base64Decode(
-        'ChpWZXJpZnlSZWdpc3RyYXRpb25SZXNwb25zZRIhCgxhY2Nlc3NfdG9rZW4YASABKAlSC2FjY2'
-        'Vzc1Rva2VuEiMKDXJlZnJlc2hfdG9rZW4YAiABKAlSDHJlZnJlc2hUb2tlbg==');
+final $typed_data.Uint8List verifyRegistrationResponseDescriptor = $convert.base64Decode(
+    'ChpWZXJpZnlSZWdpc3RyYXRpb25SZXNwb25zZRIhCgxhY2Nlc3NfdG9rZW4YASABKAlSC2FjY2'
+    'Vzc1Rva2VuEiMKDXJlZnJlc2hfdG9rZW4YAiABKAlSDHJlZnJlc2hUb2tlbg==');
 
 @$core.Deprecated('Use loginRequestDescriptor instead')
 const LoginRequest$json = {
@@ -144,9 +135,8 @@ const ResendVerificationRequest$json = {
 };
 
 /// Descriptor for `ResendVerificationRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List resendVerificationRequestDescriptor =
-    $convert.base64Decode(
-        'ChlSZXNlbmRWZXJpZmljYXRpb25SZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbA==');
+final $typed_data.Uint8List resendVerificationRequestDescriptor = $convert.base64Decode(
+    'ChlSZXNlbmRWZXJpZmljYXRpb25SZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbA==');
 
 @$core.Deprecated('Use resendVerificationResponseDescriptor instead')
 const ResendVerificationResponse$json = {
@@ -157,9 +147,8 @@ const ResendVerificationResponse$json = {
 };
 
 /// Descriptor for `ResendVerificationResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List resendVerificationResponseDescriptor =
-    $convert.base64Decode(
-        'ChpSZXNlbmRWZXJpZmljYXRpb25SZXNwb25zZRIYCgdtZXNzYWdlGAEgASgJUgdtZXNzYWdl');
+final $typed_data.Uint8List resendVerificationResponseDescriptor = $convert.base64Decode(
+    'ChpSZXNlbmRWZXJpZmljYXRpb25SZXNwb25zZRIYCgdtZXNzYWdlGAEgASgJUgdtZXNzYWdl');
 
 @$core.Deprecated('Use validateAccessTokenRequestDescriptor instead')
 const ValidateAccessTokenRequest$json = {
@@ -167,8 +156,8 @@ const ValidateAccessTokenRequest$json = {
 };
 
 /// Descriptor for `ValidateAccessTokenRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List validateAccessTokenRequestDescriptor =
-    $convert.base64Decode('ChpWYWxpZGF0ZUFjY2Vzc1Rva2VuUmVxdWVzdA==');
+final $typed_data.Uint8List validateAccessTokenRequestDescriptor = $convert.base64Decode(
+    'ChpWYWxpZGF0ZUFjY2Vzc1Rva2VuUmVxdWVzdA==');
 
 @$core.Deprecated('Use validateAccessTokenResponseDescriptor instead')
 const ValidateAccessTokenResponse$json = {
@@ -179,7 +168,7 @@ const ValidateAccessTokenResponse$json = {
 };
 
 /// Descriptor for `ValidateAccessTokenResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List validateAccessTokenResponseDescriptor =
-    $convert.base64Decode(
-        'ChtWYWxpZGF0ZUFjY2Vzc1Rva2VuUmVzcG9uc2USGAoHbWVzc2FnZRgBIAEoCVIHbWVzc2FnZQ'
-        '==');
+final $typed_data.Uint8List validateAccessTokenResponseDescriptor = $convert.base64Decode(
+    'ChtWYWxpZGF0ZUFjY2Vzc1Rva2VuUmVzcG9uc2USGAoHbWVzc2FnZRgBIAEoCVIHbWVzc2FnZQ'
+    '==');
+

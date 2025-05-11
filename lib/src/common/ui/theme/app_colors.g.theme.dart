@@ -21,9 +21,13 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? mainElevatedButtonText,
     Color? minorElevatedButtonBg,
     Color? minorElevatedButtonText,
+    Color? disabledButtonBg,
+    Color? disabledButtonText,
     Color? sliderSelected,
     Color? sliderUnselected,
     Color? mainIconColor,
+    Color? selectedItemColor,
+    Color? unselectedItemColor,
   }) {
     final object = this as AppColorsTheme;
 
@@ -41,9 +45,13 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
           minorElevatedButtonBg ?? object.minorElevatedButtonBg,
       minorElevatedButtonText:
           minorElevatedButtonText ?? object.minorElevatedButtonText,
+      disabledButtonBg: disabledButtonBg ?? object.disabledButtonBg,
+      disabledButtonText: disabledButtonText ?? object.disabledButtonText,
       sliderSelected: sliderSelected ?? object.sliderSelected,
       sliderUnselected: sliderUnselected ?? object.sliderUnselected,
       mainIconColor: mainIconColor ?? object.mainIconColor,
+      selectedItemColor: selectedItemColor ?? object.selectedItemColor,
+      unselectedItemColor: unselectedItemColor ?? object.unselectedItemColor,
     );
   }
 
@@ -111,6 +119,16 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.minorElevatedButtonText,
         t,
       )!,
+      disabledButtonBg: Color.lerp(
+        value.disabledButtonBg,
+        otherValue.disabledButtonBg,
+        t,
+      )!,
+      disabledButtonText: Color.lerp(
+        value.disabledButtonText,
+        otherValue.disabledButtonText,
+        t,
+      )!,
       sliderSelected: Color.lerp(
         value.sliderSelected,
         otherValue.sliderSelected,
@@ -124,6 +142,16 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       mainIconColor: Color.lerp(
         value.mainIconColor,
         otherValue.mainIconColor,
+        t,
+      )!,
+      selectedItemColor: Color.lerp(
+        value.selectedItemColor,
+        otherValue.selectedItemColor,
+        t,
+      )!,
+      unselectedItemColor: Color.lerp(
+        value.unselectedItemColor,
+        otherValue.unselectedItemColor,
         t,
       )!,
     );
@@ -149,9 +177,13 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
                 value.minorElevatedButtonBg, other.minorElevatedButtonBg) &&
             identical(
                 value.minorElevatedButtonText, other.minorElevatedButtonText) &&
+            identical(value.disabledButtonBg, other.disabledButtonBg) &&
+            identical(value.disabledButtonText, other.disabledButtonText) &&
             identical(value.sliderSelected, other.sliderSelected) &&
             identical(value.sliderUnselected, other.sliderUnselected) &&
-            identical(value.mainIconColor, other.mainIconColor));
+            identical(value.mainIconColor, other.mainIconColor) &&
+            identical(value.selectedItemColor, other.selectedItemColor) &&
+            identical(value.unselectedItemColor, other.unselectedItemColor));
   }
 
   @override
@@ -170,9 +202,13 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.mainElevatedButtonText,
       value.minorElevatedButtonBg,
       value.minorElevatedButtonText,
+      value.disabledButtonBg,
+      value.disabledButtonText,
       value.sliderSelected,
       value.sliderUnselected,
       value.mainIconColor,
+      value.selectedItemColor,
+      value.unselectedItemColor,
     );
   }
 }

@@ -21,5 +21,11 @@
   "yMapOpenButton": "Открыть в Яндекс.Картах",
   "km": "км",
   "more": "Еще",
-  "less": "Скрыть"
+  "less": "Скрыть",
+  "profileTabName": "Профиль",
+  "searchTabName": "Поиск",
+  "createRouteTabName": "Создать",
+  "homeTabName": "Главная",
+  "createRouteFirstPageAppBarName": "Создать маршрут",
+  "createRouteFirstPageTextFieldHint": "Название маршрута"
 }

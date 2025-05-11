@@ -21,8 +21,6 @@ dependencies:
   # navigation
   go_router: ^14.8.1
 
-  yandex_mapkit_lite: ^2.0.2
-
   # networking
   grpc: ^4.0.4
   protobuf: ^4.0.0
@@ -34,7 +32,6 @@ dependencies:
   yx_scope_flutter: ^1.0.2
 
   # data
-  json_annotation: ^4.9.0
   equatable: ^2.0.7
 
   # logging
@@ -56,18 +53,32 @@ dependencies:
   url_launcher: ^6.3.1
   copy_with_extension: ^6.0.1
   copy_with_extension_gen: ^6.0.0
+  collection: ^1.19.0
+  image_picker: ^1.1.2
+  uuid: ^4.5.1
+  yandex_maps_mapkit_lite: ^4.15.0-beta
+  geolocator: ^14.0.0
+  permission_handler: ^11.0.1
+  rxdart: ^0.27.7
+  # yandex_mapkit: ^4.1.0
+
+  # envied: ^1.1.1
+  # dgis_mobile_sdk_map: ^12.6.2
+
+  # freezed: ^3.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # json_annotation: ^4.9.0
+  # json_serializable: ^6.7.0
   surf_lint_rules: ^4.0.0
   flutter_lints: ^5.0.0
   build_runner: ^2.4.15
+  envied_generator: ^1.1.1
+  # freezed_annotation: ^3.0.0
 
 flutter:
   uses-material-design: true
   generate: true
-  assets:
-    - assets/images/
-    - assets/vectors/

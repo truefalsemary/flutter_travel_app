@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -74,4 +76,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get less => 'Show less';
+
+  @override
+  String get profileTabName => 'Profile';
+
+  @override
+  String get searchTabName => 'Search';
+
+  @override
+  String get createRouteTabName => 'Create';
+
+  @override
+  String get homeTabName => 'Home';
+
+  @override
+  String get createRouteFirstPageAppBarName => 'Create route';
+
+  @override
+  String get createRouteFirstPageTextFieldHint => 'Route name';
 }

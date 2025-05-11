@@ -3,6 +3,7 @@
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import 'package:uuid/uuid.dart';
 
 class MockRoutesContentService extends ContentServiceBase {
   final List<Route> _mockRoutes = [];
@@ -206,24 +207,70 @@ class MockRoutesContentService extends ContentServiceBase {
   Future<CreatePlaceResponse> createPlace(
     ServiceCall call,
     CreatePlaceRequest request,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    // if (shouldThrowError) {
+    //   throw GrpcError.unauthenticated('Mock authentication error');
+    // }
+
+    await Future.delayed(responseDelay);
+
+    final uuid = Uuid();
+
+    final placeId = uuid.v1();
+
+    return CreatePlaceResponse()..placeId = placeId;
   }
 
   @override
   Future<CreateRouteResponse> createRoute(
     ServiceCall call,
     CreateRouteRequest request,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    // if (shouldThrowError) {
+    //   throw GrpcError.unauthenticated('Mock authentication error');
+    // }
+
+    await Future.delayed(responseDelay);
+
+    final uuid = Uuid();
+
+    final routeId = uuid.v1();
+
+    final route = Route()
+      ..routeId = routeId
+      ..name = request.name
+      ..description = request.description
+      ..transportType = request.transportType
+      ..theme = request.theme
+      ..difficulty = request.difficulty
+      ..distanceKm = request.distanceKm
+      ..pathPoints.addAll(request.pathPoints)
+      ..places.addAll(request.placeIds.map((e) => Place()..placeId = e))
+      ..userId = '00000000-0000-0000-0000-000000000000';
+
+    _mockRoutes.add(route);
+
+    return CreateRouteResponse()..routeId = routeId;
   }
 
   @override
   Future<UploadImageResponse> uploadImages(
     ServiceCall call,
     Stream<UploadImageRequest> request,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    // if (shouldThrowError) {
+    //   throw GrpcError.unauthenticated('Mock authentication error');
+    // }
+
+    await Future.delayed(responseDelay);
+
+    // await for (final chunk in request) {
+    //   if (chunk.hasImageData()) {
+    //     images.add('mock_image_${images.length + 1}.jpg');
+    //   }
+    // }
+
+    return UploadImageResponse();
   }
 
   @override

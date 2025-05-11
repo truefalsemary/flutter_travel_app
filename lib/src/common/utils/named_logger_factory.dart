@@ -21,6 +21,7 @@ enum LoggerTypes {
   widget,
   bloc,
   server,
+  notifier,
 }
 
 final class NamedLoggerFactory {
