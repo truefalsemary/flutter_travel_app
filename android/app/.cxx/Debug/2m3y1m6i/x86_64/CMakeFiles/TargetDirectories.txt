@@ -1,2 +1,0 @@
-/Users/truefalsemary/StudioProjects/finashka/flutter_travel_app/android/app/.cxx/Debug/2m3y1m6i/x86_64/CMakeFiles/edit_cache.dir
-/Users/truefalsemary/StudioProjects/finashka/flutter_travel_app/android/app/.cxx/Debug/2m3y1m6i/x86_64/CMakeFiles/rebuild_cache.dir
