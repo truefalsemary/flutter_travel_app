@@ -10,6 +10,7 @@ class PointsItemHeightNotifier extends ChangeNotifier {
   double _lastItemHeight = 0;
 
   double get allItemsHeight {
+    // ignore: prefer_int_literals
     final height = _itemHeights.values.fold(0.0, (sum, height) => sum + height);
     _logger.d('Calculated allItemsHeight: $height');
     return height;
@@ -46,8 +47,8 @@ class PointsItemHeightNotifier extends ChangeNotifier {
       }
     });
 
-    _itemHeights.clear();
-    _itemHeights.addAll(newHeights);
+    // ignore: cascade_invocations
+    _itemHeights..clear()..addAll(newHeights);
 
     notifyListeners();
   }

@@ -60,11 +60,14 @@ class _PointsFormPageState extends State<_PointsFormPage> {
                               // Vertical line
                               Consumer<PointsItemHeightNotifier>(
                                 builder: (context, notifier, _) {
-                                  _logger.d(
-                                      'All items height: ${notifier.allItemsHeight}');
-                                  _logger.d(
-                                      'Last item height: ${notifier.lastItemHeight}');
-                                  _logger.d(
+                                  _logger..d(
+                                      // ignore: lines_longer_than_80_chars
+                                      'All items height: ${notifier.allItemsHeight}')
+                                  ..d(
+                                      // ignore: lines_longer_than_80_chars
+                                      'Last item height: ${notifier.lastItemHeight}')
+                                  ..d(
+                                      // ignore: lines_longer_than_80_chars
                                       'Line height: ${notifier.allItemsHeight - notifier.lastItemHeight}');
 
                                   return Positioned(
@@ -77,6 +80,7 @@ class _PointsFormPageState extends State<_PointsFormPage> {
                                       height: notifier.allItemsHeight -
                                           notifier.lastItemHeight,
                                       color: context.colors.mainElevatedButtonBg
+                                          // ignore: deprecated_member_use
                                           .withOpacity(0.8),
                                     ),
                                   );
@@ -106,6 +110,7 @@ class _PointsFormPageState extends State<_PointsFormPage> {
                                         context,
                                         listen: false,
                                       );
+                                      // ignore: cascade_invocations
                                       notifier.removeItemHeight(index);
                                       context.read<CreatePointsFormBloc>().add(
                                             PlaceFormDeletePoint(index),

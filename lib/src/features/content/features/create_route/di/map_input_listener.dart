@@ -1,4 +1,4 @@
-import 'package:yandex_maps_mapkit_lite/mapkit.dart' show MapInputListener, Map, Point;
+import 'package:yandex_maps_mapkit_lite/mapkit.dart' show Map, MapInputListener, Point;
 
 final class MapInputListenerImpl implements MapInputListener {
   final void Function(Point) onUpdatePoint;

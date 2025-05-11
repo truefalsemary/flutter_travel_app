@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travel_app/src/app/di/app_scope.dart';
-import 'package:flutter_travel_app/src/features/content/features/create_route/di/create_route_scope.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/di/map_input_listener.dart';
-import 'package:provider/provider.dart';
-import 'package:yandex_maps_mapkit_lite/mapkit.dart' show CameraPosition, Map, MapInputListener, MapWindow, Point;
+import 'package:yandex_maps_mapkit_lite/mapkit.dart' show CameraPosition, MapInputListener, MapWindow, Point;
 import 'package:yandex_maps_mapkit_lite/mapkit_factory.dart' show mapkit;
-import 'package:yandex_maps_mapkit_lite/yandex_map.dart' show YandexMap;
-import 'package:yx_scope_flutter/yx_scope_flutter.dart';
+// ignore: implementation_imports
 import 'package:yandex_maps_mapkit_lite/src/mapkit/animation.dart'
     as mapkit_animation;
+import 'package:yandex_maps_mapkit_lite/yandex_map.dart' show YandexMap;
 
 class PlaceLocationSelectionMapPage extends StatelessWidget {
   final void Function(Point) onUpdatePoint;
   
-  const PlaceLocationSelectionMapPage({super.key, required this.onUpdatePoint});
+  const PlaceLocationSelectionMapPage({required this.onUpdatePoint, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +31,11 @@ class _PlaceLocationSelectionMapPageContent extends StatefulWidget {
   );
 
   @override
+  // ignore: lines_longer_than_80_chars
   State<_PlaceLocationSelectionMapPageContent> createState() => __PlaceLocationSelectionMapPageContentState();
 }
 
+// ignore: lines_longer_than_80_chars
 class __PlaceLocationSelectionMapPageContentState extends State<_PlaceLocationSelectionMapPageContent> {
   MapWindow? _mapWindow;
 
@@ -65,9 +64,9 @@ class __PlaceLocationSelectionMapPageContentState extends State<_PlaceLocationSe
             _mapWindow?.map.moveWithAnimation(
               CameraPosition(
                 Point(latitude: 55.751225, longitude: 37.62954),
-                zoom: 17.0,
-                azimuth: 150.0,
-                tilt: 30.0,
+                zoom: 17,
+                azimuth: 150,
+                tilt: 30,
               ),
               mapkit_animation.Animation(
                 mapkit_animation.AnimationType.Smooth,
@@ -87,7 +86,3 @@ class __PlaceLocationSelectionMapPageContentState extends State<_PlaceLocationSe
     super.dispose();
   }
 }
-
-
-
-

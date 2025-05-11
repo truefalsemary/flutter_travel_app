@@ -117,8 +117,11 @@ class AddPointPage extends StatelessWidget {
                             ),
                   ),
                   switch (state) {
+                    // ignore: lines_longer_than_80_chars
                     final CreatePlacePointModelState placePoint => Text('Координаты: ${placePoint.location?.lat}, ${placePoint.location?.lon}'),
+                    // ignore: lines_longer_than_80_chars
                     final CreatePathPointModelState pathPoint => Text('Координаты: ${pathPoint.location?.lat}, ${pathPoint.location?.lon}'),
+                    // ignore: unreachable_switch_case
                     _ => const SizedBox.shrink(),
                   },
                   // Text('Координаты: ${state.}, ${state.location.lon}'),
