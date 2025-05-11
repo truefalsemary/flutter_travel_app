@@ -1,4 +1,5 @@
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
+import 'package:flutter_travel_app/src/features/content/features/create_route/di/map_input_listener.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_points_form/create_points_form_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_route_form/create_route_form_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/create_route_form_interactor.dart';
@@ -9,6 +10,8 @@ abstract class CreateRouteScope implements Scope {
   CreateRouteFormBloc get createRouteFormBloc;
   CreatePointsFormBloc get createPointsFormBloc;
   CreateRouteInteractor get createRouteInteractor;
+  // SelectedPointNotifier get selectedPointNotifier;
+  // MapInputListenerImpl get mapInputListener;
 }
 
 class CreateRouteScopeContainer
@@ -27,6 +30,21 @@ class CreateRouteScopeContainer
   @override
   CreateRouteInteractor get createRouteInteractor =>
       _createRouteInteractorDep.get;
+
+  // @override
+  // SelectedPointNotifier get selectedPointNotifier =>
+  //     _selectedPointNotifierDep.get;
+
+  // @override
+  // MapInputListenerImpl get mapInputListener => _mapInputListenerDep.get;
+
+  // late final _selectedPointNotifierDep = dep(
+  //   () => SelectedPointNotifier(),
+  // );
+
+  // late final _mapInputListenerDep = dep(
+  //   () => MapInputListenerImpl(selectedPointNotifier: _selectedPointNotifierDep.get,),
+  // );
 
   late final _loggerFactory = dep(() => const NamedLoggerFactory());
 
@@ -62,6 +80,10 @@ class CreateRouteScopeContainer
       ),
     ),
   );
+  
+  // late final _cameraManagerDep = dep(
+  //   () => CameraManager(),
+  // );
 }
 
 class CreateRouteScopeHolder

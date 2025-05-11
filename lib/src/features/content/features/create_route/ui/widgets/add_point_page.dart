@@ -110,14 +110,63 @@ class AddPointPage extends StatelessWidget {
                       labelText: 'Адрес',
                     ),
                     onChanged: (value) =>
-                        context.read<CreatePointFormBloc>().add(
+                        createPointFormBloc.add(
                               CreatePointFormUpdateAddress(
                                 address: value,
                               ),
                             ),
                   ),
+                  switch (state) {
+                    final CreatePlacePointModelState placePoint => Text('Координаты: ${placePoint.location?.lat}, ${placePoint.location?.lon}'),
+                    final CreatePathPointModelState pathPoint => Text('Координаты: ${pathPoint.location?.lat}, ${pathPoint.location?.lon}'),
+                    _ => const SizedBox.shrink(),
+                  },
+                  // Text('Координаты: ${state.}, ${state.location.lon}'),
                   const SizedBox(height: 16),
-                  // TODO(truefalsemary): Add map location picker
+                  AppElevatedButton.minor(
+                    onPressed: () async {
+                      await Navigator.of(context).push<PointModel>(
+                        MaterialPageRoute(
+                          builder: (context) =>  PlaceLocationSelectionMapPage(
+                            onUpdatePoint: (point) {
+                              createPointFormBloc.add(
+                                CreatePointFormUpdateLocation(
+                                  location: PointModel(
+                                    lat: point.latitude,
+                                    lon: point.longitude,
+                                  ),
+                                ),
+                              );
+                            },
+
+                            
+                          ),
+                        ),
+                      );
+                      
+                      // if (result != null && context.mounted) {
+                        // context.read<CreatePointFormBloc>().add(
+                        //   CreatePointFormUpdateLocation(
+                        //     location: result,
+                        //   ),
+                        // );
+                      // }
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: context.colors.minorElevatedButtonText,
+                          size: 32,
+                        ),
+                        const SizedBox(width: 8),
+                        AppText(
+                          'Добавить местоположения',
+                          colors: context.colors,
+                        ),
+                      ],
+                    ),
+                  ),
                   const Spacer(),
                   Column(
                     mainAxisSize: MainAxisSize.min,

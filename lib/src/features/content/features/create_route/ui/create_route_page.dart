@@ -13,9 +13,10 @@ import 'package:flutter_travel_app/src/features/content/features/create_route/ui
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_points_form/models/create_point_form_model.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_route_form/create_route_form_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_route_form/create_route_form_state.dart';
+import 'package:flutter_travel_app/src/features/content/features/create_route/ui/place_location_selection_map_page.dart';
 import 'package:flutter_travel_app/src/features/content/shared/di/content_scope.dart';
+import 'package:flutter_travel_app/src/features/content/shared/domain/models/point_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/ui/widgets/image_xfile_carousel.dart';
-import 'package:flutter_travel_app/src/features/content/shared/ui/widgets/route_timeline.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart'
     as proto;
 import 'package:image_picker/image_picker.dart';

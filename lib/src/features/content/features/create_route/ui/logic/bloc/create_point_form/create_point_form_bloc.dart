@@ -43,22 +43,14 @@ class CreatePointFormBloc
           emit(
             CreatePathPointFilledFormModel(
               address: address,
-              // location: location,
-              location: PointModel(
-                lat: 10,
-                lon: 10,
-              ),
+              location: location,
             ),
           );
         } else {
           emit(
             CreatePathPointEditedFormModel(
               address: address,
-              // location: location,
-              location: PointModel(
-                lat: 10,
-                lon: 10,
-              ),
+              location: location,
             ),
           );
         }
@@ -79,28 +71,20 @@ class CreatePointFormBloc
           emit(
             CreatePlacePointFilledFormModel(
               address: address,
-              // location: location,
+              location: location,
               name: name,
               description: description,
               images: images,
-              location: PointModel(
-                lat: 10,
-                lon: 10,
-              ),
             ),
           );
         } else {
           emit(
             CreatePlacePointEditedFormModel(
               address: address,
-              // location: location,
+              location: location,
               name: name,
               description: description,
               images: images,
-              location: PointModel(
-                lat: 10,
-                lon: 10,
-              ),
             ),
           );
         }

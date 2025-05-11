@@ -6,7 +6,7 @@ import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/features/content/shared/di/content_scope_provider.dart';
 import 'package:flutter_travel_app/src/l10n/app_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:yandex_maps_mapkit_lite/init.dart' as init;
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 void main() async {
@@ -14,7 +14,12 @@ void main() async {
   // final storage = await HydratedStorage.build(
   //   storageDirectory: appDir,
   // );
+
+  WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await SharedPreferencesHydratedStorage.getInstance();
+  final mapkitApiKey = '2529a004-09a9-4a5c-b467-053e95c92d97';
+
+   init.initMapkit(apiKey: mapkitApiKey);
   runApp(const MainApp());
 }
 

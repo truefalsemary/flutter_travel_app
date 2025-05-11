@@ -45,11 +45,6 @@ ios/Flutter/.last_build_id
 build/
 pubspec.lock
 
-.fvm/fvm_config.json
-.fvm/flutter_sdk/
-.fvm/flutter_sdk
-
-
 # Web related
 
 # Symbolication related
@@ -79,3 +74,10 @@ app.*.map.json
 
 **/build
 **/pubspec_overrides.yaml
+
+lib/src/app/data/dgis_api_key.dart
+
+android/app/src/main/res/assets/dgissdk.key
+
+# FVM Version Cache
+.fvm/
