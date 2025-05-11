@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
+import 'package:flutter_travel_app/src/common/ui/components/app_layout_notifier.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
+import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/di/create_route_scope.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/di/create_route_scope_provider.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_point_form/create_point_form_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_points_form/create_points_form_bloc.dart';
+import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_points_form/create_points_form_state.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_points_form/models/create_point_form_model.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_route_form/create_route_form_bloc.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_route_form/create_route_form_state.dart';
@@ -14,10 +19,14 @@ import 'package:flutter_travel_app/src/features/content/shared/ui/widgets/route_
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart'
     as proto;
 import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 part 'widgets/route_form_page.dart';
 part 'widgets/points_form_page.dart';
+part 'widgets/points_item_height_notifier.dart';
+part 'widgets/add_point_page.dart';
 
 typedef OnNextPagePressed = void Function();
 
@@ -87,7 +96,9 @@ class _CreateRoutePageViewState extends State<_CreateRoutePageView>
         _RouteFormPage(
           onNextPagePressed: () => _updateCurrentPageIndex(1),
         ),
-        _PointsFormPage(), // Вторая страница пока заглушка
+        _PointsFormPage(
+          onBackPressed: () => _updateCurrentPageIndex(0),
+        ),
       ],
     );
   }

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_travel_app/src/app/data/shared_preferences_storage.dart';
 import 'package:flutter_travel_app/src/app/di/app_scope.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
 import 'package:flutter_travel_app/src/features/content/shared/di/content_scope_provider.dart';
 import 'package:flutter_travel_app/src/l10n/app_localizations.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 void main() async {
+  // final appDir = await getApplicationDocumentsDirectory();
+  // final storage = await HydratedStorage.build(
+  //   storageDirectory: appDir,
+  // );
+  HydratedBloc.storage = await SharedPreferencesHydratedStorage.getInstance();
   runApp(const MainApp());
 }
 

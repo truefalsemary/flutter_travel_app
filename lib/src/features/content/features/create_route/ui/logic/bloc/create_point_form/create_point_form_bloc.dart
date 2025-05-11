@@ -33,6 +33,7 @@ class CreatePointFormBloc
     CreatePointEditedFormState state,
     Emitter<CreatePointEditedFormState> emit,
   ) {
+    // TODO(truefalsemary): добавить локацию как добавлю сдк карт
     switch (state) {
       case CreatePathPointModelState(
           :final address,

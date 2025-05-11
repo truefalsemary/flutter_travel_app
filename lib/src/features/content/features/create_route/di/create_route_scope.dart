@@ -31,7 +31,13 @@ class CreateRouteScopeContainer
   late final _loggerFactory = dep(() => const NamedLoggerFactory());
 
   late final _createPointsFormBlocDep = dep(
-    CreatePointsFormBloc.new,
+    () => CreatePointsFormBloc(
+      logger: _loggerFactory.get.getLogger(
+        feature: LoggerFeature.content,
+        layer: LoggerLayers.domain,
+        type: LoggerTypes.bloc,
+      ),
+    ),
   );
 
   late final _createRouteFormBlocDep = dep(

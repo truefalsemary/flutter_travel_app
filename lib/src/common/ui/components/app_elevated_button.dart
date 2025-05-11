@@ -28,26 +28,35 @@ class AppElevatedButton extends StatelessWidget {
         style: _getButtonStyle(
           context,
           type: _type,
-          theme: context.colors,
+          colors: context.colors,
         ),
       );
 
   ButtonStyle _getButtonStyle(
     BuildContext context, {
     required AppElevatedButtonType type,
-    required AppColorsTheme theme,
+    required AppColorsTheme colors,
   }) =>
       ButtonStyle(
         splashFactory: NoSplash.splashFactory,
-        backgroundColor:
-            WidgetStateProperty.resolveWith((states) => switch (type) {
-                  AppElevatedButtonType.main => theme.mainElevatedButtonBg,
-                  AppElevatedButtonType.minor => theme.minorElevatedButtonBg,
-                }),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return colors.disabledButtonBg;
+          }
+          return switch (type) {
+            AppElevatedButtonType.main => colors.mainElevatedButtonBg,
+            AppElevatedButtonType.minor => colors.minorElevatedButtonBg,
+          };
+        }),
         foregroundColor: WidgetStateProperty.resolveWith(
-          (states) => switch (type) {
-            AppElevatedButtonType.main => theme.mainElevatedButtonText,
-            AppElevatedButtonType.minor => theme.minorElevatedButtonText,
+          (states) {
+            if (states.contains(WidgetState.disabled)) {
+              return colors.disabledButtonText;
+            }
+            return switch (type) {
+              AppElevatedButtonType.main => colors.mainElevatedButtonText,
+              AppElevatedButtonType.minor => colors.minorElevatedButtonText,
+            };
           },
         ),
         elevation: WidgetStateProperty.all(0),

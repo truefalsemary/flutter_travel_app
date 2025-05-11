@@ -78,10 +78,14 @@ class _RouteFormPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                ElevatedButton(
-                  onPressed:
-                      state is CreateRouteFormFilled ? onNextPagePressed : null,
-                  child: const Text('Далее'),
+                FractionallySizedBox(
+                  widthFactor: 1,
+                  child: AppElevatedButton.main(
+                    onPressed: state is CreateRouteFormFilled
+                        ? onNextPagePressed
+                        : null,
+                    child: const Text('Далее'),
+                  ),
                 ),
               ],
             ),

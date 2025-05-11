@@ -21,6 +21,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
     Color? mainElevatedButtonText,
     Color? minorElevatedButtonBg,
     Color? minorElevatedButtonText,
+    Color? disabledButtonBg,
+    Color? disabledButtonText,
     Color? sliderSelected,
     Color? sliderUnselected,
     Color? mainIconColor,
@@ -43,6 +45,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
           minorElevatedButtonBg ?? object.minorElevatedButtonBg,
       minorElevatedButtonText:
           minorElevatedButtonText ?? object.minorElevatedButtonText,
+      disabledButtonBg: disabledButtonBg ?? object.disabledButtonBg,
+      disabledButtonText: disabledButtonText ?? object.disabledButtonText,
       sliderSelected: sliderSelected ?? object.sliderSelected,
       sliderUnselected: sliderUnselected ?? object.sliderUnselected,
       mainIconColor: mainIconColor ?? object.mainIconColor,
@@ -115,6 +119,16 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
         otherValue.minorElevatedButtonText,
         t,
       )!,
+      disabledButtonBg: Color.lerp(
+        value.disabledButtonBg,
+        otherValue.disabledButtonBg,
+        t,
+      )!,
+      disabledButtonText: Color.lerp(
+        value.disabledButtonText,
+        otherValue.disabledButtonText,
+        t,
+      )!,
       sliderSelected: Color.lerp(
         value.sliderSelected,
         otherValue.sliderSelected,
@@ -163,6 +177,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
                 value.minorElevatedButtonBg, other.minorElevatedButtonBg) &&
             identical(
                 value.minorElevatedButtonText, other.minorElevatedButtonText) &&
+            identical(value.disabledButtonBg, other.disabledButtonBg) &&
+            identical(value.disabledButtonText, other.disabledButtonText) &&
             identical(value.sliderSelected, other.sliderSelected) &&
             identical(value.sliderUnselected, other.sliderUnselected) &&
             identical(value.mainIconColor, other.mainIconColor) &&
@@ -186,6 +202,8 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsTheme> {
       value.mainElevatedButtonText,
       value.minorElevatedButtonBg,
       value.minorElevatedButtonText,
+      value.disabledButtonBg,
+      value.disabledButtonText,
       value.sliderSelected,
       value.sliderUnselected,
       value.mainIconColor,

@@ -1,7 +1,9 @@
 part of '../create_route_page.dart';
 
 class _PointsFormPage extends StatefulWidget {
-  const _PointsFormPage();
+  final VoidCallback onBackPressed;
+
+  const _PointsFormPage({required this.onBackPressed});
 
   @override
   State<_PointsFormPage> createState() => _PointsFormPageState();
@@ -9,6 +11,14 @@ class _PointsFormPage extends StatefulWidget {
 
 class _PointsFormPageState extends State<_PointsFormPage> {
   late final ImagePicker _imagePicker;
+  late final Logger _logger = NamedLoggerFactory().getLogger(
+    feature: LoggerFeature.content,
+    layer: LoggerLayers.ui,
+    type: LoggerTypes.notifier,
+    name: 'PointsFormPage',
+  );
+
+  final _dotPadding = const EdgeInsets.only(top: 16);
 
   @override
   void initState() {
@@ -20,113 +30,171 @@ class _PointsFormPageState extends State<_PointsFormPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<CreatePointsFormBloc, CreatePointsFormState>(
       builder: (context, state) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Точки маршрута',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 16),
-                if (state.points.isEmpty)
-                  const Center(
-                    child: Text('Пока нет добавленных точек'),
-                  )
-                else
+        return ChangeNotifierProvider<PointsItemHeightNotifier>(
+          create: (context) => PointsItemHeightNotifier(),
+          child: Scaffold(
+            backgroundColor: context.colors.mainBg,
+            appBar: AppBar(
+              surfaceTintColor: context.colors.mainBg,
+              shadowColor: context.colors.mainBg,
+              backgroundColor: context.colors.mainBg,
+              leading: IconButton(
+                onPressed: widget.onBackPressed,
+                icon: const Icon(Icons.arrow_back),
+              ),
+              title: const Text('Точки маршрута'),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Expanded(
-                    child: Row(
+                    child: Stack(
                       children: [
-                        SizedBox(
-                          width: 32,
-                          child: RouteTimeline(
-                            itemCount: state.points.length,
-                            itemBuilder: (
-                              context, {
-                              required index,
-                              required itemCount,
-                              required isFirst,
-                              required isLast,
-                            }) {
-                              return const SizedBox.shrink();
-                            },
-                            itemWrapper: (child) => child,
-                          ),
-                        ),
-                        Expanded(
-                          child: ReorderableListView.builder(
-                            itemCount: state.points.length,
-                            onReorder: (oldIndex, newIndex) {
-                              context.read<CreatePointsFormBloc>().add(
-                                    PlaceFormReorderPoints(
-                                      oldPointIndex: oldIndex,
-                                      newPointIndex: newIndex,
+                        // Vertical line
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40),
+                          child: Stack(
+                            children: [
+                              // Vertical line
+                              Consumer<PointsItemHeightNotifier>(
+                                builder: (context, notifier, _) {
+                                  _logger.d(
+                                      'All items height: ${notifier.allItemsHeight}');
+                                  _logger.d(
+                                      'Last item height: ${notifier.lastItemHeight}');
+                                  _logger.d(
+                                      'Line height: ${notifier.allItemsHeight - notifier.lastItemHeight}');
+
+                                  return Positioned(
+                                    left: 4,
+                                    top: _dotPadding.top,
+                                    height: notifier.allItemsHeight -
+                                        notifier.lastItemHeight,
+                                    child: Container(
+                                      width: 3,
+                                      height: notifier.allItemsHeight -
+                                          notifier.lastItemHeight,
+                                      color: context.colors.mainElevatedButtonBg
+                                          .withOpacity(0.8),
                                     ),
                                   );
-                            },
-                            itemBuilder: (context, index) {
-                              final point = state.points.elementAt(index);
-                              return _PointItem(
-                                key: ValueKey(point),
-                                point: point,
-                                onTap: () =>
-                                    _navigateToEditPoint(context, point, index),
-                                onDelete: () {
+                                },
+                              ),
+                              // ListView
+                              ReorderableListView.builder(
+                                itemCount: state.points.length,
+                                onReorder: (oldIndex, newIndex) {
                                   context.read<CreatePointsFormBloc>().add(
-                                        PlaceFormDeletePoint(index),
+                                        PlaceFormReorderPoints(
+                                          oldPointIndex: oldIndex,
+                                          newPointIndex: newIndex,
+                                        ),
                                       );
                                 },
-                              );
-                            },
+                                itemBuilder: (context, index) {
+                                  final point = state.points.elementAt(index);
+                                  return _PointItemWithDot(
+                                    key: ValueKey(point),
+                                    point: point,
+                                    onTap: () => _navigateToEditPoint(
+                                        context, point, index),
+                                    onDelete: () {
+                                      final notifier =
+                                          Provider.of<PointsItemHeightNotifier>(
+                                        context,
+                                        listen: false,
+                                      );
+                                      notifier.removeItemHeight(index);
+                                      context.read<CreatePointsFormBloc>().add(
+                                            PlaceFormDeletePoint(index),
+                                          );
+                                    },
+                                    dotPadding: const EdgeInsets.only(top: 16),
+                                    onLayout: (size) {
+                                      final notifier =
+                                          Provider.of<PointsItemHeightNotifier>(
+                                        context,
+                                        listen: false,
+                                      );
+
+                                      if (index == state.points.length - 1) {
+                                        notifier.setLastItemHeight(size.height);
+                                      }
+
+                                      notifier.addItemHeight(
+                                        index,
+                                        size.height,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                const SizedBox(height: 16),
-                FloatingActionButton.extended(
-                  onPressed: () => _showAddPointDialog(context),
-                  label: const Text('Добавить точку'),
-                  icon: const Icon(Icons.add),
-                ),
-                const SizedBox(height: 24),
-                ScopeBuilder<CreateRouteScopeContainer>(
-                  builder: (_, scope) {
-                    final interactor = scope?.createRouteInteractor;
+                  if (state.points.isEmpty)
+                    const Center(
+                      child: Text('Пока нет добавленных точек'),
+                    ),
+                  const SizedBox(height: 24),
+                  FloatingActionButton.extended(
+                    onPressed: () => _showAddPointDialog(context),
+                    backgroundColor: context.colors.mainElevatedButtonBg,
+                    foregroundColor: context.colors.mainElevatedButtonText,
+                    label: const Text('Добавить точку'),
+                    icon: const Icon(Icons.add),
+                  ),
+                  const SizedBox(height: 24),
+                  ScopeBuilder<CreateRouteScopeContainer>(
+                    builder: (_, scope) {
+                      final interactor = scope?.createRouteInteractor;
 
-                    return AppElevatedButton.main(
-                      onPressed: state.points.isNotEmpty && interactor != null
-                          ? interactor.createRoute
-                          : null,
-                      child: const Text('Отправить маршрут'),
-                    );
-                  },
-                ),
-                const SizedBox(height: 16),
-                AppElevatedButton.minor(
-                  onPressed: () {
-                    // Reset both forms and navigate to first page
-                    context
-                        .read<CreateRouteFormBloc>()
-                        .add(CreateRouteFormReset());
-                    context.read<CreatePointsFormBloc>().add(PlaceFormReset());
-                    if (context.mounted) {
-                      final pageController = context
-                          .findAncestorStateOfType<_CreateRoutePageViewState>()
-                          ?._pageViewController;
-                      pageController?.animateToPage(
-                        0,
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
+                      return FractionallySizedBox(
+                        widthFactor: 1,
+                        child: AppElevatedButton.main(
+                          onPressed:
+                              state.points.isNotEmpty && interactor != null
+                                  ? interactor.createRoute
+                                  : null,
+                          child: const Text('Отправить маршрут'),
+                        ),
                       );
-                    }
-                  },
-                  child: const Text('Сбросить маршрут'),
-                ),
-                const SizedBox(height: 24),
-              ],
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  FractionallySizedBox(
+                    widthFactor: 1,
+                    child: AppElevatedButton.minor(
+                      onPressed: () {
+                        // Reset both forms and navigate to first page
+                        context
+                            .read<CreateRouteFormBloc>()
+                            .add(CreateRouteFormReset());
+                        context
+                            .read<CreatePointsFormBloc>()
+                            .add(PlaceFormReset());
+                        if (context.mounted) {
+                          final pageController = context
+                              .findAncestorStateOfType<
+                                  _CreateRoutePageViewState>()
+                              ?._pageViewController;
+                          pageController?.animateToPage(
+                            0,
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                      child: const Text('Сбросить маршрут'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -196,140 +264,6 @@ class _PointsFormPageState extends State<_PointsFormPage> {
   }
 }
 
-class _AddPointTypeDialog extends StatelessWidget {
-  const _AddPointTypeDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Выберите тип точки'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            leading: const Icon(Icons.place),
-            title: const Text('Место'),
-            onTap: () => Navigator.of(context).pop(CreatePointFormType.place),
-          ),
-          ListTile(
-            leading: const Icon(Icons.route),
-            title: const Text('Точка маршрута'),
-            onTap: () => Navigator.of(context).pop(CreatePointFormType.path),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AddPointPage extends StatelessWidget {
-  const AddPointPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Добавить точку'),
-      ),
-      body: BlocBuilder<CreatePointFormBloc, CreatePointEditedFormState>(
-        builder: (context, state) {
-          final createPointFormBloc = context.read<CreatePointFormBloc>();
-          final images = switch (state) {
-            final CreatePlacePointModelState placePoint => placePoint.images,
-            _ => null,
-          };
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (state is CreatePlacePointModelState) ...[
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Название места',
-                      ),
-                      onChanged: (value) => createPointFormBloc.add(
-                        CreatePointFormUpdateName(
-                          name: value,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Описание места',
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => createPointFormBloc.add(
-                        CreatePointFormUpdateDescription(
-                          description: value,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (images != null && images.isNotEmpty)
-                      ImageXFileCarouselWidget(
-                        images: images,
-                        height: 200,
-                        padding: const EdgeInsets.all(8),
-                      ),
-                    const SizedBox(height: 16),
-                    ElevatedButton.icon(
-                      onPressed: () => createPointFormBloc.add(
-                        CreatePointFormAddImage(),
-                      ),
-                      icon: const Icon(Icons.add_photo_alternate),
-                      label: const Text('Добавить фотографии'),
-                    ),
-                  ],
-                  const SizedBox(height: 16),
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Адрес',
-                    ),
-                    onChanged: (value) =>
-                        context.read<CreatePointFormBloc>().add(
-                              CreatePointFormUpdateAddress(
-                                address: value,
-                              ),
-                            ),
-                  ),
-                  const SizedBox(height: 16),
-                  // TODO(truefalsemary): Add map location picker
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: state is CreatePlacePointFilledFormModel ||
-                                  state is CreatePathPointFilledFormModel
-                              ? () {
-                                  Navigator.of(context).pop(state);
-                                }
-                              : null,
-                          child: const Text('Сохранить'),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Отмена'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
 class _PointItem extends StatelessWidget {
   final CreatePointFormModel point;
   final VoidCallback onTap;
@@ -383,6 +317,64 @@ class _PointItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _PointItemWithDot extends StatelessWidget {
+  final CreatePointFormModel point;
+  final VoidCallback onTap;
+  final VoidCallback onDelete;
+  final void Function(Size size) onLayout;
+  final EdgeInsets dotPadding;
+
+  const _PointItemWithDot({
+    required Key key,
+    required this.point,
+    required this.onTap,
+    required this.onDelete,
+    required this.onLayout,
+    required this.dotPadding,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: dotPadding,
+              child: SizedBox(
+                width: 12,
+                height: 12,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: context.colors.mainElevatedButtonBg,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.colors.mainBg,
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: LayoutNotifier(
+                (offset, size) => onLayout(size),
+                child: _PointItem(
+                  key: ValueKey(point),
+                  point: point,
+                  onTap: onTap,
+                  onDelete: onDelete,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
