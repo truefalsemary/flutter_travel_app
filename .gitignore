@@ -45,6 +45,10 @@ ios/Flutter/.last_build_id
 build/
 pubspec.lock
 
+
+.fvm/fvm_config.json
+.fvm/flutter_sdk/
+.fvm/flutter_sdk
 # Web related
 
 # Symbolication related
