@@ -16,78 +16,79 @@ class _RouteFormPage extends StatelessWidget {
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Название маршрута',
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AppTextField(
+                    hintText: 'Название маршрута',
+                    onChanged: (value) =>
+                        context.read<CreateRouteFormBloc>().add(
+                              CreateRouteFormUpdateName(value),
+                            ),
                   ),
-                  onChanged: (value) => context.read<CreateRouteFormBloc>().add(
-                        CreateRouteFormUpdateName(value),
-                      ),
-                ),
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Описание маршрута',
+                  const SizedBox(height: 20),
+                  AppTextField(
+                    hintText: 'Описание маршрута',
+                    onChanged: (value) => routeFormBloc.add(
+                      CreateRouteFormUpdateDescription(value),
+                    ),
                   ),
-                  onChanged: (value) => routeFormBloc.add(
-                    CreateRouteFormUpdateDescription(value),
+                  const SizedBox(height: 24),
+                  const Text('Длина маршрута (км)'),
+                  const SizedBox(height: 8),
+                  BlocBuilder<CreateRouteFormBloc, CreateRouteFormState>(
+                    builder: (context, state) {
+                      return _DistanceSlider(
+                        selectedDistance: state.distanceKm ?? 0,
+                        onDistanceChanged: (distance) {
+                          routeFormBloc.add(
+                            CreateRouteFormUpdateDistanceKm(distance),
+                          );
+                        },
+                      );
+                    },
                   ),
-                ),
-                const SizedBox(height: 24),
-                Text('Длина маршрута (км)'),
-                const SizedBox(height: 8),
-                BlocBuilder<CreateRouteFormBloc, CreateRouteFormState>(
-                  builder: (context, state) {
-                    return _DistanceSlider(
-                      selectedDistance: state.distanceKm ?? 0,
-                      onDistanceChanged: (distance) {
-                        routeFormBloc.add(
-                          CreateRouteFormUpdateDistanceKm(distance),
-                        );
-                      },
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-                Text('Категория маршрута'),
-                const SizedBox(height: 8),
-                _ThemeSelector(
-                  selectedTheme: state.theme,
-                  onThemeSelected: (theme) => routeFormBloc.add(
-                    CreateRouteFormUpdateTheme(theme),
+                  const SizedBox(height: 24),
+                  const Text('Категория маршрута'),
+                  const SizedBox(height: 8),
+                  _ThemeSelector(
+                    selectedTheme: state.theme,
+                    onThemeSelected: (theme) => routeFormBloc.add(
+                      CreateRouteFormUpdateTheme(theme),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                Text('Тип транспорта'),
-                const SizedBox(height: 8),
-                _TransportTypeSelector(
-                  selectedType: state.transportType,
-                  onTypeSelected: (type) => routeFormBloc.add(
-                    CreateRouteFormUpdateTransportType(type),
+                  const SizedBox(height: 24),
+                  const Text('Тип транспорта'),
+                  const SizedBox(height: 8),
+                  _TransportTypeSelector(
+                    selectedType: state.transportType,
+                    onTypeSelected: (type) => routeFormBloc.add(
+                      CreateRouteFormUpdateTransportType(type),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                Text('Сложность маршрута'),
-                const SizedBox(height: 8),
-                _DifficultySlider(
-                  selectedDifficulty: state.difficulty,
-                  onDifficultyChanged: (difficulty) => routeFormBloc.add(
-                    CreateRouteFormUpdateDifficulty(difficulty),
+                  const SizedBox(height: 24),
+                  const Text('Сложность маршрута'),
+                  const SizedBox(height: 8),
+                  _DifficultySlider(
+                    selectedDifficulty: state.difficulty,
+                    onDifficultyChanged: (difficulty) => routeFormBloc.add(
+                      CreateRouteFormUpdateDifficulty(difficulty),
+                    ),
                   ),
-                ),
-                const Spacer(),
-                FractionallySizedBox(
-                  widthFactor: 1,
-                  child: AppElevatedButton.main(
-                    onPressed: state is CreateRouteFormFilled
-                        ? onNextPagePressed
-                        : null,
-                    child: const Text('Далее'),
+                  const SizedBox(height: 32),
+                  FractionallySizedBox(
+                    widthFactor: 1,
+                    child: AppElevatedButton.main(
+                      onPressed: state is CreateRouteFormFilled
+                          ? onNextPagePressed
+                          : null,
+                      child: const Text('Далее'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -109,33 +110,69 @@ class _ThemeSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: proto.RouteTheme.values.map((theme) {
-        return IconButton(
-          icon: Icon(
-            _getThemeIcon(theme),
-            color:
-                selectedTheme == theme ? Theme.of(context).primaryColor : null,
+        return GestureDetector(
+          onTap: () => onThemeSelected(theme),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                _getThemeIcon(theme),
+                colorFilter: selectedTheme == theme
+                    ? ColorFilter.mode(
+                        context.colors.mainIconColor, BlendMode.srcIn)
+                    : null,
+              ),
+              const SizedBox(height: 4),
+              SizedBox(
+                width: 70, // фиксированная ширина
+                child: Text(
+                  _getThemeText(theme),
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                  overflow: TextOverflow.visible,
+                  maxLines: 2,
+                ),
+              ),
+            ],
           ),
-          onPressed: () => onThemeSelected(theme),
         );
       }).toList(),
     );
   }
 
-  IconData _getThemeIcon(proto.RouteTheme theme) {
+  String _getThemeIcon(proto.RouteTheme theme) {
     switch (theme) {
       case proto.RouteTheme.URBAN:
-        return Icons.location_city;
+        return AppVectors.urban;
       case proto.RouteTheme.OUTDOOR:
-        return Icons.landscape;
+        return AppVectors.outdoor;
       case proto.RouteTheme.ADVENTURE:
-        return Icons.fireplace;
+        return AppVectors.adventure;
       case proto.RouteTheme.PHOTOGRAPHY:
-        return Icons.photo;
+        return AppVectors.photography;
       case proto.RouteTheme.ROAD_TRIP:
-        return Icons.directions_car;
+        return AppVectors.roadTrip;
       default:
-        return Icons.help;
+        return AppVectors.urban;
+    }
+  }
+
+  String _getThemeText(proto.RouteTheme theme) {
+    switch (theme) {
+      case proto.RouteTheme.URBAN:
+        return 'Город';
+      case proto.RouteTheme.OUTDOOR:
+        return 'Активный отдых';
+      case proto.RouteTheme.ADVENTURE:
+        return 'Природа';
+      case proto.RouteTheme.PHOTOGRAPHY:
+        return 'Фото туризм';
+      case proto.RouteTheme.ROAD_TRIP:
+        return 'Поездка';
+      default:
+        return '-';
     }
   }
 }
@@ -153,30 +190,65 @@ class _TransportTypeSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: proto.RouteTransportType.values.map((type) {
-        return IconButton(
-          icon: Icon(
-            _getTransportIcon(type),
-            color: selectedType == type ? Theme.of(context).primaryColor : null,
+        return GestureDetector(
+          onTap: () => onTypeSelected(type),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                _getTransportIcon(type),
+                colorFilter: selectedType == type
+                    ? ColorFilter.mode(
+                        context.colors.mainIconColor, BlendMode.srcIn)
+                    : null,
+              ),
+              const SizedBox(height: 4),
+              SizedBox(
+                width: 70, // фиксированная ширина
+                child: Text(
+                  _getTypeText(type),
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                  overflow: TextOverflow.visible,
+                  maxLines: 2,
+                ),
+              ),
+            ],
           ),
-          onPressed: () => onTypeSelected(type),
         );
       }).toList(),
     );
   }
 
-  IconData _getTransportIcon(proto.RouteTransportType type) {
+  String _getTransportIcon(proto.RouteTransportType type) {
     switch (type) {
       case proto.RouteTransportType.WALKING:
-        return Icons.directions_walk;
+        return AppVectors.walk;
       case proto.RouteTransportType.CYCLING:
-        return Icons.directions_bike;
+        return AppVectors.outdoor;
       case proto.RouteTransportType.DRIVING:
-        return Icons.directions_car;
+        return AppVectors.roadTrip;
       case proto.RouteTransportType.PUBLIC_TRANSPORT:
-        return Icons.directions_bus;
+        return AppVectors.bus;
       default:
-        return Icons.help;
+        return AppVectors.walk;
+    }
+  }
+
+  String _getTypeText(proto.RouteTransportType type) {
+    switch (type) {
+      case proto.RouteTransportType.WALKING:
+        return 'Пешком';
+      case proto.RouteTransportType.CYCLING:
+        return 'На велосипеде';
+      case proto.RouteTransportType.DRIVING:
+        return 'На машине';
+      case proto.RouteTransportType.PUBLIC_TRANSPORT:
+        return 'На автобусе';
+      default:
+        return '-';
     }
   }
 }

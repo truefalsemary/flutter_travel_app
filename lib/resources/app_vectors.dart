@@ -12,4 +12,11 @@ class AppVectors {
   static const String home = 'assets/vectors/home.svg';
   static const String person = 'assets/vectors/person.svg';
   static const String search = 'assets/vectors/search.svg';
+  static const String urban = 'assets/vectors/urban.svg';
+  static const String adventure = 'assets/vectors/adventure.svg';
+  static const String photography = 'assets/vectors/photography.svg';
+  static const String outdoor = 'assets/vectors/outdoor.svg';
+  static const String roadTrip = 'assets/vectors/road_trip.svg';
+  static const String bus = 'assets/vectors/bus.svg';
+  static const String walk = 'assets/vectors/walk.svg';
 }
