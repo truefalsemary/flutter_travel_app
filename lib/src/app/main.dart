@@ -17,7 +17,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await SharedPreferencesHydratedStorage.getInstance();
-  final mapkitApiKey = '';
+  final mapkitApiKey = '13479c75-c4ba-456c-b377-449d4f1f5da2';
 
    init.initMapkit(apiKey: mapkitApiKey);
   runApp(const MainApp());

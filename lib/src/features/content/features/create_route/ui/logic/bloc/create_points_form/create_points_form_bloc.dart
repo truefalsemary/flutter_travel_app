@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 part 'create_points_form_event.dart';
 
 class CreatePointsFormBloc
-    extends HydratedBloc<CreatePointsFormEvent, CreatePointsFormState> {
+    extends Bloc<CreatePointsFormEvent, CreatePointsFormState> {
   final Logger _logger;
 
   CreatePointsFormBloc({
