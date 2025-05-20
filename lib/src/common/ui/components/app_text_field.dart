@@ -8,7 +8,7 @@ class AppTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final String? initialValue;
-  final int? maxLines;  // Добавленный параметр
+  final int? maxLines; // Добавленный параметр
 
   const AppTextField({
     super.key,
@@ -18,7 +18,7 @@ class AppTextField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.initialValue,
-    this.maxLines = 1,  // Значение по умолчанию - 1 строка
+    this.maxLines = 1, // Значение по умолчанию - 1 строка
   });
 
   @override
@@ -42,7 +42,8 @@ class _AppTextFieldState extends State<AppTextField> {
       obscureText: _obscureText,
       validator: widget.validator,
       onChanged: widget.onChanged,
-      maxLines: widget.maxLines,  // Использование параметра
+      maxLines: widget.maxLines,
+      // Использование параметра
       decoration: InputDecoration(
         filled: true,
         fillColor: context.colors.minorElevatedButtonBg,
@@ -59,17 +60,17 @@ class _AppTextFieldState extends State<AppTextField> {
         ),
         suffixIcon: widget.isHidden
             ? IconButton(
-          icon: Icon(
-            _obscureText ? Icons.visibility_off : Icons.visibility,
-            color: context.colors.minorText,
-          ),
-          onPressed: () {
-            setState(() => _obscureText = !_obscureText);
-          },
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
-          iconSize: 24,
-        )
+                icon: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: context.colors.minorText,
+                ),
+                onPressed: () {
+                  setState(() => _obscureText = !_obscureText);
+                },
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                iconSize: 24,
+              )
             : null,
       ),
     );

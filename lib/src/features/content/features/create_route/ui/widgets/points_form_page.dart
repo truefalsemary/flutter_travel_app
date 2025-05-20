@@ -103,7 +103,9 @@ class _PointsFormPageState extends State<_PointsFormPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.add),
-                          SizedBox(width: 8,),
+                          SizedBox(
+                            width: 8,
+                          ),
                           Text('Добавить точку'),
                         ],
                       ),
@@ -315,7 +317,8 @@ class _TimelinePointItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Координаты: ${point.location.lat.toStringAsFixed(4)}, '
+                          'Координаты: ${point.location.lat.
+                          toStringAsFixed(4)}, '
                           '${point.location.lon.toStringAsFixed(4)}',
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
