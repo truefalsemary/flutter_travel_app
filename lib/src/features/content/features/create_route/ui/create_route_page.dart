@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
-import 'package:flutter_travel_app/src/common/ui/components/app_layout_notifier.dart';
 import 'package:flutter_travel_app/src/common/ui/components/app_text_field.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/di/create_route_scope.dart';
@@ -24,7 +24,6 @@ import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.p
     as proto;
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
 part 'widgets/add_point_page.dart';

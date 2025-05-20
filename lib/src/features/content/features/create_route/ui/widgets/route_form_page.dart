@@ -13,82 +13,91 @@ class _RouteFormPage extends StatelessWidget {
       builder: (context, state) {
         final routeFormBloc = context.read<CreateRouteFormBloc>();
 
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppTextField(
-                    hintText: 'Название маршрута',
-                    onChanged: (value) =>
-                        context.read<CreateRouteFormBloc>().add(
-                              CreateRouteFormUpdateName(value),
-                            ),
-                  ),
-                  const SizedBox(height: 20),
-                  AppTextField(
-                    hintText: 'Описание маршрута',
-                    onChanged: (value) => routeFormBloc.add(
-                      CreateRouteFormUpdateDescription(value),
+        return Scaffold(
+          appBar: AppBar(
+            surfaceTintColor: context.colors.mainBg,
+            backgroundColor: context.colors.mainBg,
+            title: const Text('Создание маршрута'),
+          ),
+          backgroundColor: context.colors.mainBg,
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppTextField(
+                      hintText: 'Название маршрута',
+                      onChanged: (value) =>
+                          context.read<CreateRouteFormBloc>().add(
+                            CreateRouteFormUpdateName(value),
+                          ),
                     ),
-                  ),
-                  const SizedBox(height: 24),
-                  const Text('Длина маршрута (км)'),
-                  const SizedBox(height: 8),
-                  BlocBuilder<CreateRouteFormBloc, CreateRouteFormState>(
-                    builder: (context, state) {
-                      return _DistanceSlider(
-                        selectedDistance: state.distanceKm ?? 0,
-                        onDistanceChanged: (distance) {
-                          routeFormBloc.add(
-                            CreateRouteFormUpdateDistanceKm(distance),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 24),
-                  const Text('Категория маршрута'),
-                  const SizedBox(height: 8),
-                  _ThemeSelector(
-                    selectedTheme: state.theme,
-                    onThemeSelected: (theme) => routeFormBloc.add(
-                      CreateRouteFormUpdateTheme(theme),
+                    const SizedBox(height: 20),
+                    AppTextField(
+                      hintText: 'Описание маршрута',
+                      maxLines: 3,
+                      onChanged: (value) => routeFormBloc.add(
+                        CreateRouteFormUpdateDescription(value),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 24),
-                  const Text('Тип транспорта'),
-                  const SizedBox(height: 8),
-                  _TransportTypeSelector(
-                    selectedType: state.transportType,
-                    onTypeSelected: (type) => routeFormBloc.add(
-                      CreateRouteFormUpdateTransportType(type),
+                    const SizedBox(height: 24),
+                    const Text('Длина маршрута (км)'),
+                    const SizedBox(height: 8),
+                    BlocBuilder<CreateRouteFormBloc, CreateRouteFormState>(
+                      builder: (context, state) {
+                        return _DistanceSlider(
+                          selectedDistance: state.distanceKm ?? 0,
+                          onDistanceChanged: (distance) {
+                            routeFormBloc.add(
+                              CreateRouteFormUpdateDistanceKm(distance),
+                            );
+                          },
+                        );
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 24),
-                  const Text('Сложность маршрута'),
-                  const SizedBox(height: 8),
-                  _DifficultySlider(
-                    selectedDifficulty: state.difficulty,
-                    onDifficultyChanged: (difficulty) => routeFormBloc.add(
-                      CreateRouteFormUpdateDifficulty(difficulty),
+                    const SizedBox(height: 24),
+                    const Text('Категория маршрута'),
+                    const SizedBox(height: 8),
+                    _ThemeSelector(
+                      selectedTheme: state.theme,
+                      onThemeSelected: (theme) => routeFormBloc.add(
+                        CreateRouteFormUpdateTheme(theme),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  FractionallySizedBox(
-                    widthFactor: 1,
-                    child: AppElevatedButton.main(
-                      onPressed: state is CreateRouteFormFilled
-                          ? onNextPagePressed
-                          : null,
-                      child: const Text('Далее'),
+                    const SizedBox(height: 24),
+                    const Text('Тип транспорта'),
+                    const SizedBox(height: 8),
+                    _TransportTypeSelector(
+                      selectedType: state.transportType,
+                      onTypeSelected: (type) => routeFormBloc.add(
+                        CreateRouteFormUpdateTransportType(type),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 24),
+                    const Text('Сложность маршрута'),
+                    const SizedBox(height: 8),
+                    _DifficultySlider(
+                      selectedDifficulty: state.difficulty,
+                      onDifficultyChanged: (difficulty) => routeFormBloc.add(
+                        CreateRouteFormUpdateDifficulty(difficulty),
+                      ),
+                    ),
+                    const SizedBox(height: 80), // Добавляем отступ для кнопки
+                  ],
+                ),
               ),
+            ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(16),
+            child: AppElevatedButton.main(
+              onPressed: state is CreateRouteFormFilled
+                  ? onNextPagePressed
+                  : null,
+              child: const Text('Далее'),
             ),
           ),
         );

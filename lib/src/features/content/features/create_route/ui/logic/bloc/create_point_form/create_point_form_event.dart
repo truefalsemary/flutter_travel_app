@@ -3,6 +3,15 @@ part of 'create_point_form_bloc.dart';
 sealed class CreatePointFormEvent extends Equatable {
   const CreatePointFormEvent();
 }
+final class CreatePointFillPoint extends CreatePointFormEvent {
+  final CreatePointFormModel pointFormModel;
+
+  const CreatePointFillPoint({required this.pointFormModel});
+
+  @override
+  List<Object?> get props => [pointFormModel];
+
+}
 
 final class CreatePointFormReset extends CreatePointFormEvent {
   @override

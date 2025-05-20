@@ -7,6 +7,8 @@ class AppTextField extends StatefulWidget {
   final String? hintText;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final String? initialValue;
+  final int? maxLines;  // Добавленный параметр
 
   const AppTextField({
     super.key,
@@ -15,6 +17,8 @@ class AppTextField extends StatefulWidget {
     this.hintText,
     this.validator,
     this.onChanged,
+    this.initialValue,
+    this.maxLines = 1,  // Значение по умолчанию - 1 строка
   });
 
   @override
@@ -33,10 +37,12 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: widget.initialValue,
       controller: widget.controller,
       obscureText: _obscureText,
       validator: widget.validator,
-      onChanged: widget.onChanged, // ← добавлено
+      onChanged: widget.onChanged,
+      maxLines: widget.maxLines,  // Использование параметра
       decoration: InputDecoration(
         filled: true,
         fillColor: context.colors.minorElevatedButtonBg,
@@ -47,8 +53,10 @@ class _AppTextFieldState extends State<AppTextField> {
           borderRadius: BorderRadius.circular(10),
         ),
         isDense: true,
-        contentPadding:
-        const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 16,
+        ),
         suffixIcon: widget.isHidden
             ? IconButton(
           icon: Icon(

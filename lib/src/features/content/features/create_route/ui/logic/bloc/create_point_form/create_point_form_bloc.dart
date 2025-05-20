@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/ui/logic/bloc/create_points_form/models/create_point_form_model.dart';
 import 'package:flutter_travel_app/src/features/content/shared/domain/models/point_model.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,16 +12,36 @@ part 'create_point_form_state.dart';
 
 class CreatePointFormBloc
     extends Bloc<CreatePointFormEvent, CreatePointEditedFormState> {
+  late final _logger = NamedLoggerFactory().getLogger(
+    feature: LoggerFeature.content,
+    layer: LoggerLayers.domain,
+    type: LoggerTypes.bloc,
+    name: 'CreatePoint',
+  );
   final ImagePicker _imagePicker;
 
   CreatePointFormBloc({
     required CreatePointFormType type,
     required ImagePicker imagePicker,
+    CreatePointEditedFormState? pointFormModel,
   })  : _imagePicker = imagePicker,
-        super(switch (type) {
-          CreatePointFormType.path => CreatePathPointEditedFormModel.empty(),
-          CreatePointFormType.place => CreatePlacePointEditedFormModel.empty(),
-        }) {
+        super(switch (pointFormModel) {
+          null => switch (type) {
+              CreatePointFormType.path =>
+                CreatePathPointEditedFormModel.empty(),
+              CreatePointFormType.place =>
+                CreatePlacePointEditedFormModel.empty(),
+            },
+          final CreatePathPointModelState pathPointFormModel =>
+            pathPointFormModel,
+          final CreatePlacePointModelState placePointFormModel =>
+            placePointFormModel,
+        })
+  // super(switch (type) {
+  //   CreatePointFormType.path => CreatePathPointEditedFormModel.empty(),
+  //   CreatePointFormType.place => CreatePlacePointEditedFormModel.empty(),
+  // })
+  {
     on<CreatePointFormUpdateName>(_onUpdateName);
     on<CreatePointFormUpdateAddress>(_onUpdateAddress);
     on<CreatePointFormUpdateLocation>(_onUpdateLocation);
@@ -27,6 +50,15 @@ class CreatePointFormBloc
     on<CreatePointFormRemoveImage>(_onRemoveImage);
     on<CreatePointFormReorderImages>(_onReorderImages);
     on<CreatePointFormReset>(_onReset);
+    on<CreatePointFillPoint>(_fillPoint);
+  }
+
+  FutureOr<void> _fillPoint(
+    CreatePointFillPoint event,
+    Emitter<CreatePointEditedFormState> emit,
+  ) {
+    _logger.i('try to fill point');
+    _emit(state, emit);
   }
 
   void _emit(
@@ -40,6 +72,7 @@ class CreatePointFormBloc
           :final location,
         ):
         if (address != null && location != null && address.isNotEmpty) {
+          _logger.i('emit path point');
           emit(
             CreatePathPointFilledFormModel(
               address: address,
@@ -47,6 +80,8 @@ class CreatePointFormBloc
             ),
           );
         } else {
+          _logger.i('emit place point');
+
           emit(
             CreatePathPointEditedFormModel(
               address: address,
