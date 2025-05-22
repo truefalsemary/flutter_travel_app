@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yandex_maps_mapkit_lite/mapkit.dart'
     show Map, MapInputListener, Point;
+// ignore: implementation_imports
 import 'package:yandex_maps_mapkit_lite/src/bindings/image/image_provider.dart'
-as image_provider;
+    as image_provider;
 
 final class MapInputListenerImpl implements MapInputListener {
   final void Function(Point) onUpdatePoint;

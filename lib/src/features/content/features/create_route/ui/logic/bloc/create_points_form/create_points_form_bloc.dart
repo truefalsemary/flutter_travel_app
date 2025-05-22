@@ -108,16 +108,4 @@ class CreatePointsFormBloc
     _logger.d('onReset');
     emit(state.copyWith(points: []));
   }
-
-  @override
-  CreatePointsFormState? fromJson(Map<String, dynamic> json) {
-    // TODO(truefalsemary): implement fromJson when add caching
-    throw UnimplementedError();
-  }
-
-  @override
-  Map<String, dynamic>? toJson(CreatePointsFormState state) {
-    // TODO(truefalsemary): implement toJson when add caching
-    throw UnimplementedError();
-  }
 }
