@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 part 'create_points_form_event.dart';
 
 class CreatePointsFormBloc
-    extends HydratedBloc<CreatePointsFormEvent, CreatePointsFormState> {
+    extends Bloc<CreatePointsFormEvent, CreatePointsFormState> {
   final Logger _logger;
 
   CreatePointsFormBloc({
@@ -107,17 +107,5 @@ class CreatePointsFormBloc
   ) {
     _logger.d('onReset');
     emit(state.copyWith(points: []));
-  }
-
-  @override
-  CreatePointsFormState? fromJson(Map<String, dynamic> json) {
-    // TODO(truefalsemary): implement fromJson when add caching
-    throw UnimplementedError();
-  }
-
-  @override
-  Map<String, dynamic>? toJson(CreatePointsFormState state) {
-    // TODO(truefalsemary): implement toJson when add caching
-    throw UnimplementedError();
   }
 }

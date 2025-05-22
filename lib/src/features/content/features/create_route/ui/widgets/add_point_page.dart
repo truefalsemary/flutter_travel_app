@@ -7,6 +7,10 @@ class _AddPointTypeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Выберите тип точки'),
+      backgroundColor: context.colors.mainBg,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -27,7 +31,16 @@ class _AddPointTypeDialog extends StatelessWidget {
 }
 
 class AddPointPage extends StatelessWidget {
-  const AddPointPage({super.key});
+  const AddPointPage({
+    super.key,
+  });
+
+  String _coordinates(double? lat, double? lon) {
+    if (lat == null || lon == null) {
+      return 'Координаты не выбраны';
+    }
+    return 'Координаты: ${lat.toStringAsFixed(4)}, ${lon.toStringAsFixed(4)}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,127 +63,116 @@ class AddPointPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (state is CreatePlacePointModelState) ...[
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Название места',
-                      ),
-                      onChanged: (value) => createPointFormBloc.add(
-                        CreatePointFormUpdateName(
-                          name: value,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      decoration: const InputDecoration(
-                        labelText: 'Описание места',
-                      ),
-                      maxLines: 3,
-                      onChanged: (value) => createPointFormBloc.add(
-                        CreatePointFormUpdateDescription(
-                          description: value,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (images != null && images.isNotEmpty)
-                      ImageXFileCarouselWidget(
-                        images: images,
-                        height: 200,
-                        padding: const EdgeInsets.all(8),
-                      ),
-                    const SizedBox(height: 16),
-                    AppElevatedButton.minor(
-                      onPressed: () => createPointFormBloc.add(
-                        CreatePointFormAddImage(),
-                      ),
-                      child: Row(
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.add_photo_alternate,
-                            color: context.colors.minorElevatedButtonText,
-                            size: 32,
-                          ),
-                          const SizedBox(width: 8),
-                          AppText(
-                            'Добавить фотографии',
-                            colors: context.colors,
-                          ),
-                        ],
-                      ),
-                    ),
-                    // ),
-                  ],
-                  const SizedBox(height: 16),
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Адрес',
-                    ),
-                    onChanged: (value) =>
-                        createPointFormBloc.add(
-                              CreatePointFormUpdateAddress(
-                                address: value,
+                          if (state is CreatePlacePointModelState) ...[
+                            AppTextField(
+                              initialValue: state.name,
+                              hintText: 'Название места',
+                              onChanged: (value) => createPointFormBloc.add(
+                                CreatePointFormUpdateName(name: value),
                               ),
                             ),
-                  ),
-                  switch (state) {
-                    // ignore: lines_longer_than_80_chars
-                    final CreatePlacePointModelState placePoint => Text('Координаты: ${placePoint.location?.lat}, ${placePoint.location?.lon}'),
-                    // ignore: lines_longer_than_80_chars
-                    final CreatePathPointModelState pathPoint => Text('Координаты: ${pathPoint.location?.lat}, ${pathPoint.location?.lon}'),
-                    // ignore: unreachable_switch_case
-                    _ => const SizedBox.shrink(),
-                  },
-                  // Text('Координаты: ${state.}, ${state.location.lon}'),
-                  const SizedBox(height: 16),
-                  AppElevatedButton.minor(
-                    onPressed: () async {
-                      await Navigator.of(context).push<PointModel>(
-                        MaterialPageRoute(
-                          builder: (context) =>  PlaceLocationSelectionMapPage(
-                            onUpdatePoint: (point) {
-                              createPointFormBloc.add(
-                                CreatePointFormUpdateLocation(
-                                  location: PointModel(
-                                    lat: point.latitude,
-                                    lon: point.longitude,
+                            const SizedBox(height: 16),
+                            AppTextField(
+                              hintText: 'Описание места',
+                              maxLines: 3,
+                              onChanged: (value) => createPointFormBloc.add(
+                                CreatePointFormUpdateDescription(
+                                    description: value),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            if (images != null && images.isNotEmpty)
+                              ImageXFileCarouselWidget(
+                                images: images,
+                                height: 200,
+                                padding: const EdgeInsets.all(8),
+                              ),
+                            const SizedBox(height: 16),
+                            AppElevatedButton.main(
+                              onPressed: () => createPointFormBloc.add(
+                                CreatePointFormAddImage(),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add_photo_alternate,
+                                    color:
+                                        context.colors.mainElevatedButtonText,
+                                    size: 32,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  AppText('Добавить фотографии',
+                                      colors: context.colors,
+                                      color: context
+                                          .colors.mainElevatedButtonText),
+                                ],
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 16),
+                          AppTextField(
+                            hintText: 'Адрес',
+                            onChanged: (value) => createPointFormBloc.add(
+                              CreatePointFormUpdateAddress(address: value),
+                            ),
+                          ),
+                          switch (state) {
+                            final CreatePlacePointModelState placePoint => Text(
+                                _coordinates(placePoint.location?.lat,
+                                    placePoint.location?.lon)),
+                            final CreatePathPointModelState pathPoint => Text(
+                                _coordinates(pathPoint.location?.lat,
+                                    pathPoint.location?.lon)),
+                          },
+                          const SizedBox(height: 16),
+                          AppElevatedButton.main(
+                            onPressed: () async {
+                              await Navigator.of(context).push<PointModel>(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PlaceLocationSelectionMapPage(
+                                    onUpdatePoint: (point) {
+                                      createPointFormBloc.add(
+                                        CreatePointFormUpdateLocation(
+                                          location: PointModel(
+                                            lat: point.latitude,
+                                            lon: point.longitude,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               );
                             },
-
-                            
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  color: context.colors.mainElevatedButtonText,
+                                  size: 32,
+                                ),
+                                const SizedBox(width: 8),
+                                AppText('Добавить местоположение',
+                                    colors: context.colors,
+                                    color:
+                                        context.colors.mainElevatedButtonText),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                      
-                      // if (result != null && context.mounted) {
-                        // context.read<CreatePointFormBloc>().add(
-                        //   CreatePointFormUpdateLocation(
-                        //     location: result,
-                        //   ),
-                        // );
-                      // }
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: context.colors.minorElevatedButtonText,
-                          size: 32,
-                        ),
-                        const SizedBox(width: 8),
-                        AppText(
-                          'Добавить местоположения',
-                          colors: context.colors,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 16),
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -183,21 +185,9 @@ class AddPointPage extends StatelessWidget {
                                   Navigator.of(context).pop(state);
                                 }
                               : null,
-                          child: AppText(
-                            'Сохранить',
-                            colors: context.colors,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      FractionallySizedBox(
-                        widthFactor: 1,
-                        child: AppElevatedButton.minor(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: AppText(
-                            'Отмена',
-                            colors: context.colors,
-                          ),
+                          child: AppText('Сохранить',
+                              colors: context.colors,
+                              color: context.colors.mainElevatedButtonText),
                         ),
                       ),
                     ],
