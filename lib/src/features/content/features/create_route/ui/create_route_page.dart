@@ -22,6 +22,7 @@ import 'package:flutter_travel_app/src/features/content/shared/domain/models/poi
 import 'package:flutter_travel_app/src/features/content/shared/ui/widgets/image_xfile_carousel.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart'
     as proto;
+import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';

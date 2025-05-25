@@ -36,12 +36,7 @@ class CreatePointFormBloc
             pathPointFormModel,
           final CreatePlacePointModelState placePointFormModel =>
             placePointFormModel,
-        })
-  // super(switch (type) {
-  //   CreatePointFormType.path => CreatePathPointEditedFormModel.empty(),
-  //   CreatePointFormType.place => CreatePlacePointEditedFormModel.empty(),
-  // })
-  {
+        }) {
     on<CreatePointFormUpdateName>(_onUpdateName);
     on<CreatePointFormUpdateAddress>(_onUpdateAddress);
     on<CreatePointFormUpdateLocation>(_onUpdateLocation);
@@ -50,15 +45,6 @@ class CreatePointFormBloc
     on<CreatePointFormRemoveImage>(_onRemoveImage);
     on<CreatePointFormReorderImages>(_onReorderImages);
     on<CreatePointFormReset>(_onReset);
-    on<CreatePointFillPoint>(_fillPoint);
-  }
-
-  FutureOr<void> _fillPoint(
-    CreatePointFillPoint event,
-    Emitter<CreatePointEditedFormState> emit,
-  ) {
-    _logger.i('try to fill point');
-    _emit(state, emit);
   }
 
   void _emit(

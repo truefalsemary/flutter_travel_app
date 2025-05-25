@@ -268,6 +268,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Route name'**
   String get createRouteFirstPageTextFieldHint;
+
+  /// No description provided for @onFoot.
+  ///
+  /// In en, this message translates to:
+  /// **'On foot'**
+  String get onFoot;
+
+  /// No description provided for @byBicycle.
+  ///
+  /// In en, this message translates to:
+  /// **'By bicycle'**
+  String get byBicycle;
+
+  /// No description provided for @byCar.
+  ///
+  /// In en, this message translates to:
+  /// **'By car'**
+  String get byCar;
+
+  /// No description provided for @byBus.
+  ///
+  /// In en, this message translates to:
+  /// **'By bus'**
+  String get byBus;
+
+  /// No description provided for @urban.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get urban;
+
+  /// No description provided for @outdoor.
+  ///
+  /// In en, this message translates to:
+  /// **'Outdoor activities'**
+  String get outdoor;
+
+  /// No description provided for @nature.
+  ///
+  /// In en, this message translates to:
+  /// **'Nature'**
+  String get nature;
+
+  /// No description provided for @photoTourism.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo tourism'**
+  String get photoTourism;
+
+  /// No description provided for @roadTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Road trip'**
+  String get roadTrip;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @routeLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Route length (km)'**
+  String get routeLength;
+
+  /// No description provided for @routeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Route description'**
+  String get routeDescription;
+
+  /// No description provided for @routeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Route name'**
+  String get routeName;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @addLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Add location'**
+  String get addLocation;
+
+  /// No description provided for @addPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photos'**
+  String get addPhotos;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @choosePointType.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose point type'**
+  String get choosePointType;
+
+  /// No description provided for @routeCreation.
+  ///
+  /// In en, this message translates to:
+  /// **'Route creation'**
+  String get routeCreation;
+
+  /// No description provided for @routeCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Route category'**
+  String get routeCategory;
+
+  /// No description provided for @transportType.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport type'**
+  String get transportType;
+
+  /// No description provided for @routeDifficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Route difficulty'**
+  String get routeDifficulty;
+
+  /// No description provided for @place.
+  ///
+  /// In en, this message translates to:
+  /// **'Place'**
+  String get place;
+
+  /// No description provided for @routePoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Route point'**
+  String get routePoint;
+
+  /// No description provided for @addPoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add point'**
+  String get addPoint;
+
+  /// No description provided for @placeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Place name'**
+  String get placeName;
+
+  /// No description provided for @placeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Place description'**
+  String get placeDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

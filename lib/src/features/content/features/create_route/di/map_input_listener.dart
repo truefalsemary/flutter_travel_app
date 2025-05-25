@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:yandex_maps_mapkit_lite/mapkit.dart'
     show Map, MapInputListener, Point;
 // ignore: implementation_imports
@@ -19,14 +20,16 @@ final class MapInputListenerImpl implements MapInputListener {
   void onMapTap(Map map, Point point) {
     map.mapObjects.clear();
 
-    final resizedIcon = ResizeImage(
-      const AssetImage('assets/images/marker.png'),
+    final image = ResizeImage(
+      Image.asset(
+        AppImages.marker,
+      ).image,
       height: 96,
     );
 
     map.mapObjects.addPlacemark()
       ..geometry = point
-      ..setIcon(image_provider.ImageProvider.fromImageProvider(resizedIcon));
+      ..setIcon(image_provider.ImageProvider.fromImageProvider(image));
 
     onUpdatePoint(point);
   }

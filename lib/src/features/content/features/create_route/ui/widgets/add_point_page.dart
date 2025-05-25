@@ -6,7 +6,7 @@ class _AddPointTypeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Выберите тип точки'),
+      title: Text(context.strings.choosePointType),
       backgroundColor: context.colors.mainBg,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -16,12 +16,12 @@ class _AddPointTypeDialog extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.place),
-            title: const Text('Место'),
+            title: Text(context.strings.place),
             onTap: () => Navigator.of(context).pop(CreatePointFormType.place),
           ),
           ListTile(
             leading: const Icon(Icons.route),
-            title: const Text('Точка маршрута'),
+            title: Text(context.strings.routePoint),
             onTap: () => Navigator.of(context).pop(CreatePointFormType.path),
           ),
         ],
@@ -50,7 +50,7 @@ class AddPointPage extends StatelessWidget {
         backgroundColor: context.colors.mainBg,
         surfaceTintColor: context.colors.mainBg,
         shadowColor: context.colors.mainBg,
-        title: const Text('Добавить точку'),
+        title: Text(context.strings.addPoint),
       ),
       body: BlocBuilder<CreatePointFormBloc, CreatePointEditedFormState>(
         builder: (context, state) {
@@ -72,14 +72,14 @@ class AddPointPage extends StatelessWidget {
                           if (state is CreatePlacePointModelState) ...[
                             AppTextField(
                               initialValue: state.name,
-                              hintText: 'Название места',
+                              hintText: context.strings.placeName,
                               onChanged: (value) => createPointFormBloc.add(
                                 CreatePointFormUpdateName(name: value),
                               ),
                             ),
                             const SizedBox(height: 16),
                             AppTextField(
-                              hintText: 'Описание места',
+                              hintText: context.strings.placeDescription,
                               maxLines: 3,
                               onChanged: (value) => createPointFormBloc.add(
                                 CreatePointFormUpdateDescription(
@@ -108,50 +108,55 @@ class AddPointPage extends StatelessWidget {
                                     size: 32,
                                   ),
                                   const SizedBox(width: 8),
-                                  AppText('Добавить фотографии',
-                                      colors: context.colors,
-                                      color: context
-                                          .colors.mainElevatedButtonText),
+                                  AppText(
+                                    context.strings.addPhotos,
+                                    colors: context.colors,
+                                    color:
+                                        context.colors.mainElevatedButtonText,
+                                  ),
                                 ],
                               ),
                             ),
                           ],
                           const SizedBox(height: 16),
                           AppTextField(
-                            hintText: 'Адрес',
+                            hintText: context.strings.address,
                             onChanged: (value) => createPointFormBloc.add(
                               CreatePointFormUpdateAddress(address: value),
                             ),
                           ),
                           switch (state) {
-                            final CreatePlacePointModelState placePoint => Text(
-                                _coordinates(placePoint.location?.lat,
-                                    placePoint.location?.lon)),
-                            final CreatePathPointModelState pathPoint => Text(
-                                _coordinates(pathPoint.location?.lat,
-                                    pathPoint.location?.lon)),
+                            final CreatePlacePointModelState placePoint =>
+                              Text(_coordinates(
+                                placePoint.location?.lat,
+                                placePoint.location?.lon,
+                              )),
+                            final CreatePathPointModelState pathPoint =>
+                              Text(_coordinates(
+                                pathPoint.location?.lat,
+                                pathPoint.location?.lon,
+                              )),
                           },
                           const SizedBox(height: 16),
                           AppElevatedButton.main(
-                            onPressed: () async {
-                              await Navigator.of(context).push<PointModel>(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      PlaceLocationSelectionMapPage(
-                                    onUpdatePoint: (point) {
-                                      createPointFormBloc.add(
-                                        CreatePointFormUpdateLocation(
-                                          location: PointModel(
-                                            lat: point.latitude,
-                                            lon: point.longitude,
-                                          ),
+                            onPressed: () async =>
+                                Navigator.of(context).push<PointModel>(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PlaceLocationSelectionMapPage(
+                                  onUpdatePoint: (point) {
+                                    createPointFormBloc.add(
+                                      CreatePointFormUpdateLocation(
+                                        location: PointModel(
+                                          lat: point.latitude,
+                                          lon: point.longitude,
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                              ),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -161,10 +166,11 @@ class AddPointPage extends StatelessWidget {
                                   size: 32,
                                 ),
                                 const SizedBox(width: 8),
-                                AppText('Добавить местоположение',
-                                    colors: context.colors,
-                                    color:
-                                        context.colors.mainElevatedButtonText),
+                                AppText(
+                                  context.strings.addLocation,
+                                  colors: context.colors,
+                                  color: context.colors.mainElevatedButtonText,
+                                ),
                               ],
                             ),
                           ),
@@ -185,9 +191,11 @@ class AddPointPage extends StatelessWidget {
                                   Navigator.of(context).pop(state);
                                 }
                               : null,
-                          child: AppText('Сохранить',
-                              colors: context.colors,
-                              color: context.colors.mainElevatedButtonText),
+                          child: AppText(
+                            context.strings.save,
+                            colors: context.colors,
+                            color: context.colors.mainElevatedButtonText,
+                          ),
                         ),
                       ),
                     ],

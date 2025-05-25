@@ -17,7 +17,7 @@ class _RouteFormPage extends StatelessWidget {
           appBar: AppBar(
             surfaceTintColor: context.colors.mainBg,
             backgroundColor: context.colors.mainBg,
-            title: const Text('Создание маршрута'),
+            title: Text(context.strings.routeCreation),
           ),
           backgroundColor: context.colors.mainBg,
           body: SafeArea(
@@ -29,22 +29,22 @@ class _RouteFormPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     AppTextField(
-                      hintText: 'Название маршрута',
+                      hintText: context.strings.routeName,
                       onChanged: (value) =>
                           context.read<CreateRouteFormBloc>().add(
-                            CreateRouteFormUpdateName(value),
-                          ),
+                                CreateRouteFormUpdateName(value),
+                              ),
                     ),
                     const SizedBox(height: 20),
                     AppTextField(
-                      hintText: 'Описание маршрута',
+                      hintText: context.strings.routeDescription,
                       maxLines: 3,
                       onChanged: (value) => routeFormBloc.add(
                         CreateRouteFormUpdateDescription(value),
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text('Длина маршрута (км)'),
+                    Text(context.strings.routeLength),
                     const SizedBox(height: 8),
                     BlocBuilder<CreateRouteFormBloc, CreateRouteFormState>(
                       builder: (context, state) {
@@ -59,7 +59,7 @@ class _RouteFormPage extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 24),
-                    const Text('Категория маршрута'),
+                    Text(context.strings.routeCategory),
                     const SizedBox(height: 8),
                     _ThemeSelector(
                       selectedTheme: state.theme,
@@ -68,7 +68,7 @@ class _RouteFormPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text('Тип транспорта'),
+                    Text(context.strings.transportType),
                     const SizedBox(height: 8),
                     _TransportTypeSelector(
                       selectedType: state.transportType,
@@ -77,7 +77,7 @@ class _RouteFormPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text('Сложность маршрута'),
+                    Text(context.strings.routeDifficulty),
                     const SizedBox(height: 8),
                     _DifficultySlider(
                       selectedDifficulty: state.difficulty,
@@ -94,10 +94,9 @@ class _RouteFormPage extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.all(16),
             child: AppElevatedButton.main(
-              onPressed: state is CreateRouteFormFilled
-                  ? onNextPagePressed
-                  : null,
-              child: const Text('Далее'),
+              onPressed:
+                  state is CreateRouteFormFilled ? onNextPagePressed : null,
+              child: Text(context.strings.next),
             ),
           ),
         );
@@ -130,14 +129,16 @@ class _ThemeSelector extends StatelessWidget {
                 _getThemeIcon(theme),
                 colorFilter: selectedTheme == theme
                     ? ColorFilter.mode(
-                        context.colors.mainIconColor, BlendMode.srcIn)
+                        context.colors.mainIconColor,
+                        BlendMode.srcIn,
+                      )
                     : null,
               ),
               const SizedBox(height: 4),
               SizedBox(
                 width: 70, // фиксированная ширина
                 child: Text(
-                  _getThemeText(theme),
+                  _getThemeText(theme, context),
                   textAlign: TextAlign.center,
                   softWrap: true,
                   overflow: TextOverflow.visible,
@@ -168,18 +169,18 @@ class _ThemeSelector extends StatelessWidget {
     }
   }
 
-  String _getThemeText(proto.RouteTheme theme) {
+  String _getThemeText(proto.RouteTheme theme, BuildContext context) {
     switch (theme) {
       case proto.RouteTheme.URBAN:
-        return 'Город';
+        return context.strings.urban;
       case proto.RouteTheme.OUTDOOR:
-        return 'Активный отдых';
+        return context.strings.outdoor;
       case proto.RouteTheme.ADVENTURE:
-        return 'Природа';
+        return context.strings.nature;
       case proto.RouteTheme.PHOTOGRAPHY:
-        return 'Фото туризм';
+        return context.strings.photoTourism;
       case proto.RouteTheme.ROAD_TRIP:
-        return 'Поездка';
+        return context.strings.roadTrip;
       default:
         return '-';
     }
@@ -210,14 +211,16 @@ class _TransportTypeSelector extends StatelessWidget {
                 _getTransportIcon(type),
                 colorFilter: selectedType == type
                     ? ColorFilter.mode(
-                        context.colors.mainIconColor, BlendMode.srcIn)
+                        context.colors.mainIconColor,
+                        BlendMode.srcIn,
+                      )
                     : null,
               ),
               const SizedBox(height: 4),
               SizedBox(
                 width: 70, // фиксированная ширина
                 child: Text(
-                  _getTypeText(type),
+                  _getTypeText(type, context),
                   textAlign: TextAlign.center,
                   softWrap: true,
                   overflow: TextOverflow.visible,
@@ -246,16 +249,16 @@ class _TransportTypeSelector extends StatelessWidget {
     }
   }
 
-  String _getTypeText(proto.RouteTransportType type) {
+  String _getTypeText(proto.RouteTransportType type, BuildContext context) {
     switch (type) {
       case proto.RouteTransportType.WALKING:
-        return 'Пешком';
+        return context.strings.onFoot;
       case proto.RouteTransportType.CYCLING:
-        return 'На велосипеде';
+        return context.strings.byBicycle;
       case proto.RouteTransportType.DRIVING:
-        return 'На машине';
+        return context.strings.byCar;
       case proto.RouteTransportType.PUBLIC_TRANSPORT:
-        return 'На автобусе';
+        return context.strings.byBus;
       default:
         return '-';
     }
