@@ -94,4 +94,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createRouteFirstPageTextFieldHint => 'Route name';
+
+  @override
+  String get onFoot => 'On foot';
+
+  @override
+  String get byBicycle => 'By bicycle';
+
+  @override
+  String get byCar => 'By car';
+
+  @override
+  String get byBus => 'By bus';
+
+  @override
+  String get urban => 'City';
+
+  @override
+  String get outdoor => 'Outdoor activities';
+
+  @override
+  String get nature => 'Nature';
+
+  @override
+  String get photoTourism => 'Photo tourism';
+
+  @override
+  String get roadTrip => 'Road trip';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get routeLength => 'Route length (km)';
+
+  @override
+  String get routeDescription => 'Route description';
+
+  @override
+  String get routeName => 'Route name';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get addLocation => 'Add location';
+
+  @override
+  String get addPhotos => 'Add photos';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get choosePointType => 'Choose point type';
+
+  @override
+  String get routeCreation => 'Route creation';
+
+  @override
+  String get routeCategory => 'Route category';
+
+  @override
+  String get transportType => 'Transport type';
+
+  @override
+  String get routeDifficulty => 'Route difficulty';
+
+  @override
+  String get place => 'Place';
+
+  @override
+  String get routePoint => 'Route point';
+
+  @override
+  String get addPoint => 'Add point';
+
+  @override
+  String get placeName => 'Place name';
+
+  @override
+  String get placeDescription => 'Place description';
 }

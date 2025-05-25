@@ -5,6 +5,35 @@ enum CreatePointFormType {
   path,
 }
 
+extension CreatePointFormModelMapper on CreatePointFormModel {
+  CreatePointEditedFormState toEditedFormState() {
+    return switch (this) {
+      CreatePathPointFormModel(
+      address: final address,
+      location: final location,
+      ) =>
+          CreatePathPointFilledFormModel(
+            address: address,
+            location: location,
+          ),
+      CreatePlacePointFormModel(
+      address: final address,
+      location: final location,
+      name: final name,
+      description: final description,
+      images: final images,
+      ) =>
+          CreatePlacePointFilledFormModel(
+            address: address,
+            location: location,
+            name: name,
+            description: description,
+            images: images,
+          ),
+    };
+  }
+}
+
 sealed class CreatePointEditedFormState extends Equatable {
   CreatePointFormModel? get filledForm;
   bool get isFilled;

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_travel_app/resources/resources.dart';
 import 'package:flutter_travel_app/src/common/ui/components/app_elevated_button.dart';
-import 'package:flutter_travel_app/src/common/ui/components/app_layout_notifier.dart';
+import 'package:flutter_travel_app/src/common/ui/components/app_text_field.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_colors.dart';
+import 'package:flutter_travel_app/src/common/ui/theme/app_fonts.dart';
 import 'package:flutter_travel_app/src/common/ui/theme/app_text.dart';
 import 'package:flutter_travel_app/src/common/utils/named_logger_factory.dart';
 import 'package:flutter_travel_app/src/features/content/features/create_route/di/create_route_scope.dart';
@@ -19,15 +22,15 @@ import 'package:flutter_travel_app/src/features/content/shared/domain/models/poi
 import 'package:flutter_travel_app/src/features/content/shared/ui/widgets/image_xfile_carousel.dart';
 import 'package:flutter_travel_app/src/generated/lib/src/proto/content/content.pb.dart'
     as proto;
+import 'package:flutter_travel_app/src/l10n/context_extensions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 import 'package:yx_scope_flutter/yx_scope_flutter.dart';
 
-part 'widgets/route_form_page.dart';
+part 'widgets/add_point_page.dart';
 part 'widgets/points_form_page.dart';
 part 'widgets/points_item_height_notifier.dart';
-part 'widgets/add_point_page.dart';
+part 'widgets/route_form_page.dart';
 
 typedef OnNextPagePressed = void Function();
 
@@ -89,18 +92,21 @@ class _CreateRoutePageViewState extends State<_CreateRoutePageView>
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      physics: const NeverScrollableScrollPhysics(),
-      controller: _pageViewController,
-      onPageChanged: _handlePageViewChanged,
-      children: [
-        _RouteFormPage(
-          onNextPagePressed: () => _updateCurrentPageIndex(1),
-        ),
-        _PointsFormPage(
-          onBackPressed: () => _updateCurrentPageIndex(0),
-        ),
-      ],
+    return Scaffold(
+      backgroundColor: context.colors.mainBg,
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageViewController,
+        onPageChanged: _handlePageViewChanged,
+        children: [
+          _RouteFormPage(
+            onNextPagePressed: () => _updateCurrentPageIndex(1),
+          ),
+          _PointsFormPage(
+            onBackPressed: () => _updateCurrentPageIndex(0),
+          ),
+        ],
+      ),
     );
   }
 
